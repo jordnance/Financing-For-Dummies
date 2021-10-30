@@ -1,0 +1,9 @@
+DROP TABLE Transacts;
+DROP TABLE AccountCategory;
+DROP TABLE Savings;
+DROP TABLE Loan;
+DROP TABLE Checking;
+DROP TABLE FinancialAccount;
+DROP TABLE Child;
+DROP TABLE Adult;
+DROP TABLE User;
