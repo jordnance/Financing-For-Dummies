@@ -24,8 +24,8 @@ FOREIGN KEY (adultID) REFERENCES User(usrID)
 CREATE TABLE IF NOT EXISTS FinancialAccount(
 usrID integer NOT NULL,
 acctID integer PRIMARY KEY AUTO_INCREMENT,
-acctName text NOT NULL,
-balance integer NOT NULL,
+acctName text NOT NULL DEFAULT "My Account",
+balance float NOT NULL DEFAULT 0.00,
 FOREIGN KEY (usrID) REFERENCES User(usrID)
 );
 
@@ -49,7 +49,7 @@ FOREIGN KEY (acctID) REFERENCES FinancialAccount(acctID)
 CREATE TABLE IF NOT EXISTS AccountCategory (
 acctID integer NOT NULL,
 Category varchar(30) PRIMARY KEY,
-Threshold integer,
+Threshold float,
 FOREIGN KEY (acctID) REFERENCES FinancialAccount(acctID)
 );
 
@@ -57,8 +57,8 @@ CREATE TABLE IF NOT EXISTS Transacts(
 usrID integer NOT NULL,
 acctID integer NOT NULL,
 transactionID integer PRIMARY KEY AUTO_INCREMENT,
-Title text NOT NULL,
-Date text NOT NULL,
+Title text NOT NULL DEFAULT CONCAT("Account ", acctID, " Transaction"),
+Date text NOT NULL DEFAULT CURDATE(),
 Amount float NOT NULL,
 Category text NOT NULL,
 FOREIGN KEY (usrID) REFERENCES User(usrID),
