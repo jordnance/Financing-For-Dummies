@@ -10,3 +10,4 @@ source loan_input.sql;
 source savings_input.sql
 source accountcategory_input.sql;
 source transacts_input.sql;
+source transacts_input_extra.sql;
