@@ -1,0 +1,271 @@
+-- MySQL dump 10.19  Distrib 10.3.29-MariaDB, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: financingfordummies
+-- ------------------------------------------------------
+-- Server version	10.3.29-MariaDB-0+deb10u1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `AccountCategory`
+--
+
+DROP TABLE IF EXISTS `AccountCategory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `AccountCategory` (
+  `acctID` int(11) NOT NULL,
+  `Category` varchar(30) NOT NULL,
+  `Threshold` float DEFAULT NULL,
+  PRIMARY KEY (`acctID`,`Category`),
+  CONSTRAINT `AccountCategory_ibfk_1` FOREIGN KEY (`acctID`) REFERENCES `FinancialAccount` (`acctID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `AccountCategory`
+--
+
+LOCK TABLES `AccountCategory` WRITE;
+/*!40000 ALTER TABLE `AccountCategory` DISABLE KEYS */;
+INSERT INTO `AccountCategory` VALUES (1,'credit card payment',NULL),(1,'entertainment',NULL),(1,'food',NULL),(1,'gas',NULL),(1,'groceries',250),(1,'travel',NULL),(2,'credit card payment',NULL),(2,'entertainment',NULL),(2,'food',NULL),(2,'gas',NULL),(2,'groceries',NULL),(2,'travel',NULL),(3,'credit card payment',NULL),(3,'entertainment',NULL),(3,'food',NULL),(3,'gas',NULL),(3,'groceries',250),(3,'investment',NULL),(3,'travel',NULL),(4,'credit card payment',NULL),(4,'entertainment',NULL),(4,'food',NULL),(4,'gas',NULL),(4,'groceries',250),(4,'travel',NULL),(5,'credit card payment',NULL),(5,'entertainment',NULL),(5,'food',NULL),(5,'gas',NULL),(5,'groceries',250),(5,'insurance',NULL),(5,'travel',NULL),(6,'credit card payment',NULL),(6,'entertainment',NULL),(6,'food',NULL),(6,'gas',NULL),(6,'groceries',250),(6,'insurance',NULL),(6,'travel',NULL),(7,'gas',NULL),(11,'credit card',NULL),(11,'home improvement',NULL),(13,'credit card',NULL),(16,'auto loan',NULL),(17,'credit card',NULL),(18,'auto loan',NULL),(21,'general savings',NULL),(21,'home improvement fund',NULL),(21,'investment',NULL),(21,'travel fund',NULL),(22,'general savings',NULL),(22,'home improvement fund',NULL),(22,'investment',NULL),(22,'travel fund',NULL),(23,'general savings',NULL),(23,'home improvement fund',NULL),(23,'investment',NULL),(23,'travel fund',NULL),(24,'general savings',NULL),(24,'home improvement fund',NULL),(24,'investment',NULL),(24,'travel fund',NULL),(25,'general savings',NULL),(25,'home improvement fund',NULL),(25,'investment',NULL),(25,'travel fund',NULL);
+/*!40000 ALTER TABLE `AccountCategory` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Adult`
+--
+
+DROP TABLE IF EXISTS `Adult`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Adult` (
+  `usrID` int(11) NOT NULL,
+  KEY `usrID` (`usrID`),
+  CONSTRAINT `Adult_ibfk_1` FOREIGN KEY (`usrID`) REFERENCES `User` (`usrID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Adult`
+--
+
+LOCK TABLES `Adult` WRITE;
+/*!40000 ALTER TABLE `Adult` DISABLE KEYS */;
+INSERT INTO `Adult` VALUES (1),(2),(5),(7),(10);
+/*!40000 ALTER TABLE `Adult` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Checking`
+--
+
+DROP TABLE IF EXISTS `Checking`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Checking` (
+  `acctID` int(11) NOT NULL,
+  KEY `acctID` (`acctID`),
+  CONSTRAINT `Checking_ibfk_1` FOREIGN KEY (`acctID`) REFERENCES `FinancialAccount` (`acctID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Checking`
+--
+
+LOCK TABLES `Checking` WRITE;
+/*!40000 ALTER TABLE `Checking` DISABLE KEYS */;
+INSERT INTO `Checking` VALUES (1),(2),(3),(4),(5),(6),(7);
+/*!40000 ALTER TABLE `Checking` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Child`
+--
+
+DROP TABLE IF EXISTS `Child`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Child` (
+  `usrID` int(11) NOT NULL,
+  `adultID` int(11) NOT NULL,
+  KEY `usrID` (`usrID`),
+  KEY `adultID` (`adultID`),
+  CONSTRAINT `Child_ibfk_1` FOREIGN KEY (`usrID`) REFERENCES `User` (`usrID`),
+  CONSTRAINT `Child_ibfk_2` FOREIGN KEY (`adultID`) REFERENCES `User` (`usrID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Child`
+--
+
+LOCK TABLES `Child` WRITE;
+/*!40000 ALTER TABLE `Child` DISABLE KEYS */;
+INSERT INTO `Child` VALUES (3,7),(4,10),(6,2),(8,1),(9,1);
+/*!40000 ALTER TABLE `Child` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `FinancialAccount`
+--
+
+DROP TABLE IF EXISTS `FinancialAccount`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `FinancialAccount` (
+  `usrID` int(11) NOT NULL,
+  `acctID` int(11) NOT NULL AUTO_INCREMENT,
+  `acctName` text NOT NULL DEFAULT 'My Account',
+  `balance` float NOT NULL DEFAULT 0,
+  PRIMARY KEY (`acctID`),
+  KEY `usrID` (`usrID`),
+  CONSTRAINT `FinancialAccount_ibfk_1` FOREIGN KEY (`usrID`) REFERENCES `User` (`usrID`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `FinancialAccount`
+--
+
+LOCK TABLES `FinancialAccount` WRITE;
+/*!40000 ALTER TABLE `FinancialAccount` DISABLE KEYS */;
+INSERT INTO `FinancialAccount` VALUES (3,1,'Lamar’s checking',65),(2,2,'Destiny’s checking',520),(4,3,'Tom’s checking',100.1),(5,4,'Sky’s checking',440),(5,5,'Sky’s checking',205),(6,6,'J’s checking',95.22),(9,7,'Vivi’s checking',241),(1,11,'my damn credit card',900),(2,12,'Destiny’s auto',230),(3,13,'Lamar’s credit card',58.77),(4,14,'Tom’s mortgage',1100),(5,15,'Sky’s credit card',25.41),(6,16,'J’s auto',350),(7,17,'Lois’ credit card',450),(8,18,'Basia’s auto',258),(3,21,'Lamar’s saving',1200),(4,22,'Tom’s piggy bank',5256),(10,23,'Kesley’s piggy bank',6000),(7,24,'Lois’ savings',2000),(9,25,'Vivi’s piggy bank',560);
+/*!40000 ALTER TABLE `FinancialAccount` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Loan`
+--
+
+DROP TABLE IF EXISTS `Loan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Loan` (
+  `acctID` int(11) NOT NULL,
+  `APR` float NOT NULL,
+  KEY `acctID` (`acctID`),
+  CONSTRAINT `Loan_ibfk_1` FOREIGN KEY (`acctID`) REFERENCES `FinancialAccount` (`acctID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Loan`
+--
+
+LOCK TABLES `Loan` WRITE;
+/*!40000 ALTER TABLE `Loan` DISABLE KEYS */;
+INSERT INTO `Loan` VALUES (11,15.99),(12,13.99),(13,24.99),(14,28.99),(15,25.99),(16,7.99),(17,8.99),(18,10.99);
+/*!40000 ALTER TABLE `Loan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Savings`
+--
+
+DROP TABLE IF EXISTS `Savings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Savings` (
+  `acctID` int(11) NOT NULL,
+  `InterestRate` float NOT NULL,
+  KEY `acctID` (`acctID`),
+  CONSTRAINT `Savings_ibfk_1` FOREIGN KEY (`acctID`) REFERENCES `FinancialAccount` (`acctID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Savings`
+--
+
+LOCK TABLES `Savings` WRITE;
+/*!40000 ALTER TABLE `Savings` DISABLE KEYS */;
+INSERT INTO `Savings` VALUES (21,0.8),(22,1.2),(23,2),(24,0.75),(25,1.01);
+/*!40000 ALTER TABLE `Savings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Transacts`
+--
+
+DROP TABLE IF EXISTS `Transacts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Transacts` (
+  `usrID` int(11) NOT NULL,
+  `acctID` int(11) NOT NULL,
+  `transactionID` int(11) NOT NULL AUTO_INCREMENT,
+  `Title` text NOT NULL DEFAULT concat('Account ',`acctID`,' Transaction'),
+  `Date` text NOT NULL DEFAULT curdate(),
+  `Amount` float NOT NULL,
+  `Category` text NOT NULL,
+  PRIMARY KEY (`transactionID`),
+  KEY `usrID` (`usrID`),
+  KEY `acctID` (`acctID`),
+  CONSTRAINT `Transacts_ibfk_1` FOREIGN KEY (`usrID`) REFERENCES `User` (`usrID`),
+  CONSTRAINT `Transacts_ibfk_2` FOREIGN KEY (`acctID`) REFERENCES `FinancialAccount` (`acctID`)
+) ENGINE=InnoDB AUTO_INCREMENT=160 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Transacts`
+--
+
+LOCK TABLES `Transacts` WRITE;
+/*!40000 ALTER TABLE `Transacts` DISABLE KEYS */;
+INSERT INTO `Transacts` VALUES (1,11,10,'Home Depot','2021-01-01',54.81,'home improvement'),(2,2,20,'Target','2020-05-12',120.31,'groceries'),(3,21,30,'Transfer','2019-08-15',50,'investment'),(5,4,40,'McDonalds','2021-03-17',15.64,'food'),(4,3,50,'Mortgage','2021-10-01',1100,'investment'),(8,18,60,'Auto loan','2020-05-02',300,'auto loan'),(4,3,71,'Account 3 Transaction','2021-02-15',-149.94,'insurance'),(4,3,72,'Account 3 Transaction','2021-04-18',-223.99,'credit card payment'),(5,5,73,'Account 5 Transaction','2021-01-29',-123.95,'travel'),(6,6,74,'Account 6 Transaction','2021-09-29',-77.04,'credit card payment'),(6,6,75,'Account 6 Transaction','2021-05-07',-227.05,'insurance'),(5,5,76,'Account 5 Transaction','2021-11-16',-56.07,'gas'),(2,2,77,'Account 2 Transaction','2021-08-03',-255.85,'travel'),(9,1,78,'Account 1 Transaction','2021-04-16',-186.64,'travel'),(6,6,79,'Account 6 Transaction','2021-10-31',-292.13,'food'),(5,5,80,'Account 5 Transaction','2021-03-20',-66.74,'home improvement'),(5,4,81,'Account 4 Transaction','2021-05-04',-278.2,'gas'),(3,1,82,'Account 1 Transaction','2021-01-20',-288.84,'gas'),(2,2,83,'Account 2 Transaction','2021-11-19',-208.47,'entertainment'),(6,6,84,'Train Fare','2021-11-22',58.58,'travel'),(3,1,85,'Account 1 Transaction','2021-07-03',-294.3,'travel'),(4,3,86,'Account 3 Transaction','2021-06-14',-122.21,'entertainment'),(6,6,87,'Hotel Rooms','2021-11-22',294.76,'travel'),(5,4,88,'Account 4 Transaction','2021-07-10',-257.77,'credit card payment'),(3,1,89,'Account 1 Transaction','2021-06-03',-188.98,'food'),(5,5,90,'Account 5 Transaction','2021-10-11',-232.14,'food'),(2,2,91,'Account 2 Transaction','2021-07-08',-26.05,'food'),(4,3,92,'Account 3 Transaction','2021-01-22',-79.91,'credit card payment'),(5,5,93,'Account 5 Transaction','2021-12-29',-226.31,'insurance'),(6,6,94,'Account 6 Transaction','2021-02-26',-175.38,'home improvement'),(6,6,95,'Account 6 Transaction','2021-03-20',-168.5,'home improvement'),(5,5,96,'Account 5 Transaction','2021-11-12',-52.56,'insurance'),(6,6,97,'Account 6 Transaction','2021-12-02',-129.22,'credit card payment'),(9,7,98,'Account 7 Transaction','2021-01-25',-177.12,'gas'),(3,1,99,'Account 1 Transaction','2021-11-28',-264.44,'credit card payment'),(4,3,100,'Account 3 Transaction','2021-09-05',-99.25,'insurance'),(4,3,101,'Account 3 Transaction','2021-03-04',-64.41,'food'),(3,1,102,'Account 1 Transaction','2021-01-01',-125.03,'entertainment'),(3,1,103,'Account 1 Transaction','2021-09-10',-243.41,'gas'),(6,6,104,'Account 6 Transaction','2021-06-23',-186.57,'credit card payment'),(5,5,105,'Account 5 Transaction','2021-07-03',-141.92,'food'),(3,1,106,'Account 1 Transaction','2021-11-14',-143.25,'food'),(5,5,107,'Account 5 Transaction','2021-11-02',-189.71,'credit card payment'),(2,2,108,'Account 2 Transaction','2021-02-05',-102.21,'credit card payment'),(6,6,109,'Account 6 Transaction','2021-12-30',-194.38,'insurance'),(3,1,110,'Account 1 Transaction','2021-08-25',-270.7,'travel'),(6,6,111,'Car Insurance Payment','2021-03-27',10.97,'insurance'),(9,7,112,'Account 7 Transaction','2021-11-02',-245.09,'gas'),(5,5,113,'Account 5 Transaction','2021-06-21',-56.05,'travel'),(6,6,114,'Account 6 Transaction','2021-04-15',-151.42,'gas'),(4,3,115,'Account 3 Transaction','2021-02-20',-126.26,'insurance'),(6,6,116,'Account 6 Transaction','2021-06-08',-295.76,'food'),(5,4,117,'Account 4 Transaction','2021-06-05',-205.15,'entertainment'),(5,4,118,'Account 4 Transaction','2021-05-25',-96.47,'travel'),(3,1,119,'Account 1 Transaction','2021-06-26',-226.21,'gas'),(9,1,120,'Account 1 Transaction','2021-06-27',-241.9,'travel'),(3,21,121,'Account 21 Transaction','2021-01-16',240,'general savings'),(10,23,122,'Account 23 Transaction','2021-11-25',-289,'general savings'),(7,24,123,'Account 24 Transaction','2021-07-12',136,'general savings'),(7,24,124,'Account 24 Transaction','2021-04-01',464,'general savings'),(10,23,125,'Account 23 Transaction','2021-05-17',95,'general savings'),(10,23,126,'Account 23 Transaction','2021-12-03',70,'general savings'),(3,21,127,'Account 21 Transaction','2021-01-23',441,'home improvement fund'),(4,22,128,'Account 22 Transaction','2021-02-23',318,'general savings'),(10,23,129,'Account 23 Transaction','2021-01-09',309,'general savings'),(10,23,130,'Account 23 Transaction','2021-07-13',365,'general savings'),(3,21,131,'Account 21 Transaction','2021-11-11',221,'general savings'),(9,25,132,'Account 25 Transaction','2021-01-29',368,'general savings'),(3,21,133,'Account 21 Transaction','2021-03-09',467,'travel fund'),(9,25,134,'Account 25 Transaction','2021-04-14',-148,'home improvement fund'),(7,24,135,'Account 24 Transaction','2021-07-17',487,'travel fund'),(10,23,136,'Account 23 Transaction','2021-07-09',10,'general savings'),(7,24,137,'Account 24 Transaction','2021-04-07',267,'general savings'),(4,22,138,'Account 22 Transaction','2021-09-24',121,'general savings'),(7,24,139,'Account 24 Transaction','2021-06-02',487,'home improvement fund'),(9,25,140,'Account 25 Transaction','2021-11-01',451,'general savings'),(9,25,141,'Account 25 Transaction','2021-12-25',121,'home improvement fund'),(3,21,142,'Account 21 Transaction','2021-09-30',74,'general savings'),(4,22,143,'Account 22 Transaction','2021-09-01',-111,'general savings'),(4,22,144,'Account 22 Transaction','2021-02-01',189,'general savings'),(10,23,145,'Account 23 Transaction','2021-02-01',-415,'home improvement fund'),(1,11,146,'Account 11 Transaction','2021-05-31',41.22,'credit card'),(6,16,147,'Account 16 Transaction','2021-05-03',31.92,'auto loan'),(8,18,148,'Account 18 Transaction','2021-06-21',22.32,'auto loan'),(6,16,149,'Account 16 Transaction','2021-05-25',41.18,'auto loan'),(8,18,150,'Account 18 Transaction','2021-04-16',18.84,'auto loan'),(6,16,151,'Account 16 Transaction','2021-08-25',26.62,'auto loan'),(8,18,152,'Account 18 Transaction','2021-01-27',29.98,'auto loan'),(3,13,153,'Account 13 Transaction','2021-10-16',36.02,'credit card'),(6,16,154,'Account 16 Transaction','2021-05-11',17.24,'auto loan'),(7,17,155,'Account 17 Transaction','2021-08-30',38.36,'credit card'),(3,13,156,'Account 13 Transaction','2021-10-16',2000,'auto loan'),(3,1,157,'Account 1 Transaction','2021-02-14',-50.25,'groceries'),(3,1,158,'Account 1 Transaction','2021-04-28',-79.99,'insurance'),(3,1,159,'Account 1 Transaction','2021-02-14',-100,'home improvement');
+/*!40000 ALTER TABLE `Transacts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `User`
+--
+
+DROP TABLE IF EXISTS `User`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `User` (
+  `usrID` int(11) NOT NULL AUTO_INCREMENT,
+  `Email` varchar(255) NOT NULL,
+  `Phone_Number` varchar(20) DEFAULT NULL,
+  `Passcode` text NOT NULL,
+  `Date_Of_Birth` text NOT NULL,
+  `fName` text NOT NULL,
+  `mName` text NOT NULL,
+  `lName` text NOT NULL,
+  PRIMARY KEY (`usrID`),
+  UNIQUE KEY `Email` (`Email`),
+  UNIQUE KEY `Phone_Number` (`Phone_Number`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `User`
+--
+
+LOCK TABLES `User` WRITE;
+/*!40000 ALTER TABLE `User` DISABLE KEYS */;
+INSERT INTO `User` VALUES (1,'fringilla.euismod@ornaretortor.net','1-803-609-3388','BNK91XPN7NQ','1985-06-09','Alexa','K','Hanson'),(2,'nisl.sem@odio.org','(698) 755-1325','LET13BSP5UQ','2000-12-10','Destiny','B','Stephenson'),(3,'dolor.egestas@quisque.com','1-107-575-7985','YAS31CSB6JJ','2004-07-02','Lamar','T','Mason'),(4,'nulla.eget@ut.org','(628) 488-8966','OXR61DON7UF','2004-02-20','Thomas','J','Allison'),(5,'aliquam.auctor@mollisduissit.co.uk','1-648-515-3520','LLP43QUI5OG','2001-05-12','Skyler','R','Brennan'),(6,'magnis.dis@orciquis.org','(952) 485-1223','KNT09EPS8PN','2005-07-13','Jermaine','K','Stephenson'),(7,'lorem.vehicula.et@orciut.ca','(542) 791-8544','ZFC49EQW4ED','1981-09-09','Lois','Y','Mason'),(8,'donec.porttitor@aliquamenim.org','1-792-771-9234','WKM71VRI6VD','2008-07-31','Basia','I','Hanson'),(9,'at.arcu@duiselementumdui.edu','1-438-351-4868','OFU58BLM8BP','2011-11-11','Vivien','R','Hanson'),(10,'id.risus@parturientmontesnascetur.ca','(462) 477-6647','LQI62OXI9HJ','1979-01-17','Kelsey','N','Allison');
+/*!40000 ALTER TABLE `User` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2021-11-05 15:47:33

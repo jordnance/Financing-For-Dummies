@@ -48,8 +48,9 @@ FOREIGN KEY (acctID) REFERENCES FinancialAccount(acctID)
 
 CREATE TABLE IF NOT EXISTS AccountCategory (
 acctID integer NOT NULL,
-Category varchar(30) PRIMARY KEY,
+Category varchar(30),
 Threshold float,
+PRIMARY KEY (acctID, Category),
 FOREIGN KEY (acctID) REFERENCES FinancialAccount(acctID)
 );
 
