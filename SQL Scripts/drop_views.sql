@@ -1,0 +1,3 @@
+DROP VIEW IF EXISTS Users_Public;
+DROP VIEW IF EXISTS Users_Child;
+DROP VIEW IF EXISTS Users_AllAccounts;
