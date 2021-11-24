@@ -1,4 +1,3 @@
-DROP PROCEDURE IF EXISTS addUser;
 DELIMITER //
 CREATE PROCEDURE addUser (IN usID INT, mail VARCHAR(255), pNumber VARCHAR(20), code TEXT, dob TEXT, fir TEXT, mid TEXT, las TEXT)
 BEGIN    
