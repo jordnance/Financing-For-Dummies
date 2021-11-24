@@ -12,4 +12,5 @@ BEGIN
 	Category = NEW.Category,
 	Threshold = NULL;
 END//
-DELIMITER;
+
+DELIMITER  ;
