@@ -11,7 +11,8 @@ source deleteLoanOnly.sql;
 source deleteCheckingFromFiAccount.sql;
 source deleteSavingsFromFiAccount.sql;
 source deleteLoanFromFiAccount.sql;
-
+source updateAC.sql;
+source updateAccount.sql;
 
 source input/user_input.sql;
 source input/adult_input.sql;
