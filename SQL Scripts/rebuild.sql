@@ -5,6 +5,13 @@ source create_tables.sql;
 source create_views.sql;
 source addUser.sql;
 source deleteUser.sql;
+source deleteCheckingOnly.sql;
+source deleteSavingsOnly.sql;
+source deleteLoanOnly.sql;
+source deleteCheckingFromFiAccount.sql;
+source deleteSavingsFromFiAccount.sql;
+source deleteLoanFromFiAccount.sql;
+
 
 source input/user_input.sql;
 source input/adult_input.sql;
