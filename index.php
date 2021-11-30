@@ -45,11 +45,13 @@
 		{
 			echo "Hello, " . $_SESSION['fName'] . " " . $_SESSION['lName'];
 			echo "<br/>";
-			echo "<a href=\"logout.php\">Log out</a>";
+			echo "<form action=\"AccountAction.php\" method=\"post\">";
+			echo "<button type=\"submit\" name=\"logout\">Log out</button>";
+			echo "</form>";
 		}
 		else
 		{
-			echo "<p>Don't have an account? <a>Register</a></p>";
+			echo "<p>Don't have an account? <a href=\"register.php\">Register</a></p>";
 		}
 
 		if (isset($_SESSION['error']))
@@ -61,11 +63,10 @@
 	</div>
 
 	<!-- https://stackoverflow.com/questions/4309950/how-to-align-input-forms-in-html -->
-	<form action="login.php" method="post" autocomplete="off" class="tableForm">
+	<form action="AccountAction.php" method="post" autocomplete="off" class="tableForm">
 		<p class="tableForm">
-			<label class="tableForm">Name:</label>
-			<input type="text" name="fName" required="true" class="joinedInput">
-			<input type="text" name="lName" required="true" class="joinedInput">
+			<label class="tableForm">Email:</label>
+			<input type="text" name="email" required="true" class="soloInput">
 		</p>
 		<p class="tableForm">
 			<label class="tableForm" style="padding-right:10px;">Password:</label>
