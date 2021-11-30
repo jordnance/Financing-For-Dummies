@@ -1,0 +1,23 @@
+form.tableForm {
+    display: table;
+}
+
+p.tableForm {
+    display: table-row;
+}
+
+label.tableForm {
+    display: table-cell;
+}
+
+.joinedInput {
+    display:table-cell;
+    width:100px;
+    padding-left:0;
+    padding-right:0;
+}
+
+.soloInput {
+    display:table-cell;
+    width:200px;
+}
