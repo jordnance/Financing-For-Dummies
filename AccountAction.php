@@ -53,7 +53,7 @@
 	}
 	else if (isset($_POST['register']))
 	{
-
+		// Do a whole bunch of stuff to register a user
 	}
 
 	header("Location: index.php");
