@@ -32,8 +32,8 @@
 					$_SESSION['usrID'] = $res_usrID;
 					$_SESSION['fName'] = $res_fName;
 
-					// Then redirect to the main page (subject to change) and exit the script here
-					header("Location: index.php");
+					// Then redirect to the home page and exit the script here
+					header("Location: home.php");
 					exit;
 				}
 			}
@@ -104,8 +104,8 @@
 						$_SESSION['error'] = "Registered, but log-in failed";
 					}
 
-					// Then redirect to the main page (subject to change) and exit the script here
-					header("Location: index.php");
+					// Then redirect to the home page and exit the script here
+					header("Location: home.php");
 					exit;
 				}
 				else

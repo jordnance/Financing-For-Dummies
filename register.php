@@ -12,7 +12,7 @@
     // Don't let anyone who is logged in onto this page
     if (isset($_SESSION['usrID']))
     {
-        header("Location: index.php");
+        header("Location: home.php");
         exit;
     }
 ?>

@@ -1,7 +1,19 @@
 <!DOCTYPE html>
+
+<?php
+    require_once "config.php";
+
+    // Don't let anyone who isn't logged in onto this page
+    if (!isset($_SESSION['usrID']))
+    {
+        header("Location: index.php");
+        exit;
+    }
+?>
+
 <html lang=en>
     <head>
-        <title>Table-Based Layout with CSS</title>
+        <title><?php echo $_SESSION['fName']; ?>'s Home</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">  
         <style type="text/css">
@@ -46,6 +58,23 @@
         a:hover, a.on  {color: #cc3333;
                         background-color: #ffffff;}
 
+        /* Added by Marcus on 11/30 
+           I don't think I got this done quite right
+           (or efficiently), but it's pretty close? Maybe? */
+        button.link { background: none;
+                      border: none;
+                      color: #000000;
+                      text-transform: uppercase;
+                      text-decoration: none;
+                      text-align: center;
+                      cursor: pointer;
+                      padding: 6px 18px 5px 18px;
+                      font-family: Georgia;
+                      font-size: 15px;}
+
+        button.link:hover {color: #cc3333;
+                           background-color: #ffffff;}
+
         p {float: left;
            width: 20%;
            height: auto;
@@ -79,11 +108,15 @@
                     <li><a href="">Budgeting</a></li>
                     <li><a href="">New Transaction</a></li>
                     <li><a href="">Settings</a></li>
+                    <li><button class="link" form="logout" name="logout">Log Out</button></li>
                 </ul>
                 <div id="main">
                     <article>
                     </article>
                 </div>               
             </div>           
-        </body>   
+        </body>
+
+        <!-- Added by Marcus on 11/30 -->
+        <form id="logout" method="post" action="AccountAction.php"> </form>
 </html>
