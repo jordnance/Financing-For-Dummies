@@ -1,4 +1,3 @@
-
 DROP TRIGGER IF EXISTS deleteCheckingFromFiAccount;
 DELIMITER //
 CREATE TRIGGER deleteCheckingFromFinancialAccount

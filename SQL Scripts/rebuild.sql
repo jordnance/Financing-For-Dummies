@@ -1,26 +1,12 @@
-source drop_tables.sql;
+-- Drop everything in the database
+source drop_triggers.sql;
+source drop_procedures.sql;
 source drop_views.sql;
-source drop_stored_procedures.sql;
+source drop_tables.sql;
+
+-- Add everything back in
 source create_tables.sql;
 source create_views.sql;
-source addUser.sql;
-source deleteUser.sql;
-source deleteCheckingOnly.sql;
-source deleteSavingsOnly.sql;
-source deleteLoanOnly.sql;
-source deleteCheckingFromFiAccount.sql;
-source deleteSavingsFromFiAccount.sql;
-source deleteLoanFromFiAccount.sql;
-source updateAC.sql;
-source updateAccount.sql;
-
-source input/user_input.sql;
-source input/adult_input.sql;
-source input/child_input.sql;
-source input/financialaccount_input.sql;
-source input/checking_input.sql;
-source input/loan_input.sql;
-source input/savings_input.sql
-source input/accountcategory_input.sql;
-source input/transacts_input.sql;
-source input/transacts_input_extra.sql;
+source create_procedures.sql;
+source create_triggers.sql;
+source create_data.sql;

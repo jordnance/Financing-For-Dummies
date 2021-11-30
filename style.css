@@ -6,6 +6,10 @@ p.tableForm {
     display: table-row;
 }
 
+.error {
+    color: red;
+}
+
 label.tableForm {
     display: table-cell;
 }

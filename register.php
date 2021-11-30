@@ -1,3 +1,9 @@
+<!-- 
+	To Do:
+	If the account is a child, need to be able to enter adult's email
+	to link accounts. Also need to modify addUser to incorporate this.
+-->
+
 <!DOCTYPE html>
 
 <?php
@@ -19,11 +25,21 @@
 </head>
 
 <body>
+	<div style="margin-bottom:1em;">
+	<?php
+		if (isset($_SESSION['error']))
+		{
+			echo "<p class='error'>" . $_SESSION['error'] . "</p>";
+			unset($_SESSION['error']);
+		}
+	?>
+	</div>
+
     <form action="AccountAction.php" method="post" autocomplete="off" class="tableForm">
 		<p class="tableForm">
 			<label class="tableForm">Name:</label>
 			<input type="text" name="fName" required="true" class="joinedInput">
-			<input type="text" name="mName" required="false" class="joinedInput" style="width:50px;">
+			<input type="text" name="mName" class="joinedInput" style="width:50px;">
 			<input type="text" name="lName" required="true" class="joinedInput">
 		</p>
 
@@ -34,7 +50,7 @@
         
         <p class="tableForm">
 			<label class="tableForm" style="padding-right:5px;">Phone Number (optional):</label>
-			<input type="tel" name="phone" required="false" class="soloInput" style="width:255px;">
+			<input type="tel" name="phone" class="soloInput" style="width:255px;">
 		</p>
         
         <p class="tableForm">
