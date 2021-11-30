@@ -1,31 +1,24 @@
 <!DOCTYPE html>
 
-<!--
-     This is a relatively simple starting page
-     that demonstrates the use of sessions to
-     remember information that has already been entered.
--->
-
 <!-- Start by making sure that a session is running -->
 <?php
-	if (session_status() == PHP_SESSION_NONE)
-	{
-		session_start();
-	}
+	require_once "config.php";
 ?>
 
 <html>
 <head>
 	<title>Log In</title>
 
-	<!-- The JQuery library is needed for Javascript to invoke PHP -->
+	<link rel="stylesheet" href="style.css">
+
+	<!-- The JQuery library is needed for Javascript to invoke PHP
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
 		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 		crossorigin="anonymous">
-	</script>
+	</script> -->
 
 	<!-- Basic Javascript function that sends text to
-	     the PHP login script and prints any errors that occur.-->
+	     the PHP login script and prints any errors that occur.
 	<script> function ButtonPressed(e)
 	{
 		let input = document.getElementById("input");
@@ -43,30 +36,37 @@
 			output.innerHTML += status + ", " + error;
 		});
 	}
-	</script>
+	</script> -->
 </head>
 
 <body>
-	<!-- Be polite, we're on a public website -->
-	<p>Hello World!</p>
-
-	<!-- A simple text entry box and a button to submit the input.
-	     When the button is pressed, the JS function above is called. -->
-	<form onsubmit="ButtonPressed(event)" autocomplete="off">
-		<input type="text" id="input" required="true">
-		<input type="submit" value="Enter">	
-	</form>
-
-	<!-- This divider contains a bit of PHP code that checks
-	     for a session variable and prints its value if it exists. -->
 	<div>
 	<?php
-	if (isset($_SESSION['example']))
-	{
-		echo $_SESSION['example'];
-	}
+		if (isset($_SESSION['usrID']))
+		{
+			echo "Hello, " . $_SESSION['fName'] . " " . $_SESSION['lName'];
+			echo "<br/><a href=\"logout.php\">Log out</a>";
+		}
+		else
+		{
+			echo "<p>Don't have an account? <a>Register</a></p>";
+		}
 	?>
 	</div>
+
+	<!-- https://stackoverflow.com/questions/4309950/how-to-align-input-forms-in-html -->
+	<form action="login.php" method="post" autocomplete="off" class="tableForm">
+		<p class="tableForm">
+			<label class="tableForm">Name:</label>
+			<input type="text" name="fName" required="true" class="joinedInput">
+			<input type="text" name="lName" required="true" class="joinedInput">
+		</p>
+		<p class="tableForm">
+			<label class="tableForm" style="padding-right:10px;">Password:</label>
+			<input type="password" name="password" required="true" class="soloInput">
+		</p>
+		<input type="submit" name="login" value="Log In">	
+	</form>
 
 	<!-- This divider will remain empty unless the JS function
 	     outputs an error to it. -->

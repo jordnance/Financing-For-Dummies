@@ -1,17 +1,30 @@
 <?php
-	// We want to use session variables, so make sure one is running
-	if (session_status() == PHP_SESSION_NONE)
-	{
-		session_start();
-	}
+	require_once "config.php";
 
-	/* A variable 'text' should be posted if this script is
-	   executed, but check for it anyway. */
-	if (isset($_POST['text']))
+	if (isset($_POST['login']))
 	{
-		// If it does exist, copy its value to the session variable
-		$_SESSION['example'] = $_POST['text'];
-		unset($_POST['text']);
+		unset($_POST['login']);
+		
+		/*
+		$fName = $_POST['fName'];
+		$lName = $_POST['lName'];
+		$password = $_POST['password'];
+
+		$db = get_connection();
+		$query = $db->prepare("SELECT usrID, fName, lName, Passcode FROM User WHERE fName=? AND lName=?")
+		$query->bind_param('ss', $fName, $lName);
+		if ($query->execute())
+		{
+			if (mysqli_stmt_bind_result($query, $))
+		}
+		*/
+
+		// Then log them in
+		$_SESSION['usrID'] = 1;
+		$_SESSION['fName'] = $_POST['fName'];
+		$_SESSION['lName'] = $_POST['lName'];
+		unset($_POST['fName']);
+		unset($_POST['lName']);
 	}
 
 	// And cause the page to reload to show the new value
