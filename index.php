@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 
-<!-- Start by making sure that a session is running -->
 <?php
 	require_once "config.php";
 ?>
@@ -40,16 +39,23 @@
 </head>
 
 <body>
-	<div>
+	<div style="margin-bottom:1em;">
 	<?php
 		if (isset($_SESSION['usrID']))
 		{
 			echo "Hello, " . $_SESSION['fName'] . " " . $_SESSION['lName'];
-			echo "<br/><a href=\"logout.php\">Log out</a>";
+			echo "<br/>";
+			echo "<a href=\"logout.php\">Log out</a>";
 		}
 		else
 		{
 			echo "<p>Don't have an account? <a>Register</a></p>";
+		}
+
+		if (isset($_SESSION['error']))
+		{
+			echo "<p style=\"color:red;\">" . $_SESSION['error'] . "</p>";
+			unset($_SESSION['error']);
 		}
 	?>
 	</div>
@@ -67,10 +73,5 @@
 		</p>
 		<input type="submit" name="login" value="Log In">	
 	</form>
-
-	<!-- This divider will remain empty unless the JS function
-	     outputs an error to it. -->
-	<div id="errors">
-	</div>
 </body>
 </html>

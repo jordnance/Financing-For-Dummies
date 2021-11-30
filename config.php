@@ -13,7 +13,7 @@ function get_connection()
 
     if (!isset($connection))
     {
-        $connection = mysqli_connect('localhost', 'financingfordummies', '', 'financingfordummies')
+        $connection = mysqli_connect('localhost', 'financingfordummies', 'seimmudrofgnicnanif3420', 'financingfordummies')
         or die(mysqli_connect_error());
     }
     if ($connection == false)
