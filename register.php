@@ -22,6 +22,25 @@
     <title>Register Account</title>
 
     <link rel="stylesheet" href="style.css">
+
+	<script> function childToggled()
+	{
+		let checkbox = document.getElementById("childCheckbox");
+		let additionalField = document.getElementById("adultInfo");
+
+		if (checkbox.checked)
+		{
+			additionalField.style.display = "table-row";
+			additionalField.getElementById("adultEmail").require = "true";
+		}
+		else
+		{
+			additionalField.style.display = "none";
+			additionalField.getElementById("adultEmail").require = "false";
+		}
+	}
+	</script>
+
 </head>
 
 <body>
@@ -70,7 +89,12 @@
 			</p>
 
 			<label>Child Account:</label>
-			<input type="checkbox" name="child" value="Child Account">
+			<input type="checkbox" name="child" id="childCheckbox" value="Child Account" onchange="childToggled()">
+
+			<p class="tableForm" id="adultInfo" style="display:none;">
+				<label class="tableForm">Parent's Email:</label>
+				<input type="email" name="adultEmail" id="adultEmail" class="soloInput">
+			</p>
 
 			<br/>
 

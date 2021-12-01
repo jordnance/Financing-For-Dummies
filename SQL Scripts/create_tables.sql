@@ -16,9 +16,9 @@ FOREIGN KEY (usrID) REFERENCES User(usrID)
 
 CREATE TABLE IF NOT EXISTS Child(
 usrID integer NOT NULL,
-adultID integer NOT NULL,
+adultID integer,
 FOREIGN KEY (usrID) REFERENCES User(usrID),
-FOREIGN KEY (adultID) REFERENCES User(usrID)  
+FOREIGN KEY (adultID) REFERENCES User(usrID) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS FinancialAccount(
@@ -31,19 +31,19 @@ FOREIGN KEY (usrID) REFERENCES User(usrID)
 
 CREATE TABLE IF NOT EXISTS Checking(
 acctID integer NOT NULL,
-FOREIGN KEY (acctID) REFERENCES FinancialAccount(acctID)
+FOREIGN KEY (acctID) REFERENCES FinancialAccount(acctID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Loan(
 acctID integer NOT NULL,
 APR float NOT NULL,
-FOREIGN KEY (acctID) REFERENCES FinancialAccount(acctID)
+FOREIGN KEY (acctID) REFERENCES FinancialAccount(acctID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Savings(
 acctID integer NOT NULL,
 InterestRate float NOT NULL,
-FOREIGN KEY (acctID) REFERENCES FinancialAccount(acctID)
+FOREIGN KEY (acctID) REFERENCES FinancialAccount(acctID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS AccountCategory (
@@ -51,7 +51,7 @@ acctID integer NOT NULL,
 Category varchar(30),
 Threshold float,
 PRIMARY KEY (acctID, Category),
-FOREIGN KEY (acctID) REFERENCES FinancialAccount(acctID)
+FOREIGN KEY (acctID) REFERENCES FinancialAccount(acctID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Transacts(
@@ -62,6 +62,6 @@ Title text NOT NULL DEFAULT CONCAT("Account ", acctID, " Transaction"),
 Date text NOT NULL DEFAULT CURDATE(),
 Amount float NOT NULL,
 Category text NOT NULL,
-FOREIGN KEY (usrID) REFERENCES User(usrID),
-FOREIGN KEY (acctID) REFERENCES FinancialAccount(acctID)
+FOREIGN KEY (usrID) REFERENCES User(usrID) ON DELETE CASCADE,
+FOREIGN KEY (acctID) REFERENCES FinancialAccount(acctID) ON DELETE CASCADE
 );
