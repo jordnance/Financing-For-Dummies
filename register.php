@@ -25,50 +25,57 @@
 </head>
 
 <body>
-	<div style="margin-bottom:1em;">
-	<?php
-		if (isset($_SESSION['error']))
-		{
-			echo "<p class='error'>" . $_SESSION['error'] . "</p>";
-			unset($_SESSION['error']);
-		}
-	?>
+	<div id="header">
+		<h1>Financing for Dummies</h1>
 	</div>
 
-    <form action="AccountAction.php" method="post" autocomplete="off" class="tableForm">
-		<p class="tableForm">
-			<label class="tableForm">Name:</label>
-			<input type="text" name="fName" required="true" class="joinedInput">
-			<input type="text" name="mName" class="joinedInput" style="width:50px;">
-			<input type="text" name="lName" required="true" class="joinedInput">
-		</p>
+	<div id="main" style="width:37%; margin:auto; padding-top:5px;">
+		<div style="margin-bottom:1em;">
+			<p>Already have an account? <a href="index.php">Log In</a></p>
+			<?php
+				if (isset($_SESSION['error']))
+				{
+					echo "<p class='error'>" . $_SESSION['error'] . "</p>";
+					unset($_SESSION['error']);
+				}
+			?>
+		</div>
 
-        <p class="tableForm">
-			<label class="tableForm">Email:</label>
-			<input type="email" name="email" required="true" class="soloInput" style="width:255px;">
-		</p>
-        
-        <p class="tableForm">
-			<label class="tableForm" style="padding-right:5px;">Phone Number (optional):</label>
-			<input type="tel" name="phone" class="soloInput" style="width:255px;">
-		</p>
-        
-        <p class="tableForm">
-			<label class="tableForm">Birthday:</label>
-			<input type="date" name="birthday" required="true" class="soloInput" style="width:255px;">
-		</p>
+		<form action="AccountAction.php" method="post" autocomplete="off" class="tableForm">
+			<p class="tableForm">
+				<label class="tableForm">Name:</label>
+				<input type="text" name="fName" required="true" class="joinedInput">
+				<input type="text" name="mName" class="joinedInput" style="width:50px;">
+				<input type="text" name="lName" required="true" class="joinedInput">
+			</p>
 
-		<p class="tableForm">
-			<label class="tableForm">Password:</label>
-			<input type="password" name="password" required="true" class="soloInput" style="width:255px;">
-		</p>
+			<p class="tableForm">
+				<label class="tableForm">Email:</label>
+				<input type="email" name="email" required="true" class="soloInput">
+			</p>
+			
+			<p class="tableForm">
+				<label class="tableForm" style="padding-right:5px;">Phone Number (optional):</label>
+				<input type="tel" name="phone" class="soloInput">
+			</p>
+			
+			<p class="tableForm">
+				<label class="tableForm">Birthday:</label>
+				<input type="date" name="birthday" required="true" class="soloInput">
+			</p>
 
-		<label>Child Account:</label>
-		<input type="checkbox" name="child" value="Child Account">
+			<p class="tableForm">
+				<label class="tableForm">Password:</label>
+				<input type="password" name="password" required="true" class="soloInput">
+			</p>
 
-        <br/>
+			<label>Child Account:</label>
+			<input type="checkbox" name="child" value="Child Account">
 
-		<input type="submit" name="register" value="Register">
-	</form>
+			<br/>
+
+			<input class="link" type="submit" name="register" value="Register">
+		</form>
+	</div>
 </body>
 </html>

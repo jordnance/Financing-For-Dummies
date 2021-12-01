@@ -1,3 +1,130 @@
+/****************************/
+/* Site-wide CSS formatting */
+/****************************/
+
+* {
+    box-sizing: border-box;
+}
+
+#header {
+    background-color: #488AC7;
+    padding: 20px;
+    text-align: center;
+    font-family: Georgia;
+    font-size: 30px;
+    color: white;
+    border-top: 3px solid #000;
+    border-bottom: 3px solid #000;
+    border-left: 3px solid #000;
+    border-right: 3px solid #000;
+    margin: auto auto 8px auto;
+}
+
+#footer {
+    background-color: #777;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+
+ul {
+    width: auto;
+    padding: 10px;
+    background-color: #98AFC7;
+    margin: auto auto auto auto;
+    font-family: Georgia;
+    border-top: 3px solid #000;
+    border-bottom: 3px solid #000;
+    border-left: 3px solid #000;
+    border-right: 3px solid #000;
+    text-align: center;
+}
+
+li {
+    display: inline;
+    margin: 0px 4px;
+}
+
+a.button {
+    color: #000000;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 6px 18px 5px 18px;
+}
+
+a:hover, a.on {
+    color: #cc3333;
+    background-color: #ffffff;
+}
+
+button.link { 
+    background: none;
+    border: none;
+    color: #000000;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    padding: 6px 18px 5px 18px;
+    font-family: Georgia;
+    font-size: 15px;
+}
+
+button.link:hover {
+    color: #cc3333;
+    background-color: #ffffff;
+}
+
+input.link {
+    color: #000000;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 18px;
+    padding: 6px;
+    font-family: Georgia;
+    font-size: 15px;
+}
+
+input.link:hover {
+    color: #cc3333;
+    background: none;
+    border-width: 2px;
+}
+
+p.leftColumn {
+    float: left;
+    width: 20%;
+    height: auto;
+    background: #ccc;
+    padding: 20px;
+    margin-right: 10px;
+}
+
+article {
+    float: center;
+    padding: 20px;
+    width: auto;
+    background-color: #B9D9EB;
+    height: auto;
+    margin-top: 15px;
+}
+
+#main:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#content {
+    width: 100%;
+}
+
+/***************************************************/
+/* index.php and register.php specific CSS classes */
+/***************************************************/
+
 form.tableForm {
     display: table;
 }
@@ -23,5 +150,5 @@ label.tableForm {
 
 .soloInput {
     display:table-cell;
-    width:200px;
+    width:250px;
 }
