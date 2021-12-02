@@ -3,6 +3,8 @@
 <?php
 	require_once "config.php";
 
+	// $initialPost = print_r($_POST, true);
+
 	// If a 'login' request has been posted, check for valid log-in credentials
 	if (isset($_POST['login']))
 	{
@@ -49,6 +51,7 @@
 		}
 
 		header("Location: index.php");
+		exit;
 	}
 	// If a logout request has been posted, unset all session variables
 	else if (isset($_POST['logout']))
@@ -56,6 +59,7 @@
 		session_unset();
 
 		header("Location: index.php");
+		exit;
 	}
 	else if (isset($_POST['register']))
 	{
@@ -86,7 +90,7 @@
 			{
 				// Otherwise, this user doesn't exist yet.
 				// If the user is a child...
-				if (isset($_POST['Child']))
+				if (isset($_POST['child']))
 				{
 					// ...then verify that the provided adult email exists in the database (the query should return 1 row)
 					$query = $db->prepare("SELECT usrID FROM Adult NATURAL JOIN User WHERE Email = ?");
@@ -163,5 +167,16 @@
 		}
 
 		header("Location: register.php");
+		exit;
 	}
+
+	// The script should always have exited by this point, so, if it doesn't,
+	// print the $_POST variables that led to this state. This is... generally a very bad idea,
+	// but I'm debugging, dangit!
+	/*
+	$_SESSION['error'] .= "<br/>Post that failed: " . $initialPost;
+	$_SESSION['error'] .= "<br/>Post now: " . $_POST;
+	*/
+	// At the very least, always reroute the page to the index if it hasn't already gone somewhere
+	header("Location: index.php");
 ?>

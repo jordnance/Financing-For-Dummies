@@ -84,7 +84,7 @@
 			</p>
 
 			<label>Child Account:</label>
-			<input type="checkbox" name="child" id="childCheckbox" value="true" onchange="childToggled()">
+			<input type="checkbox" name="child" id="childCheckbox" onchange="childToggled()">
 
 			<p class="tableForm" id="adultInfo" style="display:none;">
 				<label class="tableForm">Parent's Email:</label>
