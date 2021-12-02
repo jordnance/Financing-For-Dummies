@@ -11,7 +11,6 @@ BEGIN
     ELSE
         DELETE FROM Child WHERE usrID = @deleteID;
     END IF;
-
     DELETE FROM FinancialAccount WHERE usrID = @deleteID;
     DELETE FROM User WHERE usrID = @deleteID;
 END;
