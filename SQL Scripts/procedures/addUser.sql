@@ -3,11 +3,14 @@
 -- Instead, it queries the database after inserting the new user to find its ID.
 -- Furthermore, it now checks the length of pNumber (an optional value), and, if 0, enters NULL rather than "".
 -- Also resolved error where some SELECT statements were returning multiple rows and trying to insert the result
--- into a single variable. Added "LIMIT 1" to line 23 and used argument "dob" instead of query on line 19.
+-- into a single variable.
+
+-- Edit by Marcus on 12/1:
+-- Added adultMail argument to replace comparing last names to assign an adultID if this is a child account.
 
 DROP PROCEDURE IF EXISTS addUser;
 DELIMITER //
-CREATE PROCEDURE addUser (mail VARCHAR(255), pNumber VARCHAR(20), code TEXT, dob TEXT, fir TEXT, mid TEXT, las TEXT)
+CREATE PROCEDURE addUser (mail VARCHAR(255), pNumber VARCHAR(20), code TEXT, dob TEXT, fir TEXT, mid TEXT, las TEXT, adultMail VARCHAR(255))
 BEGIN
     SET @phoneNum = NULL;
     IF LENGTH(pNumber) > 0 THEN
@@ -20,7 +23,7 @@ BEGIN
     IF @ageInDays >= 6570 THEN
         INSERT INTO Adult(usrID) VALUES (@id);
     ELSE
-        SELECT usrID INTO @aID FROM User WHERE lName = las AND usrID != @id LIMIT 1;
+        SELECT usrID INTO @aID FROM Adult NATURAL JOIN User WHERE Email = adultMail AND usrID != @id;
         INSERT INTO Child(usrID, adultID) VALUES (@id, @aID);
     END IF;
 END;

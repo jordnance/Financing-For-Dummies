@@ -114,7 +114,16 @@
                     <article>
                     </article>
                 </div>               
-            </div>           
+            </div>
+
+            <!-- Added by Marcus on 12/1 -->
+            <?php
+				if (isset($_SESSION['error']))
+				{
+					echo "<p class='error'>" . $_SESSION['error'] . "</p>";
+					unset($_SESSION['error']);
+				}
+			?>
         </body>
 
         <!-- Added by Marcus on 11/30 -->

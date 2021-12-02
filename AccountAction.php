@@ -1,3 +1,5 @@
+<!-- Problem: Children can still register accounts w/ invalid adult email -->
+
 <?php
 	require_once "config.php";
 
@@ -82,9 +84,46 @@
 			}
 			else
 			{
-				// Otherwise (this user doesn't exist yet), call the store procedure to create it create it
-				$query = $db->prepare("CALL addUser(?, ?, ?, ?, ?, ?, ?)");
-				$query->bind_param('sssssss', $_POST['email'], $_POST['phone'], $_POST['password'], $_POST['birthday'], $_POST['fName'], $_POST['mName'], $_POST['lName']);
+				// Otherwise, this user doesn't exist yet.
+				// If the user is a child...
+				if (isset($_POST['Child']))
+				{
+					// ...then verify that the provided adult email exists in the database (the query should return 1 row)
+					$query = $db->prepare("SELECT usrID FROM Adult NATURAL JOIN User WHERE Email = ?");
+					$query->bind_param('s', $_POST['adultEmail']);
+					if ($query->execute())
+					{
+						$count = 0;
+						$query->bind_result($res);
+						while ($query->fetch())
+						{
+							$count += 1;
+						}
+
+						// If there is not exactly one row that is returned, this is an invalid email
+						if ($count != 1)
+						{
+							$_SESSION['error'] = "Invalid data";
+
+							// Reload the page so that the error message will display
+							header("Location: register.php");
+							// And quit the script here
+							exit;
+						}
+					}
+					else
+					{
+						$_SESSION['error'] = "Unable to confirm email";
+						header("Location: register.php");
+						exit;
+					}
+				}
+
+				/* If everything checks out, call the stored procedure to create the user.
+				 * The value of $_POST['adultEmail'] can be freely passed because it either doesn't
+				 * matter (the user is an adult) or else it has already been verified. */
+				$query = $db->prepare("CALL addUser(?, ?, ?, ?, ?, ?, ?, ?)");
+				$query->bind_param('ssssssss', $_POST['email'], $_POST['phone'], $_POST['password'], $_POST['birthday'], $_POST['fName'], $_POST['mName'], $_POST['lName'], $_POST['adultEmail']);
 				if ($query->execute())
 				{
 					// If the user was successfully added to the database, query it to get their usrID
@@ -98,14 +137,18 @@
 
 						$_SESSION['usrID'] = $res_usrID;
 						$_SESSION['fName'] = $_POST['fName'];
+
+						// Then redirect to the home page
+						header("Location: home.php");
 					}
 					else
 					{
+						// If they were unable to be logged in, redirect to the log-in page
 						$_SESSION['error'] = "Registered, but log-in failed";
+						header("Location: index.php");
 					}
 
-					// Then redirect to the home page and exit the script here
-					header("Location: home.php");
+					// Regardless, exit the script early so that there is no more unwanted behavior
 					exit;
 				}
 				else
@@ -116,7 +159,7 @@
 		}
 		else
 		{
-			$_SESSION['error'] = "Unable to execute query";
+			$_SESSION['error'] = "Unable to find users";
 		}
 
 		header("Location: register.php");

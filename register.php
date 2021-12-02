@@ -1,9 +1,3 @@
-<!-- 
-	To Do:
-	If the account is a child, need to be able to enter adult's email
-	to link accounts. Also need to modify addUser to incorporate this.
--->
-
 <!DOCTYPE html>
 
 <?php
@@ -26,17 +20,18 @@
 	<script> function childToggled()
 	{
 		let checkbox = document.getElementById("childCheckbox");
-		let additionalField = document.getElementById("adultInfo");
+		let additionalDiv = document.getElementById("adultInfo");
+		let additionalField = document.getElementById("adultEmail");
 
 		if (checkbox.checked)
 		{
-			additionalField.style.display = "table-row";
-			additionalField.getElementById("adultEmail").require = "true";
+			additionalDiv.style.display = "table-row";
+			additionalField.required = true;
 		}
 		else
 		{
-			additionalField.style.display = "none";
-			additionalField.getElementById("adultEmail").require = "false";
+			additionalDiv.style.display = "none";
+			additionalField.required = false;
 		}
 	}
 	</script>
@@ -89,7 +84,7 @@
 			</p>
 
 			<label>Child Account:</label>
-			<input type="checkbox" name="child" id="childCheckbox" value="Child Account" onchange="childToggled()">
+			<input type="checkbox" name="child" id="childCheckbox" value="true" onchange="childToggled()">
 
 			<p class="tableForm" id="adultInfo" style="display:none;">
 				<label class="tableForm">Parent's Email:</label>
