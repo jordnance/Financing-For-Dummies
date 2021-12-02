@@ -107,11 +107,12 @@
                     <li><a href="">Accounts</a></li>
                     <li><a href="">Budgeting</a></li>
                     <li><a href="">New Transaction</a></li>
-                    <li><a href="">Settings</a></li>
+                    <li><button class="link" form="settings" name="settings">Settings</button></li>
                     <li><button class="link" form="logout" name="logout">Log Out</button></li>
                 </ul>
                 <div id="main">
                     <article>
+                        <!-- Place default table here! -->
                     </article>
                 </div>               
             </div>
@@ -128,4 +129,6 @@
 
         <!-- Added by Marcus on 11/30 -->
         <form id="logout" method="post" action="AccountAction.php"> </form>
+        <!-- Added by Jordan on 12/2 -->
+        <form id="settings" method="post" action="settings.php"> </form>
 </html>
