@@ -1,0 +1,8 @@
+DROP PROCEDURE IF EXISTS deleteLoanOnly;
+DELIMITER //
+CREATE PROCEDURE deleteLoanOnly (IN fid INT)
+BEGIN  
+	DELETE FROM Loan WHERE acctID = fid;
+END;
+//
+DELIMITER ;
