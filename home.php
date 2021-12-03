@@ -107,7 +107,7 @@
                     <li><a href="">Accounts</a></li>
                     <li><a href="">Budgeting</a></li>
                     <li><a href="">User Roles</a></li>
-                    <li><a href="">New Transaction</a></li>
+                    <li><button class="link" form="new_transaction" name="new_transaction">New Transaction</button></li>
                     <li><button class="link" form="settings" name="settings">Settings</button></li>
                     <li><button class="link" form="logout" name="logout">Log Out</button></li>
                 </ul>
@@ -127,9 +127,10 @@
 				}
 			?>
         </body>
-
         <!-- Added by Marcus on 11/30 -->
         <form id="logout" method="post" action="AccountAction.php"> </form>
         <!-- Added by Jordan on 12/2 -->
         <form id="settings" method="post" action="settings.php"> </form>
+        <!-- Added by Jordan on 12/2 -->
+        <form id="new_transaction" method="post" action="newTransaction.php"> </form>
 </html>
