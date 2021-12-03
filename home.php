@@ -106,7 +106,7 @@
                     <li><a href="#top">Home</a></li>
                     <li><a href="">Accounts</a></li>
                     <li><a href="analytics.php">Analytics</a></li>
-                    <li><a href="">User Roles</a></li>
+                    <li><a href="userRoles.php">User Roles</a></li>
                     <li><button class="link" form="new_transaction" name="new_transaction">New Transaction</button></li>
                     <li><button class="link" form="settings" name="settings">Settings</button></li>
                     <li><button class="link" form="logout" name="logout">Log Out</button></li>
@@ -133,4 +133,6 @@
         <form id="settings" method="post" action="settings.php"> </form>
         <!-- Added by Jordan on 12/2 -->
         <form id="new_transaction" method="post" action="newTransaction.php"> </form>
+	
+	
 </html>
