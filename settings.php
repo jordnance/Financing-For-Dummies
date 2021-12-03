@@ -10,42 +10,51 @@
     <div id="header">
 		<h1>Financing for Dummies</h1>
 	</div>
+
 <?php
+require_once "config.php";
 
-date_default_timezone_set('America/Los_Angeles');
-error_reporting(E_ALL);
-ini_set("log_errors", 1);
-ini_set("display_errors", 1);
+$email = $_POST['email'];
+$first = $_POST['fName'];
+$middle = $_POST['mName'];
+$last = $_POST['lName'];
 
-function get_connection() {
-    static $connection;
-    if (!isset($connection)) {
-        $connection = mysqli_connect('localhost', 'financingfordummies', 'seimmudrofgnicnanif3420', 'financingfordummies') 
-            or die(mysqli_connect_error());
-    }
-    if ($connection === false) {
-        echo "Unable to connect to database<br/>";
-        echo mysqli_connect_error();
-    }
-    return $connection;
-}
-
-//Get a connection, prepare a query, and execute it
 $db = get_connection();
-$query = $db->prepare("SELECT Email, fName, mName, lName FROM User"); // How to get the user's info for the query?
+$query = $db->prepare("SELECT Email, fName, mName, lName FROM User WHERE Email=? AND fName=? AND mName=? AND lName=?");
+$query->bind_param("ssss", $email, $first, $middle, $last);
 $query->execute();
-$result = $query->get_result();
+
+//$query->bind_result($res_email, $res_first, $res_middle, $res_last);
+//$query->fetch();
+//printf("%s %s %s %s\n", $res_email, $res_first, $res_middle, $res_last);
+
+//if ($result)
+//{
+//	$result->bind_result($res_email, $res_first, $res_middle, $res_last);
+//}
+//else
+//{
+//    $_SESSION['error'] = "Unable to execute query";
+//}
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+      echo "Email: " . $row["Email"]. " - First Name: " . $row["fName"]. " " . $row["mName"].  " " . $row["lName"]. "<br>";
+    }
+} else {
+  echo "0 results";
+}
 ?>
 
 <form action="settings.php" method="POST" autocomplete="off" class="tableForm">
     <p class="tableForm">
 		<label class="tableForm" style="padding-right:5px;">Update Name:</label>
-        <input type="text" name="fName" required="true" class="joinedInput">
+        <input type="text" name="fName" class="joinedInput">
 		<input type="text" name="mName" class="joinedInput" style="width:50px;">
-		<input type="text" name="lName" required="true" class="joinedInput">
+		<input type="text" name="lName" class="joinedInput">
         <input class="link" type="submit" name="submit" value="SUBMIT">
     </p>
-
 	<p class="tableForm">
 		<label class="tableForm">Update Email:</label>
         <input type="text" name="email"></label>
@@ -55,15 +64,19 @@ $result = $query->get_result();
 </form>
 
 <?php
-if (isset($_POST["name"]) && $_POST["name"] != "") {
-    echo "Name updated to: " . $_POST['name'] . " <br>";
+if (isset($_POST["fName"], $_POST["lName"]) && $_POST["fName"] != "" && $_POST["lName"] != "") {
+    echo "Name updated to: " . $_POST['fName'] . " " . $_POST['mName'] . " " . $_POST['lName'] ." <br>";
 }
-
 if (isset($_POST["email"]) && $_POST["email"] != "") {
     echo "Email updated to: " . $_POST['email'] . " <br>";
 }
+unset($_POST['email']);
+unset($_POST['fName']);
+unset($_POST['mName']);
+unset($_POST['lName']);
 ?>
 
+<br/>
 <button class="link" form="home" name="home">RETURN HOME</button>
 <form id="home" method="post" action="home.php"> </form>
 
