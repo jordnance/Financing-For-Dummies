@@ -16,12 +16,36 @@
         // Then verify that it's not null be exiting if it is
         if ($acctNumber == null)
         {
-            // $_SESSION['error'] = "This checking account does not exist.";
+            echo "A valid checking account must be selected.";
             exit;
         }
     }
 
     $db = get_connection();
+
+    // Verify that this user has at least one account of the type to generate a report on.
+    $query = $db->prepare("SELECT acctID FROM FinancialAccount NATURAL JOIN $report WHERE usrID=?");
+    $query->bind_param('i', $_SESSION['usrID']);
+    if ($query->execute())
+    {
+        $query->bind_result($res);
+        $count = 0;
+        while ($query->fetch())
+        {
+            $count += 1;
+        }
+
+        if ($count == 0)
+        {
+            echo "Sorry, " . $_SESSION['fName'] . ", you don't have any accounts of this type.";
+            exit;
+        }
+    }
+    else
+    {
+        echo "Unable to find accounts.";
+        exit;
+    }
 
     // The reportAggregates procedure requires the follow arguments:
     // (user integer, accountType text, timespan integer, account integer)
@@ -44,6 +68,6 @@
     }
     else
     {
-        $_SESSION['error'] = "Unable to execute query";
+        echo "Unable to generate report.";
     }
 ?>

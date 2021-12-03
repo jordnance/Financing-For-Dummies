@@ -1,5 +1,3 @@
-<!-- Problem: Children can still register accounts w/ invalid adult email -->
-
 <?php
 	require_once "config.php";
 

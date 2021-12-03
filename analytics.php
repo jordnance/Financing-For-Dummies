@@ -79,8 +79,8 @@
 
 <body>
     <div id="header">
-		<h1>Financing for Dummies</h1>
-	</div>
+        <h1>Financing for Dummies</h1>
+    </div>
 
     <ul id="navigation">
         <li><a class="button" href="home.php">Home</a></li>
@@ -101,7 +101,7 @@
             <button name="Loan" class="large" onclick="generateReport(event, 'Loan')" style="margin-bottom:10px;">Loan Accounts</button>
             <div style="padding-bottom:10px; padding-top:15px;">
                 <label id="dayLabel">Report Time: 30 days</label>
-                <input id="days" type="range" class="slider" min="0" max="2" value="1" oninput="onSlide(this)" style="margin-top:10px;">
+                <input id="days" type="range" class="slider" min="0" max="2" oninput="onSlide(this)" style="margin-top:10px;">
             </div>
         </div>
 
