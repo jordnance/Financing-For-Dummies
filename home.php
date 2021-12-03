@@ -104,7 +104,7 @@
                 </div>
                 <ul id="navigation">
                     <li><a href="#top">Home</a></li>
-                    <li><a href="">Accounts</a></li>
+                    <li><button class="link" form="accounts" name="accounts">Accounts</a></li>
                     <li><a href="analytics.php">Analytics</a></li>
                     <li><a href="userRoles.php">User Roles</a></li>
                     <li><button class="link" form="new_transaction" name="new_transaction">New Transaction</button></li>
@@ -133,6 +133,7 @@
         <form id="settings" method="post" action="settings.php"> </form>
         <!-- Added by Jordan on 12/2 -->
         <form id="new_transaction" method="post" action="newTransaction.php"> </form>
-	
+	<!-- Added by Stephen on 12/3 -->
+	<form id="new_transaction" method="post" action="accountInterface.php"> </form>
 	
 </html>
