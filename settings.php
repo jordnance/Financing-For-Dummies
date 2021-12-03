@@ -13,38 +13,6 @@
 
 <?php
 require_once "config.php";
-
-$email = $_POST['email'];
-$first = $_POST['fName'];
-$middle = $_POST['mName'];
-$last = $_POST['lName'];
-
-$db = get_connection();
-$query = $db->prepare("SELECT Email, fName, mName, lName FROM User WHERE Email=? AND fName=? AND mName=? AND lName=?");
-$query->bind_param("ssss", $email, $first, $middle, $last);
-$query->execute();
-
-//$query->bind_result($res_email, $res_first, $res_middle, $res_last);
-//$query->fetch();
-//printf("%s %s %s %s\n", $res_email, $res_first, $res_middle, $res_last);
-
-//if ($result)
-//{
-//	$result->bind_result($res_email, $res_first, $res_middle, $res_last);
-//}
-//else
-//{
-//    $_SESSION['error'] = "Unable to execute query";
-//}
-
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-      echo "Email: " . $row["Email"]. " - First Name: " . $row["fName"]. " " . $row["mName"].  " " . $row["lName"]. "<br>";
-    }
-} else {
-  echo "0 results";
-}
 ?>
 
 <form action="settings.php" method="POST" autocomplete="off" class="tableForm">
@@ -64,21 +32,51 @@ if ($result->num_rows > 0) {
 </form>
 
 <?php
-if (isset($_POST["fName"], $_POST["lName"]) && $_POST["fName"] != "" && $_POST["lName"] != "") {
-    echo "Name updated to: " . $_POST['fName'] . " " . $_POST['mName'] . " " . $_POST['lName'] ." <br>";
+$email = $_POST['email'];
+$first = $_POST['fName'];
+$middle = $_POST['mName'];
+$last = $_POST['lName'];
+
+if ($first != "") {
+    $db = get_connection();
+    $result = $db->prepare("UPDATE User SET fName=? WHERE usrID=?");
+    $result->bind_param("si", $first, $_SESSION['usrID']);
+    $result->execute();
 }
-if (isset($_POST["email"]) && $_POST["email"] != "") {
-    echo "Email updated to: " . $_POST['email'] . " <br>";
+
+if ($middle != "") {
+    $db = get_connection();
+    $result = $db->prepare("UPDATE User SET mName=? WHERE usrID=?");
+    $result->bind_param("si", $middle, $_SESSION['usrID']);
+    $result->execute();
 }
-unset($_POST['email']);
-unset($_POST['fName']);
-unset($_POST['mName']);
-unset($_POST['lName']);
+
+if ($last != "") {
+    $db = get_connection();
+    $result = $db->prepare("UPDATE User SET lName=? WHERE usrID=?");
+    $result->bind_param("si", $last, $_SESSION['usrID']);
+    $result->execute();
+}
+
+// Need to implement a email validation to make sure it contains "@" and ".something"
+if ($email != "") {
+    $db = get_connection();
+    $result = $db->prepare("UPDATE User SET email=? WHERE usrID=?");
+    $result->bind_param("si", $email, $_SESSION['usrID']);
+    $result->execute();
+}
+
+if (!empty($first) || !empty($middle) || !empty($last) || !empty($email)) {
+    echo "Your information has been updated!<br>";
+}
 ?>
 
-<br/>
-<button class="link" form="home" name="home">RETURN HOME</button>
+<br/><button class="link" form="home" name="home">RETURN HOME</button>
 <form id="home" method="post" action="home.php"> </form>
+
+<?php
+exit;
+?>
 
 </body>
 </html>
