@@ -42,13 +42,14 @@ if ($first != "") {
     $result = $db->prepare("UPDATE User SET fName=? WHERE usrID=?");
     $result->bind_param("si", $first, $_SESSION['usrID']);
     $result->execute();
+    $_SESSION['fName'] = $first;
 }
 
 if ($middle != "") {
     $db = get_connection();
     $result = $db->prepare("UPDATE User SET mName=? WHERE usrID=?");
     $result->bind_param("si", $middle, $_SESSION['usrID']);
-    $result->execute();
+    $_SESSION['mName'] = $middle;
 }
 
 if ($last != "") {
@@ -56,6 +57,7 @@ if ($last != "") {
     $result = $db->prepare("UPDATE User SET lName=? WHERE usrID=?");
     $result->bind_param("si", $last, $_SESSION['usrID']);
     $result->execute();
+    $_SESSION['lName'] = $last;
 }
 
 // Need to implement a email validation to make sure it contains "@" and ".something"
@@ -64,6 +66,7 @@ if ($email != "") {
     $result = $db->prepare("UPDATE User SET email=? WHERE usrID=?");
     $result->bind_param("si", $email, $_SESSION['usrID']);
     $result->execute();
+    $_SESSION['email'] = $email;
 }
 
 if (!empty($first) || !empty($middle) || !empty($last) || !empty($email)) {
