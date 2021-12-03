@@ -105,7 +105,7 @@
                 <ul id="navigation">
                     <li><a href="#top">Home</a></li>
                     <li><a href="">Accounts</a></li>
-                    <li><a href="">Budgeting</a></li>
+                    <li><a href="analytics.php">Analytics</a></li>
                     <li><a href="">New Transaction</a></li>
                     <li><a href="">Settings</a></li>
                     <li><button class="link" form="logout" name="logout">Log Out</button></li>

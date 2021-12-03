@@ -24,12 +24,12 @@
 	</div>
 	
 	<div id="main">
-		<p class="leftColumn" style="background-color:#B9D9EB;">
+		<p class="leftColumn">
 			Financing for Dummies is an easy-to-use and free tool to
 			track your spending and view basic analytics. Log in or register here!
 		</p>
 
-		<div style="margin-bottom:1em; padding-top:5px; width:30%; margin:auto;">
+		<div style="margin-bottom:1em; padding-top:5px; width:210px; margin:auto;">
 			<p>Don't have an account? <a href="register.php">Register</a></p>
 			<?php
 				if (isset($_SESSION['error']))
@@ -40,7 +40,7 @@
 			?>
 		</div>
 
-		<div style="width:30%; margin:auto;">
+		<div style="width:210px; margin:auto;">
 			<form action="AccountAction.php" method="post" autocomplete="off" class="tableForm">
 				<p class="tableForm">
 					<label class="tableForm">Email:</label>

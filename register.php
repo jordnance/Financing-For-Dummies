@@ -43,7 +43,8 @@
 		<h1>Financing for Dummies</h1>
 	</div>
 
-	<div id="main" style="width:37%; margin:auto; padding-top:5px;">
+	<!-- "width:37%; margin:auto; padding-top:5px;" -->
+	<div id="main" style="width:425px; margin:auto; padding-top:5px;">
 		<div style="margin-bottom:1em;">
 			<p>Already have an account? <a href="index.php">Log In</a></p>
 			<?php

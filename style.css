@@ -75,7 +75,7 @@ button.link:hover {
     background-color: #ffffff;
 }
 
-input.link {
+input.link, button.large {
     color: #000000;
     text-transform: uppercase;
     text-decoration: none;
@@ -93,22 +93,25 @@ input.link:hover {
     border-width: 2px;
 }
 
-p.leftColumn {
+.leftColumn {
     float: left;
+    padding: 20px;
     width: 20%;
     height: auto;
-    background: #ccc;
-    padding: 20px;
+    background: #B9D9EB;
     margin-right: 10px;
+    margin-top: 8px;
 }
 
-article {
-    float: center;
+.centerColumn {
+    /* float: center; */
     padding: 20px;
-    width: auto;
-    background-color: #B9D9EB;
+    width: 79%;
     height: auto;
-    margin-top: 15px;
+    /* background-color: #B9D9EB; */
+    margin: auto;
+    margin-top: 8px;
+    display: inline-block;
 }
 
 #main:after {
@@ -119,6 +122,32 @@ article {
 
 #content {
     width: 100%;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 20px;
+    background: #ffffff;
+    outline: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 20px;
+    background: #5b93b3;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 20px;
+    background: #5b93b3;
+    cursor: pointer;
 }
 
 /***************************************************/
