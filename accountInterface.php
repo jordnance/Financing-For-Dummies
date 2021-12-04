@@ -28,47 +28,23 @@
 
 	<body>
 		<div id="header">
-			<h1>Financing for Dummies</h1>
-		</div>
-	
-		<div id="main">
-			<p class="leftColumn">
-				Financing for Dummies is an easy-to-use and free tool to
-				track your spending and view basic analytics. Log in or register here!
-			</p>
-
-			<div style="margin-bottom:1em; padding-top:5px; width:210px; margin:auto;">
-				<p>Don't have an account? <a href="register.php">Register</a></p>
-					<?php
-					if (isset($_SESSION['error']))
-					{
-						echo "<p class='error'>" . $_SESSION['error'] . "</p>";
-						unset($_SESSION['error']);
-					}
-					?>
-			</div>
-
-			<div style="width:210px; margin:auto;">
-				<form action="AccountAction.php" method="post" autocomplete="off" class="tableForm">
-					<p class="tableForm">
-						<label class="tableForm">Email:</label>
-						<input type="text" name="email" required="true" class="soloInput">
-					</p>
-					<p class="tableForm">
-						<label class="tableForm" style="padding-right:10px;">Password:</label>
-						<input type="password" name="password" required="true" class="soloInput">
-					</p>
-					<input class="link" type="submit" name="login" value="Log In">	
-				</form>
-			</div>
-		</div>
-		
+        		<h1>Financing for Dummies</h1>
+    		</div>
+    		<ul id="navigation">
+        		<li><a class="button" href="home.php">Home</a></li>
+        		<li><a class="button" href="accountInterface.php">Accounts</a></li>
+        		<li><a class="button" href="analytics.php">Analytics</a></li>
+        		<li><a class="button" href="userRoles.php">User Roles</a></li>
+        		<li><a class="button" href="#top">New Transaction</a></li>
+        		<li><a class="button" href="settings.php">Settings</a></li>
+        		<li><button class="link" form="logout" name="logout">Log Out</button></li>
+   		</ul>
         <table>
             <tr>
                 <th>Name</th>
                 <th>Date</th>
-				<th>Amount</th>
-				<th>Category</th>
+		<th>Amount</th>
+		<th>Category</th>
             </tr>
         </table>
 		
