@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 
+<?php
+	require_once "config.php";
+?>
 <html>
 	<head>
 		<title>Account Details</title>
@@ -61,9 +64,6 @@ th {
 
 
 	<body>
-		<?php
-		require_once "config.php";
-		?>
 		<div>
 			<?php
 				echo "Hello, " . $_SESSION['username'];
@@ -83,39 +83,14 @@ th {
 		
 		<div>
 			<?php
-				header('Content-type: application/json');
 				$db = get_connection();
-				$querytext = "SELECT * FROM Transacts WHERE";		
-				mysqli_multi_query($db, $querytext);
-				$results = array();
-					
-				// If successful, return an array of rows
-				$sets = 0;
-				do {
-					if ($result = mysqli_store_result($db)) {    
-						$rs = array();
-						while ($row = mysqli_fetch_assoc($result)) {
-							$rs[] = $row;
-						}
-						$results[$sets++] = $rs;
-					}
-					else {
-						$errMsg = mysqli_error($db);
-						if (empty($errMsg)) {
-							$results[$sets++] = array("status" => "OK");
-						}
-						else {
-							$results[$sets++] = array("error" => $errMsg);
-						}
-            		}
-				} while (mysqli_next_result($db));
-				/*
-				// If failure, return an object with the error message
-				else {
-					$results["error"] = mysqli_error($db);
+				$query = $db->prepare("SELECT transactionID, Date, Amount, Category FROM Transacts WHERE usrID=?");
+				$query->bind_param("i", $_SESSION['usrID']);
+				$query->execute();
+				$query->bind_result($tID, $tDate, $tAmount, $tCategory);
+				while($row = mysql_fetch_array($query)) {
+					echo print_r($row);
 				}
-				*/
-				echo json_encode($results);				
 			?>
 		</div>
 		
