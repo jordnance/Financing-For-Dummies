@@ -87,7 +87,7 @@
                  width: auto;
                  background-color: #B9D9EB;
                  height: auto;
-                 margin-top: 15px;}
+                 margin-top: 10px;}
         
         #main:after  {content: "";
                       display: table;
