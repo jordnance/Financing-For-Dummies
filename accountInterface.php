@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 
+<?php
+	require_once "config.php";
+	if (!isset($_SESSION['usrID']))
+    {
+        header("Location: index.php");
+        exit;
+    }
+?>
+
 <html>
 	<head>
 		<title>Account Details</title>
@@ -7,50 +16,7 @@
 			integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 			crossorigin="anonymous">
 		</script>
-		<style>
-body {
-    margin:40px auto;
-    max-width:650px;
-    line-height:1.6;
-    font-size:18px;
-    color:#444;
-    padding:0 10px
-	font-family: Georgia, 'Times New Roman', Times, serif; 
-}
-
-h1,h2,h3 {
-    line-height:1.2
-}
-
-.query {
-    width: 400px;
-    height: 200px;
-}
-
-table, th, td { 
-	border: 2px black; 
-    border-style: ridge;
-    text-align:center;
-}
-
-th, td  {
-	padding: 10px;
-	width: 400px;
-}
-
-table {
-	width: 700;
-    height: 550;
-}
-th {
-	font-weight: 700;
-    font-size-adjust: 0.55;
-    color: black;
-    }
-.total {
-	font-weight: 700;
-    }
-		</style>
+		<link rel="stylesheet" href="style.css">
 	
 	<!-- Financial Accounts Overview 
 		- A list of the accounts you have
@@ -61,66 +27,120 @@ th {
 
 
 	<body>
-		<?php
-		require_once "config.php";
-		?>
+		<div id="header">
+        		<h1>Financing for Dummies</h1>
+    		</div>
+    		<ul id="navigation">
+        		<li><a class="button" href="home.php">Home</a></li>
+        		<li><a class="button" href="accountInterface.php">Accounts</a></li>
+        		<li><a class="button" href="analytics.php">Analytics</a></li>
+        		<li><a class="button" href="userRoles.php">User Roles</a></li>
+        		<li><a class="button" href="#top">New Transaction</a></li>
+        		<li><a class="button" href="settings.php">Settings</a></li>
+        		<li><button class="link" form="logout" name="logout">Log Out</button></li>
+   		</ul>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+		<th>Amount</th>
+		<th>Category</th>
+            </tr>
+        </table>
+		
 		<div>
 			<?php
-				echo "Hello, " . $_SESSION['username'];
-				echo "<br/><a href=\"logout.php\">Log out</a><br/>";
-			?>
-		</div>
-		
-		<h2>Financial Account Transactions Table Prototype</h2>
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Date</th>
-					<th>Amount</th>
-					<th>Category</th>
-                </tr>
-            </table>
-		
-		<div>
-			<?php
-				header('Content-type: application/json');
 				$db = get_connection();
-				$querytext = "SELECT * FROM Transacts WHERE";		
-				mysqli_multi_query($db, $querytext);
-				$results = array();
+				
+				$queryFA = $db->prepare("SELECT acctID, acctName, balance FROM FinancialAccount WHERE usrID=?");
+				$queryFA->bind_param("i", $_SESSION['usrID']);
+				$queryFA->execute();
+				$queryFA->bind_result($faID, $faName, $faBalance);
+				
+				$resultFA = $queryFA->get_result();
+
+				while($rowFA = $resultFA->fetch_assoc()) {
+					echo[$rowFA];
 					
-				// If successful, return an array of rows
-				$sets = 0;
-				do {
-					if ($result = mysqli_store_result($db)) {    
-						$rs = array();
-						while ($row = mysqli_fetch_assoc($result)) {
-							$rs[] = $row;
-						}
-						$results[$sets++] = $rs;
+					$queryT = $db->prepare("SELECT transactionID, Date, Amount, Category FROM Transacts WHERE usrID=?");
+					$queryT->bind_param("i", $_SESSION['usrID']);
+					$queryT->execute();
+					$queryT->bind_result($tID, $tDate, $tAmount, $tCategory);
+				
+					$resultT = $queryT->get_result();
+					while($rowT = $result->fetch_assoc()) {
+						echo [$rowT];
 					}
-					else {
-						$errMsg = mysqli_error($db);
-						if (empty($errMsg)) {
-							$results[$sets++] = array("status" => "OK");
-						}
-						else {
-							$results[$sets++] = array("error" => $errMsg);
-						}
-            		}
-				} while (mysqli_next_result($db));
+				}
+				
 				/*
-				// If failure, return an object with the error message
-				else {
-					$results["error"] = mysqli_error($db);
+				$queryFAChecking = $db->prepare("SELECT acctID, acctName, balance FROM FinancialAccount NATURAL JOIN Checking WHERE usrID=?");
+				$queryFAChecking->bind_param("i", $_SESSION['usrID']);
+				$queryFAChecking->execute();
+				$queryFAChecking->bind_result($faID, $faName, $faBalance);
+				
+				$resultFAChecking = $queryFAChecking->get_result();
+
+				while($rowFAChecking = $resultFAChecking->fetch_assoc()) {
+					echo[$rowFAChecking];
+					
+					$queryT = $db->prepare("SELECT transactionID, Date, Amount, Category FROM Transacts INNER JOIN FinancialAccount WHERE FinancialAccount.usrID=? AND Transacts.acctID = FinancialAccount.acctID");
+					$queryT->bind_param("i", $_SESSION['usrID']);
+					$queryT->execute();
+					$queryT->bind_result($tID, $tDate, $tAmount, $tCategory);
+				
+					$resultT = $queryT->get_result();
+					while($rowT = $result->fetch_assoc()) {
+						echo [$rowT];
+					}
+				}
+				
+				
+				$queryFASavings = $db->prepare("SELECT acctID, acctName, balance FROM FinancialAccount NATURAL JOIN Savings WHERE usrID=?");
+				$queryFASavings->bind_param("i", $_SESSION['usrID']);
+				$queryFASavings->execute();
+				$queryFASavings->bind_result($faID, $faName, $faBalance);
+				
+				$resultFASavings = $queryFASavings->get_result();
+
+				while($rowFASavings = $resultFASavings->fetch_assoc()) {
+					echo[$rowFASavings];
+					
+					$queryT = $db->prepare("SELECT transactionID, Date, Amount, Category FROM Transacts INNER JOIN FinancialAccount WHERE FinancialAccount.usrID=? AND Transacts.acctID = FinancialAccount.acctID");
+					$queryT->bind_param("i", $_SESSION['usrID']);
+					$queryT->execute();
+					$queryT->bind_result($tID, $tDate, $tAmount, $tCategory);
+				
+					$resultT = $queryT->get_result();
+					while($rowT = $result->fetch_assoc()) {
+						echo [$rowT];
+					}
+				}
+				
+				
+				$queryFALoan = $db->prepare("SELECT acctID, acctName, balance FROM FinancialAccount NATURAL JOIN Loan WHERE usrID=?");
+				$queryFALoan->bind_param("i", $_SESSION['usrID']);
+				$queryFALoan->execute();
+				$queryFALoan->bind_result($faID, $faName, $faBalance);
+				
+				$resultFALoan = $queryFALoan->get_result();
+
+				while($rowFALoan = $resultFALoan->fetch_assoc()) {
+					echo[$rowFALoan];
+					
+					$queryT = $db->prepare("SELECT transactionID, Date, Amount, Category FROM Transacts INNER JOIN FinancialAccount WHERE FinancialAccount.usrID=? AND Transacts.acctID = FinancialAccount.acctID");
+					$queryT->bind_param("i", $_SESSION['usrID']);
+					$queryT->execute();
+					$queryT->bind_result($tID, $tDate, $tAmount, $tCategory);
+				
+					$resultT = $queryT->get_result();
+					while($rowT = $result->fetch_assoc()) {
+						echo [$rowT];
+					}
 				}
 				*/
-				echo json_encode($results);				
 			?>
 		</div>
-		
-		
-		<!-- Divider will contain the needed portion to connect to the DB, select values, and print them onto the webpage-->
 		
 		<!--Priority Checking
 			- Checking

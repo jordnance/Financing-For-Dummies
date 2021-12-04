@@ -10,6 +10,15 @@
     <div id="header">
 		<h1>Financing for Dummies</h1>
 	</div>
+    <ul id="navigation">
+        <li><a class="button" href="home.php">Home</a></li>
+        <li><a class="button" href="accountInterface.php">Accounts</a></li>
+        <li><a class="button" href="analytics.php">Analytics</a></li>
+        <li><a class="button" href="userRoles.php">User Roles</a></li>
+        <li><a class="button" href="newTransaction.php">New Transaction</a></li>
+        <li><a class="button" href="#top">Settings</a></li>
+        <li><button class="link" form="logout" name="logout">Log Out</button></li>
+    </ul>
 
 <?php
 require_once "config.php";
@@ -42,13 +51,14 @@ if ($first != "") {
     $result = $db->prepare("UPDATE User SET fName=? WHERE usrID=?");
     $result->bind_param("si", $first, $_SESSION['usrID']);
     $result->execute();
+    $_SESSION['fName'] = $first;
 }
 
 if ($middle != "") {
     $db = get_connection();
     $result = $db->prepare("UPDATE User SET mName=? WHERE usrID=?");
     $result->bind_param("si", $middle, $_SESSION['usrID']);
-    $result->execute();
+    $_SESSION['mName'] = $middle;
 }
 
 if ($last != "") {
@@ -56,6 +66,7 @@ if ($last != "") {
     $result = $db->prepare("UPDATE User SET lName=? WHERE usrID=?");
     $result->bind_param("si", $last, $_SESSION['usrID']);
     $result->execute();
+    $_SESSION['lName'] = $last;
 }
 
 // Need to implement a email validation to make sure it contains "@" and ".something"
@@ -64,15 +75,13 @@ if ($email != "") {
     $result = $db->prepare("UPDATE User SET email=? WHERE usrID=?");
     $result->bind_param("si", $email, $_SESSION['usrID']);
     $result->execute();
+    $_SESSION['email'] = $email;
 }
 
 if (!empty($first) || !empty($middle) || !empty($last) || !empty($email)) {
     echo "Your information has been updated!<br>";
 }
 ?>
-
-<br/><button class="link" form="home" name="home">RETURN HOME</button>
-<form id="home" method="post" action="home.php"> </form>
 
 <?php
 exit;
