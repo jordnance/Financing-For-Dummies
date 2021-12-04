@@ -128,15 +128,4 @@
         </body>
         <!-- Added by Marcus on 11/30 -->
         <form id="logout" method="post" action="AccountAction.php"> </form>
-<<<<<<< HEAD
 </html>
-=======
-        <!-- Added by Jordan on 12/2 -->
-        <form id="settings" method="post" action="settings.php"> </form>
-        <!-- Added by Jordan on 12/2 -->
-        <form id="new_transaction" method="post" action="newTransaction.php"> </form>
-	<!-- Added by Stephen on 12/3 -->
-	<form id="new_transaction" method="post" action="accountInterface.php"> </form>
-	
-</html>
->>>>>>> 4fad046a9ed54aed2221229a9d2cd99326ecdf8d
