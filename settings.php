@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
+<?php
+require_once "config.php";
+?>
+
 <body>
     <div id="header">
 		<h1>Financing for Dummies</h1>
@@ -20,23 +24,19 @@
         <li><button class="link" form="logout" name="logout">Log Out</button></li>
     </ul>
 
-<?php
-require_once "config.php";
-?>
-
 <form action="settings.php" method="POST" autocomplete="off" class="tableForm">
+    <br/>
     <p class="tableForm">
 		<label class="tableForm" style="padding-right:5px;">Update Name:</label>
         <input type="text" name="fName" class="joinedInput">
 		<input type="text" name="mName" class="joinedInput" style="width:50px;">
 		<input type="text" name="lName" class="joinedInput">
-        <input class="link" type="submit" name="submit" value="SUBMIT">
     </p>
 	<p class="tableForm">
 		<label class="tableForm">Update Email:</label>
         <input type="text" name="email"></label>
-        <input class="link" type="submit" name="submit" value="SUBMIT">
 	</p>
+    <input class="link" type="submit" name="submit" value="SUBMIT">
     <br/>
 </form>
 
@@ -69,7 +69,6 @@ if ($last != "") {
     $_SESSION['lName'] = $last;
 }
 
-// Need to implement a email validation to make sure it contains "@" and ".something"
 if ($email != "") {
     $db = get_connection();
     $result = $db->prepare("UPDATE User SET email=? WHERE usrID=?");
@@ -79,13 +78,15 @@ if ($email != "") {
 }
 
 if (!empty($first) || !empty($middle) || !empty($last) || !empty($email)) {
-    echo "Your information has been updated!<br>";
+    echo "<br>Your information has been updated!<br>";
 }
 ?>
 
+</body>
+<form id="logout" method="post" action="AccountAction.php"></form>
+
 <?php
-exit;
+exit
 ?>
 
-</body>
 </html>
