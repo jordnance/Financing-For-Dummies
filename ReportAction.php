@@ -1,6 +1,9 @@
 <?php
     require_once "config.php";
 
+    // Throws an error:
+    // require_once "PieChart.php";
+
     // Get the kind of report to generate from the button pressed
     $report = $_POST['button'];
     // And collect the number of days to report on the aggregates across
@@ -53,21 +56,58 @@
     $query->bind_param('isii', $_SESSION['usrID'], $report, $days, $acctNumber);
 
     echo "<p>Calling w/ usrID=" . $_SESSION['usrID'] . 
-         ", account type=" . $report . ", days=" . $days . ", account number=" . $acctNumber . "</p><br/>";
+         ", account type=" . $report . ", days=" . $days . ", account number=" . $acctNumber . "</p><br/>";    
 
-    if ($query->execute())
+    /*
+    //$query->execute();
+    $result = mysqli_query($db, $query);
+    $row = mysqli_fetch_assoc($result);
+    echo print_r($row, true);
+    if ($row == NULL)
+        echo "It's null<br/>";
+    */
+
+    /*
+    foreach ($query as $row)
     {
-        // It returns the following values:
-        // Return value has following format: (SetNum integer, ValName varchar(30), Val float)
-        $query->bind_result($set, $textVal, $floatVal);
+        echo var_dump($row);
+        echo "<br/>";
+    }*/
 
-        while ($query->fetch())
+         /*
+    // Our result has the follow values: (SetNum integer, ValName varchar(30), Val float)
+    $result = mysqli_query($db, $query);
+    if ($result)
+    {
+        $data_chart = array();
+        echo "Howdy!";
+        while ($row = mysqli_fetch_assoc($result))
         {
-            echo "<p>" . $set . ": " . $textVal . ", " . $floatVal . "</p>";
+            //echo print_r($row, false);
+            echo "I";
+            // The first set is all of the spending data that will be added to the pie chart
+            /*
+            if ($row['0'] == 0)
+            {
+
+            }
+            else
+                echo "<p>" . $set . ": " . $textVal . ", " . $floatVal . "</p>";
+                */
+
+            /*
+            $dbc = mysqli_connect('localhost', 'root', 'password', 'newbie');
+            $query = "SELECT fname, eng_end FROM members_records";
+            $result = mysqli_query($dbc, $query);
+            $data_array = array();
+            while ($row = mysqli_fetch_assoc($result)) {
+                $data_array[$row['fname']] = $row['eng_end'];
+            }
         }
     }
     else
     {
-        echo "Unable to generate report.";
+        echo "Query failed.";
     }
+    */
 ?>
