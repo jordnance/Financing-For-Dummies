@@ -104,11 +104,7 @@
                 </div>
                 <ul id="navigation">
                     <li><a href="#top">Home</a></li>
-<<<<<<< HEAD
                     <li><a href="accountInterface.php">Accounts</a></li>
-=======
-                    <li><button class="link" form="accounts" name="accounts">Accounts</a></li>
->>>>>>> 4fad046a9ed54aed2221229a9d2cd99326ecdf8d
                     <li><a href="analytics.php">Analytics</a></li>
                     <li><a href="userRoles.php">User Roles</a></li>
                     <li><a href="newTransaction.php">New Transaction</a></li>
