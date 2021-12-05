@@ -61,16 +61,16 @@
         /* Added by Marcus on 11/30 
            I don't think I got this done quite right
            (or efficiently), but it's pretty close? Maybe? */
-        button.link { background: none;
-                      border: none;
-                      color: #000000;
-                      text-transform: uppercase;
-                      text-decoration: none;
-                      text-align: center;
-                      cursor: pointer;
-                      padding: 6px 18px 5px 18px;
-                      font-family: Georgia;
-                      font-size: 15px;}
+        button.link {background: none;
+                     border: none;
+                     color: #000000;
+                     text-transform: uppercase;
+                     text-decoration: none;
+                     text-align: center;
+                     cursor: pointer;
+                     padding: 6px 18px 5px 18px;
+                     font-family: Georgia;
+                     font-size: 15px;}
 
         button.link:hover {color: #cc3333;
                            background-color: #ffffff;}
