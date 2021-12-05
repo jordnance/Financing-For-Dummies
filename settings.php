@@ -25,7 +25,7 @@ require_once "config.php";
     </ul>
 
 <form action="settings.php" method="POST" autocomplete="off" class="tableForm">
-    <br/>
+    <br/><br/>
     <p class="tableForm">
 		<label class="tableForm" style="padding-right:5px;">Update Name:</label>
         <input type="text" name="fName" class="joinedInput">
@@ -36,8 +36,7 @@ require_once "config.php";
 		<label class="tableForm">Update Email:</label>
         <input type="text" name="email" style= width:250px></label>
 	</p>
-    <input class="link" type="submit" name="submit" value="SUBMIT">
-    <br/>
+    <input class="link" type="submit" name="submit" value="SUBMIT"><br/>
 </form>
 
 <?php

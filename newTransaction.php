@@ -8,80 +8,108 @@ require_once "config.php";
 <head>
   <title>New Transaction</title>
   <link rel="stylesheet" href="style.css">
-  <script> function checkingToggled()
-	{
-		let checkingbox = document.getElementById("checkingCheck");
-		if (checkingbox.checked)
-		{
-      <?php
-      $db = get_connection();
-      $query = $db->prepare("SELECT acctID FROM FinancialAccount WHERE usrID=?");
-      $query->bind_param('i', $SESSION['usrID']);
-      if ($query->execute())
+
+  <?php
+  function isSelected()
+	{  
+    if (isset($_POST['account'])) 
+    {
+      if($account = $_POST('account')) 
       {
-        $query->bind_result($res_acctID);
-        if (isset($res_acctID))
+        $db = get_connection();
+        $query = $db->prepare("SELECT acctID FROM FinancialAccount WHERE usrID=?");
+        $query->bind_param('i', $SESSION['usrID']);
+        if ($query->execute()) 
         {
-          $query = $db->prepare("SELECT acctID FROM Checking WHERE acctID=?");
-          $query->bind_param('i', $res_acctID);
-          if ($query->execute())
-          {
-            $query->bind_result($res_checkingID);
-          }
+          $query->bind_result($res_acctID);
+          return $res_accID;
+          //if (isset($res_acctID)) 
+          //{
+          //  $query = $db->prepare("SELECT acctID FROM Checking WHERE acctID=?");
+          //  $query->bind_param('i', $res_acctID);
+          //  if ($query->execute()) 
+          //  {
+          //    $query->bind_result($res_checkingID);
+          //  }
+          //} 
         }
-      }
-      ?>
-		}
-	}
-	</script>
-  <script> function loanToggled()
-	{
-		let loanbox = document.getElementById("loanCheck");
-		if (loanbox.checked)
-		{
-      <?php 
-      $query->bind_param('i', $SESSION['usrID']);
-      if ($query->execute())
+  	  }
+	  }
+    echo "<br/>Account is not set!<br/>";
+  }
+
+  if (isset($_POST['account'])) {
+    $result = isSelected();
+    if (isset($result)) 
+    {
+      $query = $db->prepare("SELECT acctID FROM Checking WHERE acctID=?");
+      $query->bind_param('i', $result);
+      if ($query->execute()) 
       {
-        $query->bind_result($res_acctID);
-        if (isset($res_acctID))
+        $query->bind_result($res_checkingID);
+        if (empty($res_checkingID))
         {
-          $query = $db->prepare("SELECT acctID FROM Loan WHERE acctID=?");
-          $query->bind_param('i', $res_acctID);
-          if ($query->execute())
-          {
-            $query->bind_result($res_loanID);
-          }
-        }
-      }
-      ?>
-		}
-	}
-	</script>
-  <script> function savingsToggled()
-	{
-		let savingsbox = document.getElementById("savingsCheck");
-		if (savingsbox.checked)
-		{
-      <?php
-      $query->bind_param('i', $SESSION['usrID']);
-      if ($query->execute())
-      {
-        $query->bind_result($res_acctID);
-        if (isset($res_acctID))
-        {
-          $query = $db->prepare("SELECT acctID FROM Savings WHERE acctID=?");
-          $query->bind_param('i', $res_acctID);
-          if ($query->execute())
+          $query->bind_result($res_loanID);
+          if (empty($res_loanID))
           {
             $query->bind_result($res_savingsID);
           }
+          else {
+            echo "<br/>ERROR!<br/>";
+          }
         }
       }
-      ?>
-		}
-	}
-	</script>
+    }
+  }
+
+  ?>
+
+    <?php 
+    //if (isset($_POST['account'])) 
+    //{
+    //  if($account = $_POST('account')) 
+    //  {
+    //    $query->bind_param('i', $SESSION['usrID']);
+    //    if ($query->execute()) 
+    //    {
+    //      $query->bind_result($res_acctID);
+    //      if (isset($res_acctID)) 
+    //      {
+    //        $query = $db->prepare("SELECT acctID FROM Loan WHERE acctID=?");
+    //        $query->bind_param('i', $res_acctID);
+    //        if ($query->execute()) 
+    //        {
+    //          $query->bind_result($res_loanID);
+    //        }
+    //      }
+    //    }
+    //  }
+    //}
+    ?>
+	
+    <?php
+		//if (isset($_POST['account'])) 
+    //{
+    //  if($account = $_POST('account'))
+    //  {
+    //    $query->bind_param('i', $SESSION['usrID']);
+    //    if ($query->execute()) 
+    //    {
+    //      $query->bind_result($res_acctID);
+    //      if (isset($res_acctID)) 
+    //      {
+    //        $query = $db->prepare("SELECT acctID FROM Savings WHERE acctID=?");
+    //        $query->bind_param('i', $res_acctID);
+    //        if ($query->execute()) 
+    //        {
+    //          $query->bind_result($res_savingsID);
+    //        }
+    //      }
+    //    }
+    //  }
+		//}
+    ?>
+	
 </head>
 
 <body>
@@ -91,8 +119,7 @@ $acct = $date = $amount = $category = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") 
 {
-  if (!isset($_POST['account'])) 
-  {
+  if (empty($_POST['account'])) {
     $acctErr = "Account is required";
   }
   else {
@@ -101,17 +128,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
   $date = test_input($_POST["date"]);
 
-  if (empty($_POST['amount'])) 
-  {
+  if (empty($_POST['amount'])) {
     $amountErr = "Amount is required";
-  } else {
+  } 
+  else {
     $amount = test_input($_POST['amount']);
   }
 
-  if (empty($_POST['category'])) 
-  {
+  if (empty($_POST['category'])) {
     $categoryErr = "Category is required";
-  } else {
+  } 
+  else {
     $category = test_input($_POST['category']);
   }
 }
@@ -140,9 +167,9 @@ function test_input($data) {
 <p><span class="error">* required field</span></p>
 <form action="newTransaction.php" method="POST" autocomplete="off" class="tableForm">
   Account type:
-	<input type="radio" name="account" value="checkingCheck" onchange="checkingToggled()">Checking
-  <input type="radio" name="account" value="loanCheck" onchange="loanToggled()">Loan
-	<input type="radio" name="account" value="savingsCheck" onchange="savingsToggled()">Savings
+	<input type="radio" name="account" id="checking">Checking
+  <input type="radio" name="account" id="loan">Loan
+	<input type="radio" name="account" id="savings">Savings
   <span class="error"> * <?php echo $acctErr;?></span>
 </form>
 
@@ -150,33 +177,33 @@ function test_input($data) {
   <br>
   <p class="tableForm">
 	  <label class="tableForm" style="padding-right:5px;">Transaction Title:</label>
-    <input type="text" name="title"></label>
+    <input type="text" name="title" style="width:165px;"></label>
 	</p>
   <p class="tableForm">
 	  <label class="tableForm" style="padding-right:5px;">Transaction Date:</label>
-    <input type="text" name="date"></label>
+    <input type="text" name="date" style="width:165px;"></label>
 	</p>
 	<p class="tableForm">
 		<label class="tableForm" style="padding-right:5px;">Transaction Amount:</label>
-    <input type="text" name="amount"></label>
+    <input type="text" name="amount" style="width:165px;"></label>
     <span class="error">* <?php echo $amountErr;?></span>
 	</p>
 	<p class="tableForm">
 		<label class="tableForm" style="padding-right:5px;">Transaction Category:</label>
-    <input type="text" name="category"></label>
+    <input type="text" name="category" style="width:165px;"></label>
     <span class="error">* <?php echo $categoryErr;?></span>
 	</p>
-    <input class="link" type="submit" name="submit" value="SUBMIT"><br/>
-    <br/>
+  <input class="link" type="submit" name="submit" value="SUBMIT"><br/><br/>
 </form>
 
 <?php
-if (!empty($date) && !empty($amount))
+if (!empty($amount) && !empty($category))
 {
   $db = get_connection();
   $result = $db->prepare("INSERT INTO Transacts(usrID, acctID, Title, Date, Amount, Category) VALUES (?, ?, ?, ?, ?, ?)");
   $result->bind_param("iissds", $_SESSION['usrID']);
   $result->execute();
+  echo "Your transaction has been added!<br>";
 }
 ?>
 
