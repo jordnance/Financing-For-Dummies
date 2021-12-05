@@ -131,7 +131,7 @@ function test_input($data) {
     <li><a class="button" href="home.php">Home</a></li>
     <li><a class="button" href="accountInterface.php">Accounts</a></li>
     <li><a class="button" href="analytics.php">Analytics</a></li>
-    <li><a class="button" href="">User Roles</a></li>
+    <li><button class="link" form ="userRoles" href="userRoles.php">User Roles</a></button>
     <li><a class="button" href="#top">New Transaction</a></li>
     <li><a class="button" href="settings.php">Settings</a></li>
     <li><button class="link" form="logout" name="logout">Log Out</button></li>
@@ -182,6 +182,8 @@ if (!empty($date) && !empty($amount))
 
 </body>
 <form id="logout" method="post" action="AccountAction.php"> </form>
+<!-- Added by Yeana on 12/05 -->
+<form id="userRoles" method="post" action="userRoles.php"></form>
 
 <?php
 exit
