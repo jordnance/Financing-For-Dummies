@@ -58,7 +58,7 @@
                                              
 
                 <button name="displayChildAccountInfo" class="large" onclick='displayChildAccountInfo.style = "display: inline"'
-                type = "button" >--- You can delete Your Child's Accounts ---</button>
+                type = "button" >--- You can delete Your Child's Financial Accounts ---</button>
 
                                              
                 <button name="contactWebMaster" class="large" onclick="location.href = 'userRoles3.php'"
@@ -130,7 +130,7 @@
 
 
 
-                            //echo "<h4>Child Account {$count} ---------------------------------</h4>";
+                            //echo "<h4>Child Account {$count} :</h4>";
                             //echo "<p>Name of the account: {$acctNameChild} </p>";
                             //echo "<p>Balance of the account: {$balanceChild} USD</p>";
                             //echo "<h5>Do you want to delete this account, {$acctNameChild} ?</h5>";

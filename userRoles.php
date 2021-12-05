@@ -78,7 +78,7 @@
 
                     elseif ($_SESSION['isAdult'] == 0)
                     {   
-                        echo "<h2>Control As a Child account holder,</h2>";
+                        echo "<h2>As a Child account holder,</h2>";
                         echo "<p>You do NOT have any Child accounts. </p>";
                     }
 
