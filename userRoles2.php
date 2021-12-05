@@ -65,9 +65,7 @@
                 type = "button" >Email Our Web Master</button>
             </div>  
             
-            
-            <!--$sqlForView = "SELECT acctName, Balance FROM FinancialAccount WHERE usrID=?" -->
-
+           
             <div id="displayChildAccountInfo" class="tabcontent">
                 <table border="2">
                 <tr>
