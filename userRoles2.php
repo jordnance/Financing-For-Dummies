@@ -15,7 +15,7 @@
         exit;
     }
 
-    $children = [];
+
 ?>
 
 <head>
@@ -124,7 +124,7 @@
                             echo "<td>{$emailChild}</td>"; 
                             echo "<td>{$acctNameChild}</td>"; 
                             echo "<td>&#36; {$balanceChild}</td>"; 
-                            echo "<td><a href = 'deleteChlidFi.php?id=$usrIDChild'>Delete</td>"; 
+                            echo "<td><a href = 'deleteChlidFi.php?id=$acctIDChild'>Delete</td>"; 
                             echo "</tr>";    
 
 
