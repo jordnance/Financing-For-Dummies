@@ -106,7 +106,7 @@
                     <li><a href="#top">Home</a></li>
                     <li><a href="accountInterface.php">Accounts</a></li>
                     <li><a href="analytics.php">Analytics</a></li>
-                    <li><button class="link" form ="userRoles" href="#top">User Roles</a></button>
+                    <li><button class="link" form ="userRoles" href="userRoles.php">User Roles</a></button>
                     <li><a href="newTransaction.php">New Transaction</a></li>
                     <li><a href="settings.php">Settings</a></li>
                     <li><button class="link" form="logout" name="logout">Log Out</button></li>
