@@ -63,7 +63,7 @@
 
                                              
                 <button name="contactWebMaster" class="large" onclick='contactWebMaster.style = "display: inline"'
-                type = "button" >--- You can email the developer ---</button>
+                type = "button" >--- Click here to email the developer ---</button>
             </div>  
 
 
