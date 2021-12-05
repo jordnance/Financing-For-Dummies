@@ -181,3 +181,12 @@ label.tableForm {
     display:table-cell;
     width:250px;
 }
+
+/***************************************************/
+/* userRoles.php, userRoles1.php, userRoles2.php
+/* specific CSS classes */
+/***************************************************/
+
+.tabcontent {
+    display:none;
+}
