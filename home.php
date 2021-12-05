@@ -106,7 +106,7 @@
                     <li><a href="#top">Home</a></li>
                     <li><a href="accountInterface.php">Accounts</a></li>
                     <li><a href="analytics.php">Analytics</a></li>
-                    <li><a href="userRoles.php">User Roles</a></li>
+                    <li><button class="link" form ="userRoles" href="#top">User Roles</a></button>
                     <li><a href="newTransaction.php">New Transaction</a></li>
                     <li><a href="settings.php">Settings</a></li>
                     <li><button class="link" form="logout" name="logout">Log Out</button></li>
@@ -128,4 +128,6 @@
         </body>
         <!-- Added by Marcus on 11/30 -->
         <form id="logout" method="post" action="AccountAction.php"> </form>
+	<!-- Added by Yeana on 12/05 -->
+	<form id="userRoles" method="post" action="userRoles.php"></form>
 </html>
