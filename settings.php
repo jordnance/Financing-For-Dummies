@@ -34,7 +34,7 @@ require_once "config.php";
     </p>
 	<p class="tableForm">
 		<label class="tableForm">Update Email:</label>
-        <input type="text" name="email"></label>
+        <input type="text" name="email" style= width:250px></label>
 	</p>
     <input class="link" type="submit" name="submit" value="SUBMIT">
     <br/>
