@@ -23,15 +23,6 @@ require_once "config.php";
         {
           $query->bind_result($res_acctID);
           return $res_accID;
-          //if (isset($res_acctID)) 
-          //{
-          //  $query = $db->prepare("SELECT acctID FROM Checking WHERE acctID=?");
-          //  $query->bind_param('i', $res_acctID);
-          //  if ($query->execute()) 
-          //  {
-          //    $query->bind_result($res_checkingID);
-          //  }
-          //} 
         }
   	  }
 	  }
@@ -40,6 +31,7 @@ require_once "config.php";
 
   if (isset($_POST['account'])) {
     $result = isSelected();
+    echo "<br/>" . $result . "<br/>";
     if (isset($result)) 
     {
       $query = $db->prepare("SELECT acctID FROM Checking WHERE acctID=?");
@@ -59,56 +51,11 @@ require_once "config.php";
           }
         }
       }
+    } else {
+    echo "<br/>ERROR!<br/>";
     }
   }
-
   ?>
-
-    <?php 
-    //if (isset($_POST['account'])) 
-    //{
-    //  if($account = $_POST('account')) 
-    //  {
-    //    $query->bind_param('i', $SESSION['usrID']);
-    //    if ($query->execute()) 
-    //    {
-    //      $query->bind_result($res_acctID);
-    //      if (isset($res_acctID)) 
-    //      {
-    //        $query = $db->prepare("SELECT acctID FROM Loan WHERE acctID=?");
-    //        $query->bind_param('i', $res_acctID);
-    //        if ($query->execute()) 
-    //        {
-    //          $query->bind_result($res_loanID);
-    //        }
-    //      }
-    //    }
-    //  }
-    //}
-    ?>
-	
-    <?php
-		//if (isset($_POST['account'])) 
-    //{
-    //  if($account = $_POST('account'))
-    //  {
-    //    $query->bind_param('i', $SESSION['usrID']);
-    //    if ($query->execute()) 
-    //    {
-    //      $query->bind_result($res_acctID);
-    //      if (isset($res_acctID)) 
-    //      {
-    //        $query = $db->prepare("SELECT acctID FROM Savings WHERE acctID=?");
-    //        $query->bind_param('i', $res_acctID);
-    //        if ($query->execute()) 
-    //        {
-    //          $query->bind_result($res_savingsID);
-    //        }
-    //      }
-    //    }
-    //  }
-		//}
-    ?>
 	
 </head>
 
