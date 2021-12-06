@@ -61,23 +61,6 @@
         exit;
     }
 
-    // Prepare a basic PDF to put results into (based on: http://www.fpdf.org/en/script/script28.php)
-    $pdf = new PDF_Diag();
-    $pdf->AddPage();
-    // Set the initial page coordinates and store the value
-    $pdf->SetXY(20, 20);
-    $valX = $pdf->GetX();
-    $valY = $pdf->GetY();
-
-    /*
-    $pdf->SetFont('Arial', 'BIU', 12);
-    $pdf->Cell(0, 5, 'Summary');
-    $pdf->Ln(8);
-    */
-
-    // Change font for contents
-    $pdf->SetFont('Arial', '', 10);
-
     // Prepare for having three arrays of labels and their corresponding data
     $size = array(0, 0, 0);
     $labels = array(array(), array(), array());
@@ -107,15 +90,40 @@
         }
     }
 
+    // Prepare a basic PDF to put results into (based on: http://www.fpdf.org/en/script/script28.php)
+    $pdf = new PDF_Diag();
+    $pdf->AddPage();
+    // Set the font
+    $pdf->SetFont('Arial', '', 10);
     // Set the colors to be used in each section of the pie charts
     $colors = array(array(100, 100, 255), array(255, 100, 100), array(255, 255, 100),
                     array(0, 255, 0), array(190, 135, 0), array(45, 105, 105),
                     array(255, 0, 0), array(0, 0, 255));
-
-    // Finally, we can actually create the pie chart.
-    $pdf->SetXY($valX + 30, $valY + 20);
-    $pdf->PieChart(150, 75, $data[0], '%l (%p)', $colors);
+    // Set the initial page coordinates and store the value
+    $pdf->SetXY(20, 0);
+    $valX = $pdf->GetX();
     $valY = $pdf->GetY();
+
+    if (strcmp($report, "Savings") == 0)
+    {
+        $pdf->SetXY(90, 8);
+        $pdf->SetFont('Arial', 'BIU', 12);
+        $pdf->Cell(30, 5, "Deposits");
+    }
+
+    if ($size[0] > 0)
+    {
+        // If the first set has something in it, make a pie chart from it
+        $pdf->SetXY($valX + 30, $valY + 20);
+        $pdf->PieChart(150, 50, $data[0], '%l, $%v (%p)', $colors);
+        $valY = $pdf->GetY();
+    }
+    else
+    {
+        // Otherwise, print the statement that there are no transactions here
+        $pdf->Cell(30, 5, "You haven't made any transactions within these parameters.");
+        $pdf->Ln();
+    }
 
     // From here, handle things differently for Savings accounts (which have an extra set of results).
     // First, establish that the next set is 1 (the 2nd)
@@ -123,8 +131,20 @@
     if (strcmp($report, "Savings") == 0)
     {
         // Just like the first set, create another pie chart, this one for withdrawals.
-        $pdf->SetXY($valX + 30, $valY + 50);
-        $pdf->PieChart(150, 75, $data[1], '%l (%p)', $colors);
+        $pdf->SetXY(87, $valY + 40);
+        $pdf->SetFont('Arial', 'BIU', 12);
+        $pdf->Cell(30, 5, "Withdrawals");
+        if ($size[$set] > 0)
+        {
+            $pdf->SetXY($valX + 30, $valY + 52);
+            $pdf->PieChart(150, 50, $data[0], '%l, %v (%p)', $colors);
+        }
+        else
+        {
+            $pdf->SetXY(50, $valY + 50);
+            $pdf->SetFont('Arial', '', 10);
+            $pdf->Cell(30, 5, "You haven't made any transactions within these parameters.");
+        }
 
         // Finally, increment the set (so savings accounts will see 2 and get the 3rd set,
         // but the others will see 1 and get the 2nd set)
@@ -137,11 +157,25 @@
     $pdf->SetXY($valX, $valY + 50);
     $pdf->SetFont('Arial', 'BIU', 12);
     $pdf->Cell(0, 5, 'Categories Exceeding Threshold:');
-    $pdf->Ln(8);
+    $valY = $pdf->GetY();
+
     $pdf->SetFont('Arial', '', 10);
-    for ($i = 0; $i < $size[$set]; $i++)
+    $pdf->SetXY($valX, $valY + 10);
+    $valX = $pdf->GetX();
+    $valY = $pdf->GetY();
+    if ($size[$set] > 0)
     {
-        $pdf->Cell(30, 5, $data[$i]['ValName']);
+        for ($i = 0; $i < $size[$set]; $i++)
+        {
+            $spent = $data[0][$labels[$set][$i]];
+            $limit = $data[$set][$labels[$set][$i]];
+            $pdf->Cell(30, 5, "- " . $labels[$set][$i] . " ($" . ($spent - $limit) . " over $" . $limit ." limit)");
+            $pdf->Ln();
+        }
+    }
+    else
+    {
+        $pdf->Cell(30, 5, "None");
         $pdf->Ln();
     }
 

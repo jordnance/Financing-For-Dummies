@@ -107,7 +107,7 @@
         </div>
 
         <!-- The center column will contain the bulk of the page's content. -->
-        <div class="centerColumn" style="">
+        <div class="centerColumn">
             <!-- Display a short message saying that no reports have been generated
                  that will be updated by the Javascript function when it is called. -->
             <p id="state" style="text-align:center;">
