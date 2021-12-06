@@ -123,6 +123,8 @@
                             echo "<td>{$acctNameChild}</td>"; 
                             echo "<td>&#36; {$balanceChild}</td>"; 
                             echo "<td><a href = 'deleteChlidFi.php?id=$acctIDChild'>Delete</td>"; 
+			    echo "<td><a href = 'deleteChildFi.php?id=$query1[acctID]'
+                            onclick = 'checkdelete()'>Delete</td>"; 
                             echo "</tr>";    
 
 
@@ -167,6 +169,15 @@
                     $_SESSION['error'] = "Unable to excetue query when adult is false";
                 }
                 ?>
+			
+	    <script>
+		    
+                function checkdelete()
+                {
+                    return confirm('Are you sure you want to delete this financial account of your Chlid account?');
+                }
+            
+            </script>
                 
                
             </div>
