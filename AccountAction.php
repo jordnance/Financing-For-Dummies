@@ -23,15 +23,15 @@
 		$query->bind_param('s', $email);
 		if ($query->execute())
 		{
-			$query->bind_result($res_usrID, $res_fName, $res_passcode);
+			$query->bind_result($res_usrID, $res_fName, $res_hashedcode);
 
 			// Iterate over each row that is returned, which should only ever be one because emails are unique
 			while ($query->fetch())
 			{
-				// Check for a matching password (not hashed yet, but whatever)
-				if (strcmp($passcode, $res_passcode) == 0)
+				// Check if the password results in the same hash that's stored in the database
+				if (password_verify($passcode, $res_hashedcode))
 				{
-					// Set the main session variables now
+					// If it does, log the user in by settting the main session variables
 					$_SESSION['usrID'] = $res_usrID;
 					$_SESSION['fName'] = $res_fName;
 					// Then set a boolean so that another query will be run at the end of the script to check the user's role
@@ -188,7 +188,7 @@
 				 * The value of $_POST['adultEmail'] can be freely passed because it either doesn't
 				 * matter (the user is an adult) or else it has already been verified. */
 				$query = $db->prepare("CALL addUser(?, ?, ?, ?, ?, ?, ?, ?)");
-				$query->bind_param('ssssssss', $_POST['email'], $_POST['phone'], $_POST['password'], $_POST['birthday'], $_POST['fName'], $_POST['mName'], $_POST['lName'], $_POST['adultEmail']);
+				$query->bind_param('ssssssss', $_POST['email'], $_POST['phone'], password_hash($_POST['password'], PASSWORD_DEFAULT), $_POST['birthday'], $_POST['fName'], $_POST['mName'], $_POST['lName'], $_POST['adultEmail']);
 				if ($query->execute())
 				{
 					// If the user was successfully added to the database, query it to get their usrID
