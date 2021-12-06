@@ -61,16 +61,16 @@
         /* Added by Marcus on 11/30 
            I don't think I got this done quite right
            (or efficiently), but it's pretty close? Maybe? */
-        button.link {background: none;
-                     border: none;
-                     color: #000000;
-                     text-transform: uppercase;
-                     text-decoration: none;
-                     text-align: center;
-                     cursor: pointer;
-                     padding: 6px 18px 5px 18px;
-                     font-family: Georgia;
-                     font-size: 15px;}
+        button.link { background: none;
+                      border: none;
+                      color: #000000;
+                      text-transform: uppercase;
+                      text-decoration: none;
+                      text-align: center;
+                      cursor: pointer;
+                      padding: 6px 18px 5px 18px;
+                      font-family: Georgia;
+                      font-size: 15px;}
 
         button.link:hover {color: #cc3333;
                            background-color: #ffffff;}
@@ -87,7 +87,12 @@
                  width: auto;
                  background-color: #B9D9EB;
                  height: auto;
-                 margin-top: 10px;}
+                 margin-top: 15px;}
+		
+		table {border-spacing: 20px;
+			border-collapse: collapse;}
+
+		td {padding: 20px;}
         
         #main:after  {content: "";
                       display: table;
@@ -106,7 +111,7 @@
                     <li><a href="#top">Home</a></li>
                     <li><a href="accountInterface.php">Accounts</a></li>
                     <li><a href="analytics.php">Analytics</a></li>
-                    <li><button class="link" form ="userRoles" href="userRoles.php">User Roles</a></button>
+                    <li><a href="userRoles.php">User Roles</a></li>
                     <li><a href="newTransaction.php">New Transaction</a></li>
                     <li><a href="settings.php">Settings</a></li>
                     <li><button class="link" form="logout" name="logout">Log Out</button></li>
@@ -114,6 +119,31 @@
                 <div id="main">
                     <article>
                         <!-- Place default table here! -->
+						<?php
+							$db = get_connection();
+			
+							$queryFA = $db->prepare("SELECT acctID, acctName, balance FROM FinancialAccount WHERE usrID=?");
+							$queryFA->bind_param("i", $_SESSION['usrID']);
+							$queryFA->execute();
+							$queryFA->bind_result($faID, $faName, $faBalance);
+				
+							$resultFA = $queryFA->get_result();
+							echo "<table border='1'>
+							<tr>
+							<th>Account Name</th>
+							<th>Amount</th>
+							</tr>";
+							
+							while ($rowFA = $resultFA->fetch_assoc()) {
+								echo "<tr>";
+								echo "<td>" . $rowFA["acctName"] . "</td>";
+								echo "<td>" . $rowFA["balance"] . "</td>";
+								echo "</tr>";
+							}
+							echo "</table>";
+							
+						?>
+						
                     </article>
                 </div>               
             </div>
@@ -128,6 +158,4 @@
         </body>
         <!-- Added by Marcus on 11/30 -->
         <form id="logout" method="post" action="AccountAction.php"> </form>
-	<!-- Added by Yeana on 12/05 -->
-	<form id="userRoles" method="post" action="userRoles.php"></form>
 </html>
