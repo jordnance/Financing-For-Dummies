@@ -52,10 +52,10 @@
 				$resultFA = $queryFA->get_result();
 				
 				while ($rowFA = $resultFA->fetch_assoc()) {
-					echo "<h2>Account Name &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Amount<h2>";
+					echo "<h2>Account Name &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Amount</h2>";
 					
 					printf("%s", $rowFA["acctName"]);
-					echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
+					echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
 					printf("$%8.2f", $rowFA["balance"]);
 					
 					echo "<br/><br/>";
@@ -102,10 +102,10 @@
 				$resultFA = $queryFA->get_result();
 				
 				while ($rowFA = $resultFA->fetch_assoc()) {
-					echo "<h2>Account Name &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Amount<h2>";
+					echo "<h2>Account Name &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Amount</h2>";
 					
 					printf("%s", $rowFA["acctName"]);
-					echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
+					echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
 					printf("$%8.2f", $rowFA["balance"]);
 					
 					echo "<br/><br/>";
@@ -153,10 +153,10 @@
 				$resultFA = $queryFA->get_result();
 				
 				while ($rowFA = $resultFA->fetch_assoc()) {
-					echo "<h2>Account Name &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Amount<h2>";
+					echo "<h2>Account Name &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Amount</h2>";
 					
 					printf("%s", $rowFA["acctName"]);
-					echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
+					echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
 					printf("$%8.2f", $rowFA["balance"]);
 					
 					echo "<br/><br/>";
@@ -191,7 +191,7 @@
 					}
 					
 				}
-				echo "<br/><br/><br/>";	
+				echo "<br/><br/><br/>";		
 			?>
 			
 		</div>
