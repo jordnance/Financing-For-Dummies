@@ -73,7 +73,7 @@
 
           
             
-                <form action="http://www.bmoseley.com/mailform.php" method="post">
+                <form action="#" method="post">
                     <legend>
                         If you want to reach us via email, please, fill out the form below. 
                         <br  />Type your inquiry and submit it to us! We usually get back to you within 24 hours. Thank you.
