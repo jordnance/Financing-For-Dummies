@@ -36,7 +36,7 @@
         		<li><a class="button" href="#top">Accounts</a></li>
         		<li><a class="button" href="analytics.php">Analytics</a></li>
         		<li><button class="link" form ="userRoles" href="userRoles.php">User Roles</a></button>
-        		<li><a class="button" href=newTransaction.php">New Transaction</a></li>
+        		<li><a class="button" href="newTransaction.php">New Transaction</a></li>
         		<li><a class="button" href="settings.php">Settings</a></li>
         		<li><button class="link" form="logout" name="logout">Log Out</button></li>
    		</ul>
