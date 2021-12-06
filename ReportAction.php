@@ -61,63 +61,94 @@
         exit;
     }
 
-    // Prepare a basic PDF to put results into (modified from: http://www.fpdf.org/en/script/script28.php)
+    // Prepare a basic PDF to put results into (based on: http://www.fpdf.org/en/script/script28.php)
     $pdf = new PDF_Diag();
     $pdf->AddPage();
-    // Set a title for the page at coordinates (20, 20)
+    // Set the initial page coordinates and store the value
     $pdf->SetXY(20, 20);
+    $valX = $pdf->GetX();
+    $valY = $pdf->GetY();
+
+    /*
     $pdf->SetFont('Arial', 'BIU', 12);
     $pdf->Cell(0, 5, 'Summary');
     $pdf->Ln(8);
+    */
 
     // Change font for contents
     $pdf->SetFont('Arial', '', 10);
 
-    //$valX = $pdf->GetX();
-    $valY = $pdf->GetY();
-
-    $size = 0;
-    $label = array();
-    $data = array();
+    // Prepare for having three arrays of labels and their corresponding data
+    $size = array(0, 0, 0);
+    $labels = array(array(), array(), array());
+    $data = array(array(), array(), array());
     while ($row = mysqli_fetch_assoc($result))
     {
-        // Our result has the follow values: (SetNum integer, ValName varchar(30), Val float)
-        // The first set of results is the dollar amount in each category that we're interested in generating a pie chart from
-        if ($row['SetNum'] == 0)
-        {
-            // Add this value to our list of results (both the value and name of category)
-            $size += 1;
-            $label = array_pad($label, $size, $row['ValName']);
-            $data = array_pad($data, $size, $row['Val']);
-            // And then add it to the legend beside the chart
-            $pdf->Cell(30, 5, $row['ValName']);
-            $pdf->Cell(15, 5, $row['Val'], 0, 0, 'R');
-            $pdf->Ln();
-        }
+        // Our result has the following format: (SetNum integer, ValName varchar(30), Val float)
+        // So store the name of the value in the $labels array of arrays
+        $size[$row['SetNum']] += 1;
+        $labels[$row['SetNum']] = array_pad($labels[$row['SetNum']], $size[$row['SetNum']], $row['ValName']);
+        $data[$row['SetNum']] = array_pad($data[$row['SetNum']], $size[$row['SetNum']], $row['Val']);
     }
+
+    // The first set of results is the dollar amount spent in each category.
+    // The second set of results is the names of all the categories that have exceeded their thresholds.
+    // OR, if this is a savings account, it's the dollar amount *withdrawn* from each category, and the
+    // *third* set is the name of categories exceeding thresholds.
 
     // Unfortunately, resizing an array with array_pad doesn't let us set the associative keys, only the value.
     // So, $data is only half-complete. Traverse the array now to manually combine the labels with the data.
-    for ($i = 0; $i <= $size - 1; $i++)
+    for ($array = 0; $array < 3; $array++)
     {
-        $data[$label[$i]] = $data[$i];
-        unset($data[$i]);
+        for ($i = 0; $i <= $size[$array] - 1; $i++)
+        {
+            $data[$array][$labels[$array][$i]] = $data[$array][$i];
+            unset($data[$array][$i]);
+        }
     }
 
-    // Finally, we can actually create the pie chart.
-    $pdf->SetXY(90, $valY);
+    // Set the colors to be used in each section of the pie charts
     $colors = array(array(100, 100, 255), array(255, 100, 100), array(255, 255, 100),
                     array(0, 255, 0), array(190, 135, 0), array(45, 105, 105),
                     array(255, 0, 0), array(0, 0, 255));
-    $pdf->PieChart(100, 35, $data, '%l (%p)', $colors);
 
-    // Only needed if there's going to be more contents in the PDF (soon...)
-    //$pdf->SetXY($valX, $valY + 40);
+    // Finally, we can actually create the pie chart.
+    $pdf->SetXY($valX + 30, $valY + 20);
+    $pdf->PieChart(150, 75, $data[0], '%l (%p)', $colors);
+    $valY = $pdf->GetY();
+
+    // From here, handle things differently for Savings accounts (which have an extra set of results).
+    // First, establish that the next set is 1 (the 2nd)
+    $set = 1;
+    if (strcmp($report, "Savings") == 0)
+    {
+        // Just like the first set, create another pie chart, this one for withdrawals.
+        $pdf->SetXY($valX + 30, $valY + 50);
+        $pdf->PieChart(150, 75, $data[1], '%l (%p)', $colors);
+
+        // Finally, increment the set (so savings accounts will see 2 and get the 3rd set,
+        // but the others will see 1 and get the 2nd set)
+        $set += 1;
+        // And update the Y location
+        $valY = $pdf->GetY();
+    }
+
+    // The last thing to add to the report is the list of all categories that have exceeded their threshold
+    $pdf->SetXY($valX, $valY + 50);
+    $pdf->SetFont('Arial', 'BIU', 12);
+    $pdf->Cell(0, 5, 'Categories Exceeding Threshold:');
+    $pdf->Ln(8);
+    $pdf->SetFont('Arial', '', 10);
+    for ($i = 0; $i < $size[$set]; $i++)
+    {
+        $pdf->Cell(30, 5, $data[$i]['ValName']);
+        $pdf->Ln();
+    }
 
     /* Requires directory permissions to be set to 777, so it's limited to a directory *only* for PDF files rather than all source code
        Output('D', 'name') should force download on the client side, but I'm not sure where to put it to load it back.
        I'm hoping that this current method works even with multiple users b/c it creates it and immediately displays, which
        shouldn't change until the page is reloaded, so... good enough? */
-    $pdf->Output('F', 'output/example_name.pdf');
-    echo "<iframe src='output/example_name.pdf' style='width:100%; height:400px;'></iframe>";
+    $pdf->Output('F', 'output/report.pdf');
+    echo "<iframe src='output/report.pdf' style='width:100%; height:400px;'></iframe>";
 ?>
