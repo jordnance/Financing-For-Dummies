@@ -17,7 +17,12 @@
 			crossorigin="anonymous">
 		</script>
 		<link rel="stylesheet" href="style.css">
-	
+		
+		table {border-spacing: 20px;
+			border-collapse: collapse;}
+
+		td {padding: 20px;}
+		
 	<!-- Financial Accounts Overview 
 		- A list of the accounts you have
 		- Their respective balances
@@ -51,24 +56,30 @@
 				
 				$resultFA = $queryFA->get_result();
 				
+				
+				echo "<table border='1'>
+							<tr>
+							<th>Account Name</th>
+							<th>Amount</th>
+							<th>Type</th>
+							</tr>";
+				
 				while ($rowFA = $resultFA->fetch_assoc()) {
-					echo "<h2>Account Name &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Amount</h2>";
-					
-					printf("%s", $rowFA["acctName"]);
-					echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
-					printf("$%8.2f", $rowFA["balance"]);
-					
-					echo "<br/><br/>";
-					echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Transactions</b><br/><br/>";
-					
 					echo "<tr>";
-					echo "<table>";
-					echo "<th>Name&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
-					echo "<th>Date&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
-					echo "<th>Amount&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
-					echo "<th>Category</th>";
-					echo "</tr>";
-					echo "</table>";
+								echo "<td>" . $rowFA["acctName"] . "</td>";
+								echo "<td>" . $rowFA["balance"] . "</td>";
+								echo "<td>Checking</td>";
+								echo "</tr>";
+					
+					echo "<tr><th>Transactions</th></tr>";
+							
+					
+					echo "<tr>
+							<th>Name</th>
+							<th>Date</th>
+							<th>Amount</th>
+							<th>Category</th>
+							</tr>";
 					
 					$queryT = $db->prepare("SELECT Title, Date, Amount, Category FROM Transacts NATURAL JOIN FinancialAccount WHERE acctID=?");
 					$queryT->bind_param("i", $rowFA["acctID"]);
@@ -78,15 +89,13 @@
 				 
 					$resultT = $queryT->get_result();
 					while($rowTFA = $resultT->fetch_assoc()) {
-						printf("%s", $rowTFA["Title"]);
-						echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
-						printf("%s", $rowTFA["Date"]);
-						echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;</b>";
-						printf("$%8.2f", $rowTFA["Amount"]);
-						echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
-						printf("%s", $rowTFA["Category"]);
-						
-						echo "<br/>";
+						echo "<tr>";
+								echo "<td>" . $rowTFA["Title"] . "</td>";
+								echo "<td>" . $rowTFA["Date"] . "</td>";
+								echo "<td>" . $rowTFA["Amount"] . "</td>";
+								echo "<td>" . $rowTFA["Category"] . "</td>";
+								
+								echo "</tr>";
 					}
 					
 				}
@@ -100,25 +109,28 @@
 				$queryFA->bind_result($faID, $faName, $faBalance);
 				
 				$resultFA = $queryFA->get_result();
-				
+				echo "<table border='1'>
+							<tr>
+							<th>Account Name</th>
+							<th>Amount</th>
+							<th>Type</th>
+							</tr>";
 				while ($rowFA = $resultFA->fetch_assoc()) {
-					echo "<h2>Account Name &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Amount</h2>";
-					
-					printf("%s", $rowFA["acctName"]);
-					echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
-					printf("$%8.2f", $rowFA["balance"]);
-					
-					echo "<br/><br/>";
-					echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Transactions</b><br/><br/>";
-					
 					echo "<tr>";
-					echo "<table>";
-					echo "<th>Name&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
-					echo "<th>Date&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
-					echo "<th>Amount&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
-					echo "<th>Category</th>";
-					echo "</tr>";
-					echo "</table>";
+								echo "<td>" . $rowFA["acctName"] . "</td>";
+								echo "<td>" . $rowFA["balance"] . "</td>";
+								echo "<td>Savings</td>";
+								echo "</tr>";
+					
+					echo "<tr><th>Transactions</th></tr>";
+							
+					
+					echo "<tr>
+							<th>Name</th>
+							<th>Date</th>
+							<th>Amount</th>
+							<th>Category</th>
+							</tr>";
 					
 					$queryT = $db->prepare("SELECT Title, Date, Amount, Category FROM Transacts NATURAL JOIN FinancialAccount WHERE acctID=?");
 					$queryT->bind_param("i", $rowFA["acctID"]);
@@ -128,15 +140,13 @@
 				 
 					$resultT = $queryT->get_result();
 					while($rowTFA = $resultT->fetch_assoc()) {
-						printf("%s", $rowTFA["Title"]);
-						echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
-						printf("%s", $rowTFA["Date"]);
-						echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;</b>";
-						printf("$%8.2f", $rowTFA["Amount"]);
-						echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
-						printf("%s", $rowTFA["Category"]);
-						
-						echo "<br/>";
+						echo "<tr>";
+								echo "<td>" . $rowTFA["Title"] . "</td>";
+								echo "<td>" . $rowTFA["Date"] . "</td>";
+								echo "<td>" . $rowTFA["Amount"] . "</td>";
+								echo "<td>" . $rowTFA["Category"] . "</td>";
+								
+								echo "</tr>";
 					}
 					
 				}
@@ -152,24 +162,28 @@
 				
 				$resultFA = $queryFA->get_result();
 				
+				echo "<table border='1'>
+							<tr>
+							<th>Account Name</th>
+							<th>Amount</th>
+							<th>Type</th>
+							</tr>";
 				while ($rowFA = $resultFA->fetch_assoc()) {
-					echo "<h2>Account Name &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Amount</h2>";
-					
-					printf("%s", $rowFA["acctName"]);
-					echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
-					printf("$%8.2f", $rowFA["balance"]);
-					
-					echo "<br/><br/>";
-					echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Transactions</b><br/><br/>";
-					
 					echo "<tr>";
-					echo "<table>";
-					echo "<th>Name&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
-					echo "<th>Date&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
-					echo "<th>Amount&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
-					echo "<th>Category</th>";
-					echo "</tr>";
-					echo "</table>";
+								echo "<td>" . $rowFA["acctName"] . "</td>";
+								echo "<td>" . $rowFA["balance"] . "</td>";
+								echo "<td>Loan</td>";
+								echo "</tr>";
+					
+					echo "<tr><th>Transactions</th></tr>";
+							
+					
+					echo "<tr>
+							<th>Name</th>
+							<th>Date</th>
+							<th>Amount</th>
+							<th>Category</th>
+							</tr>";
 					
 					$queryT = $db->prepare("SELECT Title, Date, Amount, Category FROM Transacts NATURAL JOIN FinancialAccount WHERE acctID=?");
 					$queryT->bind_param("i", $rowFA["acctID"]);
@@ -179,19 +193,17 @@
 				 
 					$resultT = $queryT->get_result();
 					while($rowTFA = $resultT->fetch_assoc()) {
-						printf("%s", $rowTFA["Title"]);
-						echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
-						printf("%s", $rowTFA["Date"]);
-						echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;</b>";
-						printf("$%8.2f", $rowTFA["Amount"]);
-						echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
-						printf("%s", $rowTFA["Category"]);
-						
-						echo "<br/>";
+						echo "<tr>";
+								echo "<td>" . $rowTFA["Title"] . "</td>";
+								echo "<td>" . $rowTFA["Date"] . "</td>";
+								echo "<td>" . $rowTFA["Amount"] . "</td>";
+								echo "<td>" . $rowTFA["Category"] . "</td>";
+								
+								echo "</tr>";
 					}
 					
 				}
-				echo "<br/><br/><br/>";		
+				echo "<br/><br/><br/>";	
 			?>
 			
 		</div>
