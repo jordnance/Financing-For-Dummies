@@ -58,7 +58,7 @@
                                              
 
                 <button name="displayChildAccountInfo" class="large" onclick='displayChildAccountInfo.style = "display: inline"'
-                type = "button" >--- You can delete Your Child's Financial Accounts ---</button>
+                type = "button" >--- Click here to delete Your Child's Financial Accounts ---</button>
 
                                              
                 <button name="contactWebMaster" class="large" onclick="location.href = 'userRoles3.php'"

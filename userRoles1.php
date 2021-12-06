@@ -54,7 +54,7 @@
             
             <div class="tab">
                 <button name="displayChildFiInfo" class="large" onclick='displayChildFiInfo.style = "display: inline"'
-                type = "button" >--- You are viewing your Child's Financial Accounts ---</button>
+                type = "button" >--- Click here to view your Child's Financial Accounts ---</button>
 
                 <button name="deleteChildFiAccount" class="large" onclick="location.href = 'userRoles2.php'"
                 type = "button" >Delete Your Child's Financial Accounts</button>
