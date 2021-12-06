@@ -86,7 +86,7 @@
         <li><a class="button" href="home.php">Home</a></li>
         <li><a class="button" href="">Accounts</a></li>
         <li><a class="button" href="#top">Analytics</a></li>
-        <li><a class="button" href="">User Roles</a></li>
+        <li><button class="link" form ="userRoles" href="userRoles.php">User Roles</a></button>
         <li><a class="button" href="newTransaction.php">New Transaction</a></li>
         <li><a class="button" href="settings.php">Settings</a></li>
         <li><button class="link" form="logout" name="logout">Log Out</button></li>
@@ -179,6 +179,8 @@
 <!-- These empty forms don't show any content on the page, but they do allow
      for buttons to invoke PHP without using Javascript every time. -->
 <form id="logout" method="post" action="AccountAction.php"></form>
+<!-- Added by Yeana on 12/05 -->
+<form id="userRoles" method="post" action="userRoles.php"></form>
 <!-- Called when the checking button in the left column is pressed so that the center column
      knows to adjust its display to accomodate the new buttons because of the hidden input
      field that includes $_POST['dropdown']. -->
