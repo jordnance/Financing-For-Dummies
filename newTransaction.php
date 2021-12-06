@@ -8,6 +8,45 @@ if (!isset($_SESSION['usrID']))
     header("Location: index.php");
     exit;
 }
+
+unset($acct);
+unset($resID);
+unset($title);
+unset($date);
+unset($amount);
+unset($category);
+
+$acctErr = $dateErr = $amountErr = $categoryErr = "";
+$acct = $title = $date = $amount = $category = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") 
+{
+  if (empty($_POST['account'])) {
+    $acctErr = "Account is required";
+  }
+  else {
+    $acct = $_POST['account'];
+  }
+
+  $title = $_POST['title'];
+  //$date = test_input($_POST["date"]);
+  $date = $_POST["date"];
+
+  if (empty($_POST['amount'])) {
+    $amountErr = "Amount is required";
+  } 
+  else {
+    //$amount = test_input($_POST['amount']);
+    $amount = $_POST['amount'];
+  }
+  if (empty($_POST['category'])) {
+    $categoryErr = "Category is required";
+  } 
+  else {
+    //$category = test_input($_POST['category']);
+    $category = $_POST['category'];
+  }
+}
 ?>
 
 <html>
@@ -63,7 +102,7 @@ if (!isset($_SESSION['usrID']))
 	<p class="tableForm">
 		<label class="tableForm" style="padding-right:5px;">Transaction Amount:</label>
     <input type="text" name="amount" style="width:165px;"></label>
-    <span class="error">* <?php echo $amountErr;?></span>
+    <span class="error"> * <?php echo $amountErr;?></span>
 	</p>
 	<p class="tableForm">
 		<label class="tableForm" style="padding-right:5px;">Transaction Category:</label>
@@ -74,42 +113,6 @@ if (!isset($_SESSION['usrID']))
 </form>
 
 <?php
-$acctErr = $dateErr = $amountErr = $categoryErr = "";
-$acct = $title = $date = $amount = $category = "";
-
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") 
-{
-  //echo "Test2";
-  if (!isset($_POST['account'])) {
-    $acctErr = "Account is required";
-  }
-  else {
-    $acct = $_POST['account'];
-  }
-
-  $title = $_POST['title'];
-  //$date = test_input($_POST["date"]);
-  $date = $_POST["date"];
-
-  if (empty($_POST['amount'])) {
-    $amountErr = "Amount is required";
-  } 
-  else {
-    $amount = $_POST['amount'];
-    //$amount = test_input($_POST['amount']);
-    $amount_float = (float) $amount;
-    //$amount = $_POST['amount'];
-  }
-  if (empty($_POST['category'])) {
-    $categoryErr = "Category is required";
-  } 
-  else {
-    //$category = test_input($_POST['category']);
-    $category = $_POST['category'];
-  }
-}
-
 $found = false;
 $db = get_connection();
 while (!$found)
@@ -117,31 +120,34 @@ while (!$found)
   $query = $db->prepare("SELECT acctID FROM Checking NATURAL JOIN FinancialAccount WHERE usrID=?");
   $query->bind_param('i', $_SESSION['usrID']);
   $query->execute();
-  $query->bind_result($resID);
+  $query->bind_result($acct);
   if ($query->fetch())
     $found = true;
+    break;
   
   $query = $db->prepare("SELECT acctID FROM Loan NATURAL JOIN FinancialAccount WHERE usrID=?");
   $query->bind_param('i', $_SESSION['usrID']);
   $query->execute();
-  $query->bind_result($resID);
+  $query->bind_result($acct);
   if ($query->fetch())
     $found = true;
+    break;
 
   $query = $db->prepare("SELECT acctID FROM Savings NATURAL JOIN FinancialAccount WHERE usrID=?");
   $query->bind_param('i', $_SESSION['usrID']);
   $query->execute();
-  $query->bind_result($resID);
+  $query->bind_result($acct);
   if ($query->fetch())
     $found = true;
+    break;
 }
 
-if (isset($resID) && isset($amount_float) && isset($category))
+if (isset($acct) && isset($amount) && isset($category) && !empty($acct) && !empty($amount) && !empty($category))
 {
-  echo "Test 1 ";
-  //$result = $db->prepare("INSERT INTO Transacts (usrID, acctID, Title, Date, Category) VALUES (?, ?, ?, ?, ?, ?)");
-  //$result->bind_param('iissds', $_SESSION['usrID'], $resID, $title, $date, $amount_float, $category);
-  echo "Test 2 ";
+  //echo "Pretest";
+  $result = $db->prepare("INSERT INTO Transacts (usrID, acctID, Title, Date, Amount, Category) VALUES (?, ?, ?, ?, ?, ?)");
+  $result->bind_param('iissds', $_SESSION['usrID'], $acct, $title, $date, $amount, $category);
+  echo "Test";  // bind_param above not working
   $result->execute();
   echo "<br>Your transaction has been added!<br>";
 }
