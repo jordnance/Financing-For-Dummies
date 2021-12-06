@@ -43,7 +43,7 @@
 			
 			<?php
 				$db = get_connection();
-				
+			
 				$queryFA = $db->prepare("SELECT acctID, acctName, balance FROM FinancialAccount NATURAL JOIN Checking WHERE usrID=?");
 				$queryFA->bind_param("i", $_SESSION['usrID']);
 				$queryFA->execute();
@@ -52,16 +52,24 @@
 				$resultFA = $queryFA->get_result();
 				
 				while ($rowFA = $resultFA->fetch_assoc()) {
-					echo "<h2>Account Name							Amount<h2>";    
-					printf("%s	$%8.2f", $rowFA["acctName"], $rowFA["balance"]);
-					echo "<table>";
+					echo "<h2>Account Name &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Amount<h2>";
+					
+					printf("%s", $rowFA["acctName"]);
+					echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
+					printf("$%8.2f", $rowFA["balance"]);
+					
+					echo "<br/><br/>";
+					echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Transactions</b><br/><br/>";
+					
 					echo "<tr>";
-					echo "<th>Name</th>";
-					echo "<th>Date</th>";
-					echo "<th>Amount</th>";
+					echo "<table>";
+					echo "<th>Name&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
+					echo "<th>Date&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
+					echo "<th>Amount&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
 					echo "<th>Category</th>";
 					echo "</tr>";
 					echo "</table>";
+					
 					$queryT = $db->prepare("SELECT Title, Date, Amount, Category FROM Transacts NATURAL JOIN FinancialAccount WHERE acctID=?");
 					$queryT->bind_param("i", $rowFA["acctID"]);
 					$queryT->execute();
@@ -70,13 +78,19 @@
 				 
 					$resultT = $queryT->get_result();
 					while($rowTFA = $resultT->fetch_assoc()) {
-						printf("%s %s $%8.2f %s", $rowTFA["Title"], $rowTFA["Date"], $rowTFA["Amount"], $rowTFA["Category"]);
+						printf("%s", $rowTFA["Title"]);
+						echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
+						printf("%s", $rowTFA["Date"]);
+						echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;</b>";
+						printf("$%8.2f", $rowTFA["Amount"]);
+						echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
+						printf("%s", $rowTFA["Category"]);
+						
 						echo "<br/>";
 					}
 					
 				}
-				echo "<br/>";
-				echo "<br/>";
+				echo "<br/><br/><br/>";	
 			?>
 			
 			<?php
@@ -88,15 +102,24 @@
 				$resultFA = $queryFA->get_result();
 				
 				while ($rowFA = $resultFA->fetch_assoc()) {
-					printf("%s	$%8.2f", $rowFA["acctName"], $rowFA["balance"]);
-					echo "<table>";
+					echo "<h2>Account Name &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Amount<h2>";
+					
+					printf("%s", $rowFA["acctName"]);
+					echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
+					printf("$%8.2f", $rowFA["balance"]);
+					
+					echo "<br/><br/>";
+					echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Transactions</b><br/><br/>";
+					
 					echo "<tr>";
-					echo "<th>Name</th>";
-					echo "<th>Date</th>";
-					echo "<th>Amount</th>";
+					echo "<table>";
+					echo "<th>Name&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
+					echo "<th>Date&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
+					echo "<th>Amount&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
 					echo "<th>Category</th>";
 					echo "</tr>";
 					echo "</table>";
+					
 					$queryT = $db->prepare("SELECT Title, Date, Amount, Category FROM Transacts NATURAL JOIN FinancialAccount WHERE acctID=?");
 					$queryT->bind_param("i", $rowFA["acctID"]);
 					$queryT->execute();
@@ -105,17 +128,23 @@
 				 
 					$resultT = $queryT->get_result();
 					while($rowTFA = $resultT->fetch_assoc()) {
-						printf("%s %s $%8.2f %s", $rowTFA["Title"], $rowTFA["Date"], $rowTFA["Amount"], $rowTFA["Category"]);
+						printf("%s", $rowTFA["Title"]);
+						echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
+						printf("%s", $rowTFA["Date"]);
+						echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;</b>";
+						printf("$%8.2f", $rowTFA["Amount"]);
+						echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
+						printf("%s", $rowTFA["Category"]);
+						
 						echo "<br/>";
 					}
 					
 				}
-				echo "<br/>";
-				echo "<br/>";
+				echo "<br/><br/><br/>";	
 			?>
 			
 			
-			<?php	
+			<?php
 				$queryFA = $db->prepare("SELECT acctID, acctName, balance FROM FinancialAccount NATURAL JOIN Loan WHERE usrID=?");
 				$queryFA->bind_param("i", $_SESSION['usrID']);
 				$queryFA->execute();
@@ -124,15 +153,24 @@
 				$resultFA = $queryFA->get_result();
 				
 				while ($rowFA = $resultFA->fetch_assoc()) {
-					printf("%s	$%8.2f", $rowFA["acctName"], $rowFA["balance"]);
-					echo "<table>";
+					echo "<h2>Account Name &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Amount<h2>";
+					
+					printf("%s", $rowFA["acctName"]);
+					echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
+					printf("$%8.2f", $rowFA["balance"]);
+					
+					echo "<br/><br/>";
+					echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Transactions</b><br/><br/>";
+					
 					echo "<tr>";
-					echo "<th>Name</th>";
-					echo "<th>Date</th>";
-					echo "<th>Amount</th>";
+					echo "<table>";
+					echo "<th>Name&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
+					echo "<th>Date&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
+					echo "<th>Amount&emsp;&emsp;&emsp;&emsp;&emsp;</th>";
 					echo "<th>Category</th>";
 					echo "</tr>";
 					echo "</table>";
+					
 					$queryT = $db->prepare("SELECT Title, Date, Amount, Category FROM Transacts NATURAL JOIN FinancialAccount WHERE acctID=?");
 					$queryT->bind_param("i", $rowFA["acctID"]);
 					$queryT->execute();
@@ -141,10 +179,19 @@
 				 
 					$resultT = $queryT->get_result();
 					while($rowTFA = $resultT->fetch_assoc()) {
-						printf("%s %s $%8.2f %s", $rowTFA["Title"], $rowTFA["Date"], $rowTFA["Amount"], $rowTFA["Category"]);
+						printf("%s", $rowTFA["Title"]);
+						echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
+						printf("%s", $rowTFA["Date"]);
+						echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;</b>";
+						printf("$%8.2f", $rowTFA["Amount"]);
+						echo "<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</b>";
+						printf("%s", $rowTFA["Category"]);
+						
 						echo "<br/>";
 					}
+					
 				}
+				echo "<br/><br/><br/>";	
 			?>
 			
 		</div>
