@@ -46,7 +46,7 @@ BEGIN
                 CREATE TEMPORARY TABLE returnTable (SetNum integer, ValName varchar(30), Val float);
                 -- Add the total amount spent in each category to the results
                 INSERT INTO returnTable (SetNum, ValName, Val)
-                    SELECT 0, Category, SumSpent FROM Spending ORDER BY SumSpent ASC;
+                    SELECT 0, Category, SumSpent FROM Spending ORDER BY SumSpent DESC;
                 -- Add the threshold for each category that has been exceeded to the results
                 INSERT INTO returnTable (SetNum, ValName, Val)
                     SELECT 1, Category, Threshold FROM Spending
@@ -99,10 +99,10 @@ BEGIN
                 CREATE TEMPORARY TABLE returnTable (SetNum integer, ValName varchar(30), Val float);
                 -- Add the total amount deposited to each category to the results
                 INSERT INTO returnTable 
-                    SELECT 0, Category, SumDeposited FROM Deposited ORDER BY SumDeposited ASC;
+                    SELECT 0, Category, SumDeposited FROM Deposited ORDER BY SumDeposited DESC;
                 -- Add the total amount withdrawn from each category to the results
                 INSERT INTO returnTable 
-                    SELECT 1, Category, SumWithdrawn FROM Withdrawn ORDER BY SumWithdrawn ASC;
+                    SELECT 1, Category, SumWithdrawn FROM Withdrawn ORDER BY SumWithdrawn DESC;
                 -- Add the categories where the amount withdrawn exceeded its threshold
                 INSERT INTO returnTable
                     SELECT 2, Category, Threshold FROM Withdrawn
@@ -140,7 +140,7 @@ BEGIN
                 CREATE TEMPORARY TABLE returnTable (SetNum integer, ValName varchar(30), Val float);
                 -- Add the total amount payed to each category of loan to the results
                 INSERT INTO returnTable 
-                    SELECT 0, Category, SumPaid FROM Paid ORDER BY SumPaid;
+                    SELECT 0, Category, SumPaid FROM Paid ORDER BY SumPaid DESC;
                 -- Add the categories where the amount withdrawn exceeded its threshold
                 INSERT INTO returnTable
                     SELECT 1, Category, Threshold FROM Paid
