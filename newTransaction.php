@@ -29,22 +29,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
   }
 
   $title = $_POST['title'];
-  //$date = test_input($_POST["date"]);
-  $date = $_POST["date"];
+  $date = test_input($_POST['date']);
+  //$new_date = date('Y-m-d', $date);
 
   if (empty($_POST['amount'])) {
     $amountErr = "Amount is required";
   } 
   else {
-    //$amount = test_input($_POST['amount']);
-    $amount = $_POST['amount'];
+    $amount = test_input($_POST['amount']);
   }
   if (empty($_POST['category'])) {
     $categoryErr = "Category is required";
   } 
   else {
-    //$category = test_input($_POST['category']);
-    $category = $_POST['category'];
+    $category = test_input($_POST['category']);
   }
 }
 ?>
@@ -63,8 +61,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     return $data;
   }
   ?>
-</head>
 
+</head>
 <body>
   <div id="header">
   	<h1>Financing for Dummies</h1>
@@ -107,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 	<p class="tableForm">
 		<label class="tableForm" style="padding-right:5px;">Transaction Category:</label>
     <input type="text" name="category" style="width:165px;"></label>
-    <span class="error">* <?php echo $categoryErr;?></span>
+    <span class="error"> * <?php echo $categoryErr;?></span>
 	</p>
   <input class="link" type="submit" name="submit" value="SUBMIT"><br/><br/>
 </form>
@@ -121,35 +119,40 @@ while (!$found)
   $query->bind_param('i', $_SESSION['usrID']);
   $query->execute();
   $query->bind_result($acct);
-  if ($query->fetch())
+  if ($query->fetch()) {
     $found = true;
+    $query->close();
     break;
-  
+  }
+
   $query = $db->prepare("SELECT acctID FROM Loan NATURAL JOIN FinancialAccount WHERE usrID=?");
   $query->bind_param('i', $_SESSION['usrID']);
   $query->execute();
   $query->bind_result($acct);
-  if ($query->fetch())
+  if ($query->fetch()) {
     $found = true;
+    $query->close();
     break;
-
+  }
+  
   $query = $db->prepare("SELECT acctID FROM Savings NATURAL JOIN FinancialAccount WHERE usrID=?");
   $query->bind_param('i', $_SESSION['usrID']);
   $query->execute();
   $query->bind_result($acct);
-  if ($query->fetch())
+  if ($query->fetch()) {
     $found = true;
+    $query->close();
     break;
+  }
+  break;
 }
 
 if (isset($acct) && isset($amount) && isset($category) && !empty($acct) && !empty($amount) && !empty($category))
 {
-  //echo "Pretest";
   $result = $db->prepare("INSERT INTO Transacts (usrID, acctID, Title, Date, Amount, Category) VALUES (?, ?, ?, ?, ?, ?)");
   $result->bind_param('iissds', $_SESSION['usrID'], $acct, $title, $date, $amount, $category);
-  echo "Test";  // bind_param above not working
   $result->execute();
-  echo "<br>Your transaction has been added!<br>";
+  echo "Your transaction has been added!<br>";
 }
 ?>
 
