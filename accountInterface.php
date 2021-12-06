@@ -33,10 +33,10 @@
     		</div>
     		<ul id="navigation">
         		<li><a class="button" href="home.php">Home</a></li>
-        		<li><a class="button" href="accountInterface.php">Accounts</a></li>
+        		<li><a class="button" href="#top">Accounts</a></li>
         		<li><a class="button" href="analytics.php">Analytics</a></li>
         		<li><button class="link" form ="userRoles" href="userRoles.php">User Roles</a></button>
-        		<li><a class="button" href="#top">New Transaction</a></li>
+        		<li><a class="button" href=newTransaction.php">New Transaction</a></li>
         		<li><a class="button" href="settings.php">Settings</a></li>
         		<li><button class="link" form="logout" name="logout">Log Out</button></li>
    		</ul>
