@@ -1,6 +1,6 @@
- <!-- userRoles page allows Adult users to view their Child accounts info if there are any by default.
- userRoles page allows Adults to share or block their accounts with Child accounts.
- userRoles page does NOT allow Child users to view their parent(Adult) accounts info by default. -->
+<!-- userRoles page allows Adult users to view their Child accounts info if there are any by default: useRoles1.php
+ userRoles page allows Adult users to delete their child financial accounts: usrRoles2.php
+ userRoles page allows both Adult and Child users to contact the Web master: usrRoles3.php-->
 
 
 <!DOCTYPE html>
@@ -58,16 +58,14 @@
                                              
 
                 <button name="displayChildAccountInfo" class="large" onclick='displayChildAccountInfo.style = "display: inline"'
-                type = "button" >--- You can delete Your Child's Financial Accounts ---</button>
+                type = "button" >--- Click here to delete Your Child's Financial Accounts ---</button>
 
                                              
                 <button name="contactWebMaster" class="large" onclick="location.href = 'userRoles3.php'"
                 type = "button" >Email Our Web Master</button>
             </div>  
             
-            
-            <!--$sqlForView = "SELECT acctName, Balance FROM FinancialAccount WHERE usrID=?" -->
-
+           
             <div id="displayChildAccountInfo" class="tabcontent">
                 <table border="2">
                 <tr>
