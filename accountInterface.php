@@ -17,11 +17,7 @@
 			crossorigin="anonymous">
 		</script>
 		<link rel="stylesheet" href="style.css">
-		
-		table {border-spacing: 20px;
-			border-collapse: collapse;}
 
-		td {padding: 20px;}
 		
 	<!-- Financial Accounts Overview 
 		- A list of the accounts you have
