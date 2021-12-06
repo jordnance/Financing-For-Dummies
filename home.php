@@ -61,16 +61,16 @@
         /* Added by Marcus on 11/30 
            I don't think I got this done quite right
            (or efficiently), but it's pretty close? Maybe? */
-        button.link {background: none;
-                     border: none;
-                     color: #000000;
-                     text-transform: uppercase;
-                     text-decoration: none;
-                     text-align: center;
-                     cursor: pointer;
-                     padding: 6px 18px 5px 18px;
-                     font-family: Georgia;
-                     font-size: 15px;}
+        button.link { background: none;
+                      border: none;
+                      color: #000000;
+                      text-transform: uppercase;
+                      text-decoration: none;
+                      text-align: center;
+                      cursor: pointer;
+                      padding: 6px 18px 5px 18px;
+                      font-family: Georgia;
+                      font-size: 15px;}
 
         button.link:hover {color: #cc3333;
                            background-color: #ffffff;}
@@ -87,7 +87,12 @@
                  width: auto;
                  background-color: #B9D9EB;
                  height: auto;
-                 margin-top: 10px;}
+                 margin-top: 15px;}
+		
+		table {border-spacing: 20px;
+			border-collapse: collapse;}
+
+		td {padding: 20px;}
         
         #main:after  {content: "";
                       display: table;
@@ -114,6 +119,31 @@
                 <div id="main">
                     <article>
                         <!-- Place default table here! -->
+						<?php
+							$db = get_connection();
+			
+							$queryFA = $db->prepare("SELECT acctID, acctName, balance FROM FinancialAccount WHERE usrID=?");
+							$queryFA->bind_param("i", $_SESSION['usrID']);
+							$queryFA->execute();
+							$queryFA->bind_result($faID, $faName, $faBalance);
+				
+							$resultFA = $queryFA->get_result();
+							echo "<table border='1'>
+							<tr>
+							<th>Account Name</th>
+							<th>Amount</th>
+							</tr>";
+							
+							while ($rowFA = $resultFA->fetch_assoc()) {
+								echo "<tr>";
+								echo "<td>" . $rowFA["acctName"] . "</td>";
+								echo "<td>" . $rowFA["balance"] . "</td>";
+								echo "</tr>";
+							}
+							echo "</table>";
+							
+						?>
+						
                     </article>
                 </div>               
             </div>
