@@ -8,6 +8,12 @@
 
 <?php
 require_once "config.php";
+
+if (!isset($_SESSION['usrID']))
+{
+    header("Location: index.php");
+    exit;
+}
 ?>
 
 <body>
@@ -20,7 +26,7 @@ require_once "config.php";
         <li><a class="button" href="analytics.php">Analytics</a></li>
         <li><button class="link" form ="userRoles" href="userRoles.php">User Roles</a></button>
         <li><a class="button" href="newTransaction.php">New Transaction</a></li>
-        <li><a class="button" href="#top">Settings</a></li>
+        <li><a class="button" href="#settings.php">Settings</a></li>
         <li><button class="link" form="logout" name="logout">Log Out</button></li>
     </ul>
 
