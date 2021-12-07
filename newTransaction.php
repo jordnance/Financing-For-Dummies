@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
       <div class="dropdown">
           <li class="menu">Create New
               <div class="dropdown-content" style="left: -15px;">
-                  <a class="button" style="display:block;" href="">Account</a>
+                  <a class="button" style="display:block;" href="newFinancialAccount.php">Account</a>
                   <a class="button" style="display:block;" href="newTransaction.php">Transaction</a>
                   <a class="button" style="display:block;" href="">Threshold</a>
               </div>
@@ -167,9 +167,20 @@ while (!$found)
 
 if (isset($acct) && isset($amount) && isset($category) && !empty($acct) && !empty($amount) && !empty($category))
 {
-  $result = $db->prepare("INSERT INTO Transacts (usrID, acctID, Title, Date, Amount, Category) VALUES (?, ?, ?, ?, ?, ?)");
-  $result->bind_param('iissds', $_SESSION['usrID'], $acct, $title, $date, $amount, $category);
-  $result->execute();
+  // if-else added by Marcus on 12/6 to catch empty $date variables and use a different insert command so that the
+  // default value is used rather than an empty string, which causes big problems downstream
+  if (strlen($date) > 0)
+  {
+    $result = $db->prepare("INSERT INTO Transacts (usrID, acctID, Title, Date, Amount, Category) VALUES (?, ?, ?, ?, ?, ?)");
+    $result->bind_param('iissds', $_SESSION['usrID'], $acct, $title, $date, $amount, $category);
+    $result->execute();
+  }
+  else
+  {
+    $result = $db->prepare("INSERT INTO Transacts (usrID, acctID, Title, Amount, Category) VALUES (?, ?, ?, ?, ?)");
+    $result->bind_param('iisss', $_SESSION['usrID'], $acct, $title, $amount, $category);
+    $result->execute();
+  }
   echo "Your transaction has been added!<br>";
 }
 ?>

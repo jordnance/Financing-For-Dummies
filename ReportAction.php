@@ -111,10 +111,10 @@
         $pdf->Cell(30, 5, "Deposits");
     }
 
+    $pdf->SetXY($valX + 30, $valY + 20);
     if ($size[0] > 0)
     {
         // If the first set has something in it, make a pie chart from it
-        $pdf->SetXY($valX + 30, $valY + 20);
         $pdf->PieChart(150, 50, $data[0], '%l, $%v (%p)', $colors);
         $valY = $pdf->GetY();
     }
