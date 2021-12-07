@@ -72,14 +72,16 @@
 				$resultFA = $queryFA->get_result();
 				
 				
-				echo "<table border='1'>
+				
+				
+				while ($rowFA = $resultFA->fetch_assoc()) {
+					echo "<table border='1'>
 							<tr>
 							<th>Account Name</th>
 							<th>Amount</th>
 							<th>Type</th>
 							</tr>";
-				
-				while ($rowFA = $resultFA->fetch_assoc()) {
+					
 					echo "<tr>";
 								echo "<td>" . $rowFA["acctName"] . "</td>";
 								echo "<td>" . $rowFA["balance"] . "</td>";
@@ -112,8 +114,9 @@
 								
 								echo "</tr>";
 					}
-					
+					$queryT->close();
 				}
+				$queryFA->close();
 				echo "<br/><br/><br/>";	
 			?>
 			
@@ -124,13 +127,15 @@
 				$queryFA->bind_result($faID, $faName, $faBalance);
 				
 				$resultFA = $queryFA->get_result();
-				echo "<table border='1'>
+				
+				while ($rowFA = $resultFA->fetch_assoc()) {
+					echo "<table border='1'>
 							<tr>
 							<th>Account Name</th>
 							<th>Amount</th>
 							<th>Type</th>
 							</tr>";
-				while ($rowFA = $resultFA->fetch_assoc()) {
+					
 					echo "<tr>";
 								echo "<td>" . $rowFA["acctName"] . "</td>";
 								echo "<td>" . $rowFA["balance"] . "</td>";
@@ -163,8 +168,9 @@
 								
 								echo "</tr>";
 					}
-					
+					$queryT->close();
 				}
+				$queryFA->close();
 				echo "<br/><br/><br/>";	
 			?>
 			
@@ -176,14 +182,20 @@
 				$queryFA->bind_result($faID, $faName, $faBalance);
 				
 				$resultFA = $queryFA->get_result();
+				if (($rowFA = $resultFA->fetch_assoc()) <= 0) {
+					echo "<h2>No accounts found...</h2>";
+					echo "<p>You have not created any financial account.</p>
+                    <p>You can add one and start logging your financial activities by clicking CREATE NEW.</p>";
+				}
 				
-				echo "<table border='1'>
+				while ($rowFA = $resultFA->fetch_assoc()) {
+					echo "<table border='1'>
 							<tr>
 							<th>Account Name</th>
 							<th>Amount</th>
 							<th>Type</th>
 							</tr>";
-				while ($rowFA = $resultFA->fetch_assoc()) {
+					
 					echo "<tr>";
 								echo "<td>" . $rowFA["acctName"] . "</td>";
 								echo "<td>" . $rowFA["balance"] . "</td>";
@@ -216,8 +228,9 @@
 								
 								echo "</tr>";
 					}
-					
+					$queryT->close();
 				}
+				$queryFA->close();
 				echo "<br/><br/><br/>";	
 			?>
 	
