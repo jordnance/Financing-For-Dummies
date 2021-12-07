@@ -17,15 +17,28 @@ unset($amount);
 unset($category);
 
 $acctErr = $dateErr = $amountErr = $categoryErr = "";
-$acct = $title = $date = $amount = $category = "";
+$selectedRadio = $acct = $title = $date = $amount = $category = "";
+$checkingStatus = 'unchecked';
+$loanStatus = 'unchecked';
+$savingsStatus = 'unchecked';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") 
 {
-  if (empty($_POST['account'])) {
+  if (empty($_POST['checking']) || empty($_POST['loan']) || empty($_POST['savings'])) {
     $acctErr = "Account is required";
   }
   else {
+    $selectedRadio = $_POST['account'];
     $acct = $_POST['account'];
+    if ($selectedRadio == 'checking') {
+      $checkingStatus = 'checked';
+    }
+    else if ($selectedRadio == 'loan') {
+      $loanStatus = 'checked';
+    }
+    else if ($selectedRadio == 'savings') {
+      $savingsStatus = 'checked';
+    }
   }
 
   $title = $_POST['title'];
@@ -129,10 +142,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 </form>
 
 <?php
-$found = false;
 $db = get_connection();
-while (!$found)
-{
+
+if ($checkingStatus = 'checked') {
   $query = $db->prepare("SELECT acctID FROM Checking NATURAL JOIN FinancialAccount WHERE usrID=?");
   $query->bind_param('i', $_SESSION['usrID']);
   $query->execute();
@@ -140,9 +152,10 @@ while (!$found)
   if ($query->fetch()) {
     $found = true;
     $query->close();
-    break;
-  }
+  } 
+}
 
+if ($loanStatus = 'checked') {
   $query = $db->prepare("SELECT acctID FROM Loan NATURAL JOIN FinancialAccount WHERE usrID=?");
   $query->bind_param('i', $_SESSION['usrID']);
   $query->execute();
@@ -150,9 +163,10 @@ while (!$found)
   if ($query->fetch()) {
     $found = true;
     $query->close();
-    break;
   }
-  
+}
+
+if ($savingsStatus = 'checked') {
   $query = $db->prepare("SELECT acctID FROM Savings NATURAL JOIN FinancialAccount WHERE usrID=?");
   $query->bind_param('i', $_SESSION['usrID']);
   $query->execute();
@@ -160,9 +174,8 @@ while (!$found)
   if ($query->fetch()) {
     $found = true;
     $query->close();
-    break;
+    //break;
   }
-  break;
 }
 
 if (isset($acct) && isset($amount) && isset($category) && !empty($acct) && !empty($amount) && !empty($category))
