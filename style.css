@@ -20,12 +20,6 @@
     margin: auto auto 8px auto;
 }
 
-#footer {
-    background-color: #777;
-    padding: 10px;
-    text-align: center;
-    color: white;
-}
 
 ul {
     width: auto;
@@ -187,14 +181,6 @@ article {
     margin-top: 15px;
 }
 
-table.spaced {
-    border-spacing: 20px;
-    border-collapse: collapse;
-}
-
-td.spaced {
-    padding: 20px;
-}
 
 /* Credit for dropdown classes: https://www.w3schools.com/css/tryit.asp?filename=trycss_dropdown_text */
 
@@ -256,3 +242,27 @@ label.tableForm {
 .tabcontent {
     display:none;
 }
+
+/**************************************************/
+/*Side-wide table design changed uppon adding this*/
+/****Let's give our tables some color and more ****/
+/**************************************************/
+
+table {border-spacing: 20px;
+       width: 70%;
+    }
+
+th {text-align: center;
+    background: #abc9e9;
+    padding: 20px;
+    border-collapse: separate;
+}
+
+
+td {text-align: center;
+    border-collapse: collapse;
+    padding: 10px;} 
+ 
+
+tr:nth-child(even) {
+background-color: #D6EEEE;}
