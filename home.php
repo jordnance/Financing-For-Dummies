@@ -51,35 +51,117 @@
                     <li><button class="link" form="logout" name="logout">Log Out</button></li>
                 </ul>
 
+                <!-- div main re-structured by Yeana on 12/06 to generate proper greetings the User upon logging in to the app
+                     and encourage the User to add a finanancial account to start recording financial activities -->
+
                 <div id="main">
                     <article>
                         <!-- Place default table here! -->
-                        <?php
-                            $db = get_connection();
-            
-                            $queryFA = $db->prepare("SELECT acctID, acctName, balance FROM FinancialAccount WHERE usrID=?");
-                            $queryFA->bind_param("i", $_SESSION['usrID']);
-                            $queryFA->execute();
-                            $queryFA->bind_result($faID, $faName, $faBalance);
-                
-                            $resultFA = $queryFA->get_result();
-                            echo "<table class='spaced' border='1'>
-                            <tr>
-                            <th>Account Name</th>
-                            <th>Amount</th>
-                            </tr>";
-                            
-                            while ($rowFA = $resultFA->fetch_assoc()) {
-                                echo "<tr>";
-                                echo "<td class='spaced'>" . $rowFA["acctName"] . "</td>";
-                                echo "<td class='spaced'>" . $rowFA["balance"] . "</td>";
-                                echo "</tr>";
+
+                        
+						<?php
+							$db = get_connection();
+			
+							
+                            $queryUserName = $db->prepare("SELECT fName FROM User WHERE usrID=?");
+                            $queryUserName->bind_param("i", $_SESSION['usrID']);
+                            if($queryUserName->execute())
+                            {
+                                $resultUserName = $queryUserName->get_result();
+                                while($queryGetUserName = $resultUserName->fetch_assoc())
+                                {
+                                    $fNameUserName = $queryGetUserName['fName'];
+                                    echo "<h2>Hello, {$fNameUserName}!</h2>";
+                                
+                                }
+                                $queryUserName->close();
+
                             }
-                            echo "</table>";
                             
+                            else
+                            {
+                                echo "<h2>Something went wrong!</h2>";
+                            }
                         ?>
+
+                        <?php
+
+                            $db = get_connection();
+                            
+                            $queryFiExist = $db->prepare("SELECT acctID FROM FinancialAccount WHERE usrID=?");
+                            $queryFiExist->bind_param("i", $_SESSION['usrID']);
+                            
+                            if($queryFiExist->execute())
+                            {
+                                $result = $queryFiExist->get_result(); 
+
+                                $count = 0;
+
+                                while($query1 = $result->fetch_assoc())
+                                {
+                                    $acctIDUser = $query1['acctID'];
+                                    $count += 1;
+                                    
+
+                                }
+
+                                if($count == 0)                                        
+                                {                      
+                                    
+                                    echo "<p>You have not created any financial account.</p>
+                                    <p>You can add one and start logging your financial activities by clicking CREATE NEW.</p>";
+                                                                                
+                                }
+
+                                elseif($count != 0)
+                                {
+
+                                    echo "<p>Logging your financial activities is a great habit!";
+                                    $queryFA = $db->prepare("SELECT acctID, acctName, balance FROM FinancialAccount WHERE usrID=?");
+                                    $queryFA->bind_param("i", $_SESSION['usrID']);
+        
+                                  
+                                    if($queryFA->execute())
+                                    {   
+                                        $queryFA->bind_result($faID, $faName, $faBalance);
+                            
+                                        $resultFA = $queryFA->get_result();
+        
+                                        
+                                        echo "<table border='2'>
+                                        <tr>
+                                        <th style='background-color:#488AC7'>Name of Your Financial Account</th>
+                                        <th style='background-color:#488AC7'>Amount</th>
+                                        </tr>";
+                                        
+
+                                        
+                                        while ($rowFA = $resultFA->fetch_assoc()) 
+                                        {
+                                            echo "<tr>";
+                                            echo "<td>" . $rowFA["acctName"] . "</td>";
+                                            echo "<td>&#36; " . $rowFA["balance"] . "</td>";
+                                            echo "</tr>";
+                                            
+                                                                               
+                                        }
+                                        echo "</table>";
+                                        
+        
+                                    }
+
+                                }
+                            
+                            }
+                     
+
+                            $queryFiExist->close();
+                     
+
+                        ?>
+				
                     </article>
-                </div>               
+                </div>              
             </div>
             <!-- Added by Marcus on 12/1 -->
             <?php
