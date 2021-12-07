@@ -24,7 +24,7 @@ $savingsStatus = 'unchecked';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") 
 {
-  if (empty($_POST['checking']) || empty($_POST['loan']) || empty($_POST['savings'])) {
+  if (empty($_POST['account'])) {
     $acctErr = "Account is required";
   }
   else {
@@ -113,9 +113,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
   <p class="tableForm" style="width:300px;">
     <label class="tableForm">Account type:</label>
     <label class="tableForm">
-      <input type="radio" name="account" id="checking">Checking
-      <input type="radio" name="account" id="loan">Loan
-      <input type="radio" name="account" id="savings">Savings
+      <input type="radio" name="account" value="checking">Checking
+      <input type="radio" name="account" value="loan">Loan
+      <input type="radio" name="account" value="savings">Savings
       <span class="error"> * <?php echo $acctErr;?></span>
     </label>
   </p>
@@ -144,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 <?php
 $db = get_connection();
 
-if ($checkingStatus = 'checked') {
+if ($checkingStatus == 'checked') {
   $query = $db->prepare("SELECT acctID FROM Checking NATURAL JOIN FinancialAccount WHERE usrID=?");
   $query->bind_param('i', $_SESSION['usrID']);
   $query->execute();
@@ -155,7 +155,7 @@ if ($checkingStatus = 'checked') {
   } 
 }
 
-if ($loanStatus = 'checked') {
+if ($loanStatus == 'checked') {
   $query = $db->prepare("SELECT acctID FROM Loan NATURAL JOIN FinancialAccount WHERE usrID=?");
   $query->bind_param('i', $_SESSION['usrID']);
   $query->execute();
@@ -166,7 +166,7 @@ if ($loanStatus = 'checked') {
   }
 }
 
-if ($savingsStatus = 'checked') {
+if ($savingsStatus == 'checked') {
   $query = $db->prepare("SELECT acctID FROM Savings NATURAL JOIN FinancialAccount WHERE usrID=?");
   $query->bind_param('i', $_SESSION['usrID']);
   $query->execute();
