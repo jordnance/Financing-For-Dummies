@@ -76,7 +76,7 @@
 							<tr>
 							<th>Account Name</th>
 							<th>Amount</th>
-							<th>Type</th>
+							<th>Type(Checking)</th>
 							</tr>";
 				
 				while ($rowFA = $resultFA->fetch_assoc()) {
@@ -128,7 +128,7 @@
 							<tr>
 							<th>Account Name</th>
 							<th>Amount</th>
-							<th>Type</th>
+							<th>Type(Savings)</th>
 							</tr>";
 				while ($rowFA = $resultFA->fetch_assoc()) {
 					echo "<tr>";
@@ -181,7 +181,7 @@
 							<tr>
 							<th>Account Name</th>
 							<th>Amount</th>
-							<th>Type</th>
+							<th>Type(Loan)</th>
 							</tr>";
 				while ($rowFA = $resultFA->fetch_assoc()) {
 					echo "<tr>";
@@ -220,19 +220,11 @@
 				}
 				echo "<br/><br/><br/>";	
 			?>
-			
-		</div>
-
-		<!--Priority Checking
-			- Checking
-			- Credit/Loan
-			- Savings
-		-->
+	
 
 	</body>
 
-	<!-- Added by Yeana on 12/05 -->
-	<form id="userRoles" method="post" action="userRoles.php"></form>
+	
 	<form id="logout" method="post" action="AccountAction.php"></form>
 </html>
 
