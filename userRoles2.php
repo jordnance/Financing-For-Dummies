@@ -192,7 +192,7 @@
 		    
                 function checkdelete()
                 {
-                    return confirm('Are you sure you want to delete this financial account of your Chlid account?');
+                    return confirm('Are you sure you want to delete this financial account of your Child account?');
                 }
             
             </script>

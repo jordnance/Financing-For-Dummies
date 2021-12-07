@@ -33,7 +33,7 @@
 					$_SESSION['usrID'] = $res_usrID;
 					$_SESSION['fName'] = $res_fName;
 					// Then set a boolean so that another query will be run at the end of the script to check the user's role
-					// (I'd really like to do this here, but... well, read the next comment.)
+					// (I'd really like to do this here, but it didn't work that way and I lack the time to figure out why.)
 					$login = true;
 				}
 			}
@@ -138,14 +138,22 @@
 
 						$_SESSION['usrID'] = $res_usrID;
 						$_SESSION['fName'] = $_POST['fName'];
-						
-						$login = true;
+
+						// Set the $_SESSION['isAdult'] session variable depending on the type of account that was just registered
+						if (!isset($_POST['child']))
+							$_SESSION['isAdult'] = 1;
+						else
+							$_SESSION['isAdult'] = 0;
+
+						header("Location: home.php");
+						exit;
 					}
 					else
 					{
 						// If they were unable to be logged in, redirect to the log-in page
 						$_SESSION['error'] = "Registered, but log-in failed";
 						header("Location: index.php");
+						exit;
 					}
 				}
 				else
