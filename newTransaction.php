@@ -43,7 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
   $title = $_POST['title'];
   $date = test_input($_POST['date']);
-  //$new_date = date('Y-m-d', $date);
 
   if (empty($_POST['amount'])) {
     $amountErr = "Amount is required";
@@ -178,7 +177,6 @@ if ($savingsStatus == 'checked') {
   if ($query->fetch()) {
     $found = true;
     $query->close();
-    //break;
   }
 }
 
