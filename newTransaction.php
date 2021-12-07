@@ -108,6 +108,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
       <li><button class="link" form="logout" name="logout">Log Out</button></li>
   </ul>
 
+<p class="leftColumn">
+    When making a transaction, a positive amount indicates a deposit and a negative amount is a withdrawal.
+</p>
+
 <p><span class="error"> * required field</span></p>
 <form action="newTransaction.php" method="POST" autocomplete="off" class="tableForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
   <p class="tableForm" style="width:300px;">

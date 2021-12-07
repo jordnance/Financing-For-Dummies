@@ -71,8 +71,10 @@
     </ul>
 	
 	<div id="main">
+        <p class="leftColumn"><a href="analytics.php">Generate a report</a> to see which thresholds are exceeded.</p>
+
         <!-- The center column will contain the bulk of the page's content. -->
-        <div class="centerColumn">
+        <div class="centerColumn" style="margin-top:0px; padding-top:0px;">
             <?php
                 // Get a list of all of this user's financial accounts in the array $accounts
                 $db = get_connection();

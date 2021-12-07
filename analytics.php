@@ -122,6 +122,7 @@
                 <label id="dayLabel">Report Time: 30 days</label>
                 <input id="days" type="range" class="slider" min="0" max="2" oninput="onSlide(this)" style="margin-top:10px;">
             </div>
+            <p><a href="thresholds.php">Set category thresholds</a> for more detailed analytics.</p>
         </div>
 
         <!-- The center column will contain the bulk of the page's content. -->
