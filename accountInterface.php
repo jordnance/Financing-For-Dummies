@@ -62,6 +62,10 @@
 
 		<div>
 			<?php
+				$checkingStatus = 'unchecked';
+				$loanStatus = 'unchecked';
+				$savingsStatus = 'unchecked';
+				
 				$db = get_connection();
 			
 				$queryFA = $db->prepare("SELECT acctID, acctName, balance FROM FinancialAccount NATURAL JOIN Checking WHERE usrID=?");
@@ -71,10 +75,8 @@
 				
 				$resultFA = $queryFA->get_result();
 				
-				
-				
-				
 				while ($rowFA = $resultFA->fetch_assoc()) {
+					$checkingStatus = 'checked';
 					echo "<table border='1'>
 							<tr>
 							<th>Account Name</th>
@@ -127,8 +129,9 @@
 				$queryFA->bind_result($faID, $faName, $faBalance);
 				
 				$resultFA = $queryFA->get_result();
-				
+		
 				while ($rowFA = $resultFA->fetch_assoc()) {
+					$savingsStatus = 'checked';
 					echo "<table border='1'>
 							<tr>
 							<th>Account Name</th>
@@ -182,13 +185,9 @@
 				$queryFA->bind_result($faID, $faName, $faBalance);
 				
 				$resultFA = $queryFA->get_result();
-				if (($rowFA = $resultFA->fetch_assoc()) <= 0) {
-					echo "<h2>No accounts found...</h2>";
-					echo "<p>You have not created any financial account.</p>
-                    <p>You can add one and start logging your financial activities by clicking CREATE NEW.</p>";
-				}
 				
 				while ($rowFA = $resultFA->fetch_assoc()) {
+					$loanStatus = 'checked';
 					echo "<table border='1'>
 							<tr>
 							<th>Account Name</th>
@@ -231,6 +230,11 @@
 					$queryT->close();
 				}
 				$queryFA->close();
+				if ($checkingStatus != 'checked' && $savingsStatus != 'checked' && $loanStatus != 'checked') {
+					echo "<h2>No accounts found...</h2>";
+					echo "<p>You have not created any financial account.</p>
+                    <p>You can add one and start logging your financial activities by clicking CREATE NEW.</p>";
+				}
 				echo "<br/><br/><br/>";	
 			?>
 	
