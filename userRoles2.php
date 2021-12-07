@@ -140,7 +140,7 @@
                             echo "<td>{$emailChild}</td>"; 
                             echo "<td>{$acctNameChild}</td>"; 
                             echo "<td>&#36; {$balanceChild}</td>"; 
-                            echo "<td><a href = 'deleteChlidFi.php?id=$acctIDChild'>Delete</td>"; 
+                            
 			    echo "<td><a href = 'deleteChildFi.php?id=$query1[acctID]'
                             onclick = 'checkdelete()'>Delete</td>"; 
                             echo "</tr>";    
