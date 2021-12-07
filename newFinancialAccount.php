@@ -66,11 +66,15 @@
                     <input type="radio" name="type" value="Checking">Checking
                     <input type="radio" name="type" value="Loan">Loan
                     <input type="radio" name="type" value="Savings">Savings
+
                 </label>
-
-                <br/>
-
-                <input class="link" type="submit" name="createAcct" value="Create">
+                
+                
+                <label class = "tableForm" style="width:125px;">
+                                  
+                        <input class="link" type="submit" name="createAcct" value="Create">
+                    
+                </label>
 		    </form>
         </div>
     </div>
