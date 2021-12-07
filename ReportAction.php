@@ -121,6 +121,7 @@
     else
     {
         // Otherwise, print the statement that there are no transactions here
+        $pdf->SetFont('Arial', '', 10);
         $pdf->Cell(30, 5, "You haven't made any transactions within these parameters.");
         $pdf->Ln();
     }

@@ -40,11 +40,29 @@
 
     <ul id="navigation">
         <li><a class="button" href="home.php">Home</a></li>
-        <li><a class="button" href="accountInterface.php">Accounts</a></li>
-        <li><a class="button" href="analytics.php">Analytics</a></li>
-        <li><button class="link" form ="userRoles" href="#top">User Roles</a></button>
-        <li><a class="button" href="newTransaction.php">New Transaction</a></li>
+        
+        <div class="dropdown">
+            <li class="menu">Financial Accounts
+                <div class="dropdown-content">
+                    <a class="button" style="display:block;" href="accountInterface.php">My Accounts</a>
+                    <a class="button" style="display:block;" href="userRoles.php">Child Accounts</a>
+                    <a class="button" style="display:block;" href="analytics.php">Generate Report</a>
+                </div>
+            </li>
+        </div>
+
+        <div class="dropdown">
+            <li class="menu">Create New
+                <div class="dropdown-content" style="left: -15px;">
+                    <a class="button" style="display:block;" href="">Account</a>
+                    <a class="button" style="display:block;" href="newTransaction.php">Transaction</a>
+                    <a class="button" style="display:block;" href="">Threshold</a>
+                </div>
+            </li>
+        </div>
+
         <li><a class="button" href="settings.php">Settings</a></li>
+
         <li><button class="link" form="logout" name="logout">Log Out</button></li>
     </ul>
 	
@@ -199,6 +217,5 @@
 
 </body>
 <form id="logout" method="post" action="AccountAction.php"></form>
-<form id="userRoles" method="post" action="userRoles.php"></form>
 
 </html>

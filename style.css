@@ -45,11 +45,39 @@ li {
     margin: 0px 4px;
 }
 
+li.link { 
+    background: none;
+    border: none;
+    color: #000000;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    padding: 6px 18px 5px 18px;
+    font-family: Georgia;
+    font-size: 15px;
+}
+
+li.link:hover {
+    color: #cc3333;
+    background-color: #ffffff;
+}
+
+li.menu {
+    text-transform: uppercase;
+    text-align: center;
+    cursor: default;
+    padding: 6px 18px 5px 18px;
+    font-family: Georgia;
+    font-size: 15px;
+}
+
 a.button {
     color: #000000;
     text-transform: uppercase;
     text-decoration: none;
     padding: 6px 18px 5px 18px;
+    margin-bottom: 5px;
 }
 
 a:hover, a.on {
@@ -148,6 +176,44 @@ input.link:hover {
     height: 20px;
     background: #5b93b3;
     cursor: pointer;
+}
+
+article {
+    float: center;
+    padding: 20px;
+    width: auto;
+    background-color: #B9D9EB;
+    height: auto;
+    margin-top: 15px;
+}
+
+table.spaced {
+    border-spacing: 20px;
+    border-collapse: collapse;
+}
+
+td.spaced {
+    padding: 20px;
+}
+
+/* Credit for dropdown classes: https://www.w3schools.com/css/tryit.asp?filename=trycss_dropdown_text */
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #98AFC7;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }
 
 /***************************************************/

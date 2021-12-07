@@ -1,8 +1,6 @@
 <?php
 	require_once "config.php";
 
-	// $initialPost = print_r($_POST, true);
-
 	// If a 'login' request has been posted, check for valid log-in credentials
 	$login = false;
 	if (isset($_POST['login']))
@@ -51,68 +49,6 @@
 			header("Location: index.php");
 			exit;
 		}
-
-		/* 
-			The following DID NOT work no matter what I did. I spent probably an hour and a half trying to
-			figure it out, but the second query inside of the first one absolutely refused to work.
-			$db->prepare() always returned false, no matter what. I made a ton of changes and it became
-			really complicated, but it still didn't work so I pared it down to a simple version here.
-			The best I can figure is that it considered it a simultaneous query, but I'm not sure
-			why it threw a fit here when I've done similar things elsewhere.
-		*/
-
-		/*
-		$db = get_connection();
-		$query = $db->prepare("SELECT usrID, fName, Passcode FROM User WHERE Email=?");
-		$query->bind_param('s', $email);
-		if ($query->execute())
-		{
-			$query->bind_result($res_usrID, $res_fName, $res_passcode);
-
-			// Iterate over each row that is returned, which should only ever be one because emails are unique
-			while ($query->fetch())
-			{
-				// Check for a matching password (not hashed yet, but whatever)
-				if (strcmp($passcode, $res_passcode) == 0)
-				{
-					// If there's a match, set session variables to log the user in
-					$_SESSION['usrID'] = $res_usrID;
-					$_SESSION['fName'] = $res_fName;
-
-					$query = $db->prepare("SELECT usrID FROM Adult WHERE usrID=?");
-					$query->bind_param('i', $res_usrID);
-					$query->execute());
-					$query->bind_result($res_usrID);
-					$query->fetch();
-
-					if ($res_usrID != null)
-					{
-						$_SESSION['isAdult'] = 1;
-						$_SESSION['error'] = "This is an adult account";
-					}
-					else
-					{
-						$_SESSION['isAdult'] = 0;
-						$_SESSION['error'] = "This is a child account";
-					}
-
-					// Then redirect to the home page and exit the script here
-					header("Location: home.php");
-					exit;
-				}
-			}
-
-			// If the script has made it this far, no valid name and password combinations were found
-			$_SESSION['error'] = "Email and/or password is incorrect";
-		}
-		else
-		{
-			$_SESSION['error'] = "Unable to execute query";
-		}
-
-		header("Location: index.php");
-		exit;
-		*/
 	}
 	// If a logout request has been posted, unset all session variables
 	else if (isset($_POST['logout']))
@@ -249,14 +185,6 @@
 		header("Location: home.php");
 		exit;
 	}
-
-	// The script should always have exited by this point, so, if it doesn't,
-	// print the $_POST variables that led to this state. This is... generally a very bad idea,
-	// but I'm debugging, dangit!
-	/*
-	$_SESSION['error'] .= "<br/>Post that failed: " . $initialPost;
-	$_SESSION['error'] .= "<br/>Post now: " . $_POST;
-	*/
 
 	// At the very least, always reroute the page to the index if it hasn't already gone somewhere
 	header("Location: index.php");
