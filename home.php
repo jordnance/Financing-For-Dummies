@@ -59,8 +59,8 @@
                         <!-- Place default table here! -->
 
                         
-						<?php
-							$db = get_connection();
+			<?php
+			    $db = get_connection();
 			
 							
                             $queryUserName = $db->prepare("SELECT fName FROM User WHERE usrID=?");
