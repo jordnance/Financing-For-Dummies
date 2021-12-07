@@ -161,7 +161,7 @@
     $valY = $pdf->GetY();
 
     $pdf->SetFont('Arial', '', 10);
-    $pdf->SetXY($valX, $valY + 10);
+    $pdf->SetXY($valX, $valY + 8);
     $valX = $pdf->GetX();
     $valY = $pdf->GetY();
     if ($size[$set] > 0)
@@ -170,8 +170,9 @@
         {
             $spent = $data[0][$labels[$set][$i]];
             $limit = $data[$set][$labels[$set][$i]];
-            $pdf->Cell(30, 5, "- " . $labels[$set][$i] . " ($" . ($spent - $limit) . " over $" . $limit ." limit)");
-            $pdf->Ln();
+            $pdf->Cell(0, 5, "- " . $labels[$set][$i] . " ($" . ($spent - $limit) . " over $" . $limit ." limit)");
+            $pdf->SetXY($valX, $valY + 6);
+            $valY = $pdf->GetY();
         }
     }
     else
