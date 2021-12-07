@@ -8,6 +8,9 @@
 -- Edit by Marcus on 12/1:
 -- Added adultMail argument to replace comparing last names to assign an adultID if this is a child account.
 
+-- Edit by Marcus on 12/6:
+-- Changed determination of adult or child accounts by whether an email address for a supervising parent is passed in
+
 DROP PROCEDURE IF EXISTS addUser;
 DELIMITER //
 CREATE PROCEDURE addUser (mail VARCHAR(255), pNumber VARCHAR(20), code TEXT, dob TEXT, fir TEXT, mid TEXT, las TEXT, adultMail VARCHAR(255))
@@ -19,8 +22,8 @@ BEGIN
 
     INSERT INTO User (Email, Phone_Number, Passcode, Date_Of_Birth, fName, mName, lName) VALUES (mail, @phoneNum, code, dob, fir, mid, las);
     SELECT usrID INTO @id FROM User WHERE Email = mail;
-    SELECT DATEDIFF(NOW(), dob) INTO @ageInDays;
-    IF @ageInDays >= 6570 THEN
+    
+    IF LENGTH(adultMail) = 0 THEN
         INSERT INTO Adult(usrID) VALUES (@id);
     ELSE
         SELECT usrID INTO @aID FROM Adult NATURAL JOIN User WHERE Email = adultMail AND usrID != @id;

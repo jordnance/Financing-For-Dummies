@@ -50,7 +50,7 @@
 					<div class="dropdown-content" style="left: -15px;">
 						<a class="button" style="display:block;" href="newFinancialAccount.php">Account</a>
 						<a class="button" style="display:block;" href="newTransaction.php">Transaction</a>
-						<a class="button" style="display:block;" href="">Threshold</a>
+						<a class="button" style="display:block;" href="thresholds.php">Threshold</a>
 					</div>
 				</li>
 			</div>

@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
               <div class="dropdown-content" style="left: -15px;">
                   <a class="button" style="display:block;" href="newFinancialAccount.php">Account</a>
                   <a class="button" style="display:block;" href="newTransaction.php">Transaction</a>
-                  <a class="button" style="display:block;" href="">Threshold</a>
+                  <a class="button" style="display:block;" href="thresholds.php">Threshold</a>
               </div>
           </li>
       </div>
@@ -167,18 +167,32 @@ while (!$found)
 
 if (isset($acct) && isset($amount) && isset($category) && !empty($acct) && !empty($amount) && !empty($category))
 {
-  // if-else added by Marcus on 12/6 to catch empty $date variables and use a different insert command so that the
-  // default value is used rather than an empty string, which causes big problems downstream
-  if (strlen($date) > 0)
+  /* Added by Marcus on 12/6:
+     if-else blocks added to catch empty $title and $date variables so that the proper insert command is used and
+     we get defaults rather than an empty string, which causes big problems elsewhere. This is a poor solution to
+     the problem, but, y'know... it's due in two days. */
+  if (strlen($date) > 0 && strlen($title) > 0)
   {
     $result = $db->prepare("INSERT INTO Transacts (usrID, acctID, Title, Date, Amount, Category) VALUES (?, ?, ?, ?, ?, ?)");
     $result->bind_param('iissds', $_SESSION['usrID'], $acct, $title, $date, $amount, $category);
     $result->execute();
   }
-  else
+  else if (strlen($date) == 0 && strlen($title) > 0)
   {
     $result = $db->prepare("INSERT INTO Transacts (usrID, acctID, Title, Amount, Category) VALUES (?, ?, ?, ?, ?)");
     $result->bind_param('iisss', $_SESSION['usrID'], $acct, $title, $amount, $category);
+    $result->execute();
+  }
+  else if (strlen($date) > 0 && strlen($title) == 0)
+  {
+    $result = $db->prepare("INSERT INTO Transacts (usrID, acctID, Date, Amount, Category) VALUES (?, ?, ?, ?, ?)");
+    $result->bind_param('iisds', $_SESSION['usrID'], $acct, $date, $amount, $category);
+    $result->execute();
+  }
+  else
+  {
+    $result = $db->prepare("INSERT INTO Transacts (usrID, acctID, Amount, Category) VALUES (?, ?, ?, ?)");
+    $result->bind_param('iiss', $_SESSION['usrID'], $acct, $amount, $category);
     $result->execute();
   }
   echo "Your transaction has been added!<br>";

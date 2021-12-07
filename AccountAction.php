@@ -138,9 +138,8 @@
 
 						$_SESSION['usrID'] = $res_usrID;
 						$_SESSION['fName'] = $_POST['fName'];
-
-						// Then redirect to the home page
-						header("Location: home.php");
+						
+						$login = true;
 					}
 					else
 					{
@@ -148,23 +147,21 @@
 						$_SESSION['error'] = "Registered, but log-in failed";
 						header("Location: index.php");
 					}
-
-					// Regardless, exit the script early so that there is no more unwanted behavior
-					exit;
 				}
 				else
 				{
 					$_SESSION['error'] = "Unable to register user in the database";
+					header("Location: register.php");
+					exit;
 				}
 			}
 		}
 		else
 		{
 			$_SESSION['error'] = "Unable to find users";
+			header("Location: register.php");
+			exit;
 		}
-
-		header("Location: register.php");
-		exit;
 	}
 
 	// If the user successfully logged in earlier in the script
