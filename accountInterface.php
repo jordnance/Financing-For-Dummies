@@ -76,7 +76,7 @@
 							<tr>
 							<th>Account Name</th>
 							<th>Amount</th>
-							<th>Type(Checking)</th>
+							<th>Type</th>
 							</tr>";
 				
 				while ($rowFA = $resultFA->fetch_assoc()) {
@@ -128,7 +128,7 @@
 							<tr>
 							<th>Account Name</th>
 							<th>Amount</th>
-							<th>Type(Savings)</th>
+							<th>Type</th>
 							</tr>";
 				while ($rowFA = $resultFA->fetch_assoc()) {
 					echo "<tr>";
@@ -181,7 +181,7 @@
 							<tr>
 							<th>Account Name</th>
 							<th>Amount</th>
-							<th>Type(Loan)</th>
+							<th>Type</th>
 							</tr>";
 				while ($rowFA = $resultFA->fetch_assoc()) {
 					echo "<tr>";
