@@ -1,4 +1,4 @@
-<!-- userRoles page allows Adult users to view their Child accounts info if there are any by default: useRoles1.php
+<!-- userRoles page allows Adult users to view/delete their Child accounts if there are any by default: useRoles1.php
  userRoles page allows Adult users to delete their child financial accounts: usrRoles2.php
  userRoles page allows both Adult and Child users to contact the Web master: usrRoles3.php-->
 
@@ -72,7 +72,7 @@
             
             <div class="tab">
                 <button name="displayChildFiInfo" class="large" onclick="location.href = 'userRoles1.php'" 
-                type = "button" >Display Your Parent/Child Accounts</button>
+                type = "button" >Display Your Child Accounts</button>
                                              
 
                 <button name="displayChildAccountInfo" class="large" onclick='displayChildAccountInfo.style = "display: inline"'
