@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-    <title>Delete Child Financial Account</title>
+    <title>Delete a Child account entirely</title>
 
     <link rel="stylesheet" href="style.css">
           
@@ -25,30 +25,22 @@
         <?php
             require_once "config.php";
 
-            // Middle-tier programming to delete child account in userRoles2.php
+            // Middle-tier programming to delete child account entirely in userRoles1.php
 
-            $usrChildAcctID = $_GET['id'];
+            $usrChildID = $_GET['id'];
             $db = get_connection();
             
-            $queryC = $db->prepare("CALL deleteCheckingOnly(?)");
-            $queryC->bind_param('i', $usrChildAcctID);
+            $queryC = $db->prepare("CALL deleteUser(?)");
+            $queryC->bind_param('i', $usrChildID);
             $queryC->execute();
 
-            $queryS = $db->prepare("CALL deleteSavingsOnly(?)");
-            $queryS->bind_param('i', $usrChildAcctID);
-            $queryS->execute();
-
-            $queryL = $db->prepare("CALL deleteLoanOnly(?)");
-            $queryL->bind_param('i', $usrChildAcctID);
-            $queryL->execute();
-
-            if($queryC->execute() || $queryS->execute() || $queryL->execute())
+            if($queryC->execute())
             {
-                echo "<p>Sucessfully deleted the Checking account of your Child account! </p>";
+                echo "<p>Sucessfully deleted your ENTIRE Child account! </p>";
                 echo "<p>Please click the go back arrow to reach the previous page.</p>";
             }
 
-      
+           
             else
             {
                 echo "<p>Failed to delete it!</p>";

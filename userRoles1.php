@@ -1,4 +1,4 @@
-<!-- userRoles page allows Adult users to view their Child accounts info if there are any by default: useRoles1.php
+<!-- userRoles page allows Adult users to view/delete their Child accounts if there are any by default: useRoles1.php
  userRoles page allows Adult users to delete their child financial accounts: usrRoles2.php
  userRoles page allows both Adult and Child users to contact the Web master: usrRoles3.php-->
 
@@ -72,7 +72,7 @@
             
             <div class="tab">
                 <button name="displayChildFiInfo" class="large" onclick='displayChildFiInfo.style = "display: inline"'
-                type = "button" >--- Click here to View Your Parent/Child Account Info ---</button>
+                type = "button" >--- Click here to View Your Child Account Info ---</button>
 
                 <button name="deleteChildFiAccount" class="large" onclick="location.href = 'userRoles2.php'"
                 type = "button" >Delete Your Child's Financial Accounts</button>
@@ -95,7 +95,7 @@
                     // Query the database to get all of the user's Child accounts
                     $db = get_connection();
                     
-                    $query = $db->prepare("SELECT usrID, acctName, Balance FROM Child NATURAL JOIN FinancialAccount WHERE Child.adultID=?");
+                    $query = $db->prepare("SELECT usrId, fName, mName, lName, Date_Of_Birth, Email, Phone_Number FROM User Natural Join Child WHERE Child.AdultID =?");
                     // bind_param('s' for string that is the type of variable in the query)
                     $query->bind_param('i', $_SESSION['usrID']);
 
@@ -112,16 +112,22 @@
                         
                         while($query1 = $result->fetch_assoc())
                         {
-                            $children []= $query1;
-                            $usrIDChild = $query1["usrID"];
-                            $acctNameChild = $query1["acctName"];
-                            $balanceChild = $query1["Balance"];
+                            
+                            $fNameChild = $query1['fName'];
+                            $mNameChild = $query1['mName'];
+                            $lNameChild = $query1['lName'];
+                            $dobChild = $query1['Date_Of_Birth'];
+                            $pNumberChild = $query1['Phone_Number'];
+                            $emailChild = $query1['Email'];
                             $count += 1;
                             
                             echo "<h4>Child Account {$count} :</h4>";
-                            echo "<p>Name of the account: {$acctNameChild} </p>";
-                            echo "<p>Balance of the account: {$balanceChild} USD</p>";
+                            echo "<p>Full name of this account holder: {$fNameChild} {$mNameChild} {$lNameChild}  </p>";
+                            echo "<p>Date of Birth: {$dobChild} </p>";
+                            echo "<p>Phone Number: {$pNumberChild} </p>";
+                            echo "<p>Email: {$emailChild} </p>";
                             echo "<p> -------------------------------------------------------------- </p>"; 
+                            echo "<p><a href = 'deleteChildAcct.php?id=$query1[usrID]>Delete this Chlid Account {$count}</a></p>";
                             echo "<p> -------------------------------------------------------------- </p>"; 
                          
                         }
@@ -137,21 +143,29 @@
                     {
                         $_SESSION['error'] = "Unable to excetue query when adult is true";
                     }
-                }
 
-                elseif ($_SESSION['isAdult'] == 0)
+                    $query1->close();
+                }
+                ?>
+
+                <?php
+
+                if($_SESSION['isAdult'] == 0)
                 {   
+                    $db = get_connection();
                     echo "<h2>As a Child account holder,</h2>";
-                    echo "<p>You do NOT have any Child accounts. </p>";
+                    echo "<p>You do NOT have any Child accounts.</p>";
+                                   
                 }
 
                 else
                 {
                     $_SESSION['error'] = "Unable to excetue query when adult is false";
                 }
+                
                 ?>
                 
-               
+            
             </div>
           
             
@@ -172,3 +186,4 @@
 </body>
 <form id="logout" method="post" action="AccountAction.php"></form>
 </html>
+
