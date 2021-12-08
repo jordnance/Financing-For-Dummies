@@ -141,8 +141,7 @@
                             echo "<td>{$acctNameChild}</td>"; 
                             echo "<td>&#36; {$balanceChild}</td>"; 
                             
-			    echo "<td><a href = 'deleteChildFi.php?id=$query1[acctID]'
-                            onclick = 'checkdelete()'>Delete</td>"; 
+			    echo "<td><a href = 'deleteChildFi.php?id=$query1[acctID]'>Delete</td>"; 
                             echo "</tr>";    
 
 
@@ -188,15 +187,7 @@
                 }
                 ?>
 			
-	    <script>
-		    
-                function checkdelete()
-                {
-                    return confirm('Are you sure you want to delete this financial account of your Child account?');
-                }
-            
-            </script>
-                
+	 
                
             </div>
           
