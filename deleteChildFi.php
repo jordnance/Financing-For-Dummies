@@ -44,7 +44,7 @@
 
             if($queryC->execute() || $queryS->execute() || $queryL->execute())
             {
-                echo "<p>Sucessfully deleted the Checking account of your Child account! </p>";
+                echo "<p>Sucessfully deleted the account of your Child account! </p>";
                 echo "<p>Please click the go back arrow to reach the previous page.</p>";
             }
 
