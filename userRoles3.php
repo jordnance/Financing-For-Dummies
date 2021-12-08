@@ -74,7 +74,7 @@
             
             <div class="tab">
                 <button name="displayChildFiInfo" class="large" onclick="location.href = 'userRoles1.php'" 
-                type = "button" >Display Your Child's Financial Accounts</button>
+                type = "button" >Display Your Parent/Child Accounts</button>
 
                 <button name="deleteChildFiAccount" class="large" onclick="location.href = 'userRoles2.php'"
                 type = "button" >Delete Your Child's Financial Accounts</button>

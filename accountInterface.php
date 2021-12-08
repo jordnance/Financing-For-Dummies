@@ -60,7 +60,7 @@
 			<li><button class="link" form="logout" name="logout">Log Out</button></li>
 		</ul>
 
-		<div>
+		
 			<?php
 				$checkingStatus = 'unchecked';
 				$loanStatus = 'unchecked';
@@ -71,8 +71,9 @@
 				$queryFA = $db->prepare("SELECT acctID, acctName, balance FROM FinancialAccount NATURAL JOIN Checking WHERE usrID=?");
 				$queryFA->bind_param("i", $_SESSION['usrID']);
 				$queryFA->execute();
-				$queryFA->bind_result($faID, $faName, $faBalance);
-				
+				//$queryFA->bind_result($faID, $faName, $faBalance);
+
+                				
 				$resultFA = $queryFA->get_result();
 				
 				while ($rowFA = $resultFA->fetch_assoc()) {
@@ -82,13 +83,16 @@
 							<th>Account Name</th>
 							<th>Amount</th>
 							<th>Type</th>
+                                                        <th style='background-color:#488AC7'>Action</th>
 							</tr>";
 					
 					echo "<tr>";
-								echo "<td>" . $rowFA["acctName"] . "</td>";
-								echo "<td>$" . $rowFA["balance"] . "</td>";
-								echo "<td>Checking</td>";
-								echo "</tr>";
+					echo "<td>" . $rowFA["acctName"] . "</td>";
+					echo "<td>$" . $rowFA["balance"] . "</td>";
+					echo "<td>Checking</td>";
+                                        echo "<td><a href = 'deleteFiAcct.php?id=$rowFA[acctID]'
+                                        onclick = 'checkdelete()'>Delete this financial account</td>"; 
+					echo "</tr>";
 					
 					echo "<tr><th>Transactions</th></tr>";
 							
@@ -103,7 +107,7 @@
 					$queryT = $db->prepare("SELECT Title, Date, Amount, Category FROM Transacts NATURAL JOIN FinancialAccount WHERE acctID=?");
 					$queryT->bind_param("i", $rowFA["acctID"]);
 					$queryT->execute();
-					$queryT->bind_result($tID, $tDate, $tAmount, $tCategory);
+					//$queryT->bind_result($tID, $tDate, $tAmount, $tCategory);
 					
 				 
 					$resultT = $queryT->get_result();
@@ -126,7 +130,7 @@
 				$queryFA = $db->prepare("SELECT acctID, acctName, balance FROM FinancialAccount NATURAL JOIN Savings WHERE usrID=?");
 				$queryFA->bind_param("i", $_SESSION['usrID']);
 				$queryFA->execute();
-				$queryFA->bind_result($faID, $faName, $faBalance);
+				//$queryFA->bind_result($faID, $faName, $faBalance);
 				
 				$resultFA = $queryFA->get_result();
 		
@@ -137,13 +141,16 @@
 							<th>Account Name</th>
 							<th>Amount</th>
 							<th>Type</th>
+                            <th style='background-color:#488AC7'>Action</th>
 							</tr>";
 					
 					echo "<tr>";
-								echo "<td>" . $rowFA["acctName"] . "</td>";
-								echo "<td>$" . $rowFA["balance"] . "</td>";
-								echo "<td>Savings</td>";
-								echo "</tr>";
+					echo "<td>" . $rowFA["acctName"] . "</td>";
+					echo "<td>$" . $rowFA["balance"] . "</td>";
+					echo "<td>Savings</td>";
+                                        echo "<td><a href = 'deleteFiAcct.php?id=$rowFA[acctID]'
+                                        onclick = 'checkdelete()'>Delete this financial account</td>";
+					echo "</tr>";
 					
 					echo "<tr><th>Transactions</th></tr>";
 							
@@ -158,7 +165,7 @@
 					$queryT = $db->prepare("SELECT Title, Date, Amount, Category FROM Transacts NATURAL JOIN FinancialAccount WHERE acctID=?");
 					$queryT->bind_param("i", $rowFA["acctID"]);
 					$queryT->execute();
-					$queryT->bind_result($tID, $tDate, $tAmount, $tCategory);
+					//$queryT->bind_result($tID, $tDate, $tAmount, $tCategory);
 					
 				 
 					$resultT = $queryT->get_result();
@@ -182,7 +189,7 @@
 				$queryFA = $db->prepare("SELECT acctID, acctName, balance FROM FinancialAccount NATURAL JOIN Loan WHERE usrID=?");
 				$queryFA->bind_param("i", $_SESSION['usrID']);
 				$queryFA->execute();
-				$queryFA->bind_result($faID, $faName, $faBalance);
+				//$queryFA->bind_result($faID, $faName, $faBalance);
 				
 				$resultFA = $queryFA->get_result();
 				
@@ -193,12 +200,15 @@
 							<th>Account Name</th>
 							<th>Amount</th>
 							<th>Type</th>
+                            <th style='background-color:#488AC7'>Action</th>
 							</tr>";
 					
 					echo "<tr>";
 								echo "<td>" . $rowFA["acctName"] . "</td>";
 								echo "<td>$" . $rowFA["balance"] . "</td>";
 								echo "<td>Loan</td>";
+                                                                echo "<td><a href = 'deleteFiAcct.php?id=$rowFA[acctID]'
+                                                                onclick = 'checkdelete()'>Delete this financial account</td>";
 								echo "</tr>";
 					
 					echo "<tr><th>Transactions</th></tr>";
@@ -230,13 +240,24 @@
 					$queryT->close();
 				}
 				$queryFA->close();
+
 				if ($checkingStatus != 'checked' && $savingsStatus != 'checked' && $loanStatus != 'checked') {
 					echo "<h2>No accounts found...</h2>";
-					echo "<p>You have not created any financial account.</p>
-                    <p>You can add one and start logging your financial activities by clicking CREATE NEW.</p>";
+					echo "<p>Currently, you do NOT any financial accounts within our app.</p>
+                                        <p>You can add one and start logging your financial activities by clicking CREATE NEW any time.</p>";
 				}
 				echo "<br/><br/><br/>";	
 			?>
+
+
+            <script>
+		    
+                function checkdelete()
+                {
+                    return confirm('Are you sure you want to delete this financial account?');
+                }
+            
+            </script>
 	
 
 	</body>
@@ -244,4 +265,3 @@
 	
 	<form id="logout" method="post" action="AccountAction.php"></form>
 </html>
-
