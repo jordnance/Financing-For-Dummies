@@ -139,7 +139,7 @@ BEGIN
 
                 DROP TABLE IF EXISTS returnTable;
                 CREATE TEMPORARY TABLE returnTable (SetNum integer, ValName varchar(30), Val float);
-                -- Add the total amount payed to each category of loan to the results
+                -- Add the total amount paid to each category of loan to the results
                 INSERT INTO returnTable 
                     SELECT 0, Category, SumPaid FROM Paid ORDER BY SumPaid DESC;
                 -- Add the categories where the amount withdrawn exceeded its threshold

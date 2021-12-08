@@ -59,29 +59,8 @@
                         <!-- Place default table here! -->
 
                         
-			<?php
-			    $db = get_connection();
-			
-							
-                            $queryUserName = $db->prepare("SELECT fName FROM User WHERE usrID=?");
-                            $queryUserName->bind_param("i", $_SESSION['usrID']);
-                            if($queryUserName->execute())
-                            {
-                                $resultUserName = $queryUserName->get_result();
-                                while($queryGetUserName = $resultUserName->fetch_assoc())
-                                {
-                                    $fNameUserName = $queryGetUserName['fName'];
-                                    echo "<h2>Hello, {$fNameUserName}!</h2>";
-                                
-                                }
-                                $queryUserName->close();
-
-                            }
-                            
-                            else
-                            {
-                                echo "<h2>Something went wrong!</h2>";
-                            }
+			            <?php
+                            echo "<h2>Hello, " . $_SESSION['fName'] . "!</h2>";
                         ?>
 
                         <?php
