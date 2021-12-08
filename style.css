@@ -119,6 +119,7 @@ input.link:hover {
     float: left;
     padding: 20px;
     width: 20%;
+    max-width: 350px;
     height: auto;
     background: #B9D9EB;
     margin-right: 10px;
