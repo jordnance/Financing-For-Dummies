@@ -128,7 +128,7 @@
                             echo "<p>Phone Number: {$pNumberChild} </p>";
                             echo "<p>Email: {$emailChild} </p>";
                             echo "<p> -------------------------------------------------------------- </p>"; 
-                            echo "<p><a href = 'deleteChildAcct.php?id=$query1[usrID]>Delete this Chlid Account {$count}</a></p>";
+                            echo "<p><a href = 'deleteChildAcct.php?id=$query1[usrID]'>Delete this Child Account {$count}</a></p>";
                             echo "<p> -------------------------------------------------------------- </p>"; 
                          
                         }
