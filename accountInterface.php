@@ -91,7 +91,7 @@
 					echo "<td>$" . $rowFA["balance"] . "</td>";
 					echo "<td>Checking</td>";
                                         echo "<td><a href = 'deleteFiAcct.php?id=$rowFA[acctID]'
-                                        onclick = 'checkdelete()'>Delete this financial account</td>"; 
+                                        >Delete this financial account</td>"; 
 					echo "</tr>";
 					
 					echo "<tr><th>Transactions</th></tr>";
@@ -149,7 +149,7 @@
 					echo "<td>$" . $rowFA["balance"] . "</td>";
 					echo "<td>Savings</td>";
                                         echo "<td><a href = 'deleteFiAcct.php?id=$rowFA[acctID]'
-                                        onclick = 'checkdelete()'>Delete this financial account</td>";
+                                        >Delete this financial account</td>";
 					echo "</tr>";
 					
 					echo "<tr><th>Transactions</th></tr>";
