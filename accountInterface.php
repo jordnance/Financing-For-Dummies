@@ -100,11 +100,11 @@
 					echo "<tr>
 							<th>Name</th>
 							<th>Date</th>
-							<th>Amount</th>
+							<th>Amount ($)</th>
 							<th>Category</th>
 							</tr>";
 					
-					$queryT = $db->prepare("SELECT Title, Date, Amount, Category FROM Transacts NATURAL JOIN FinancialAccount WHERE acctID=?");
+					$queryT = $db->prepare("SELECT Title, Date, Amount, Category FROM Transacts NATURAL JOIN FinancialAccount WHERE acctID=? ORDER BY Date");
 					$queryT->bind_param("i", $rowFA["acctID"]);
 					$queryT->execute();
 					//$queryT->bind_result($tID, $tDate, $tAmount, $tCategory);
@@ -115,7 +115,7 @@
 						echo "<tr>";
 								echo "<td>" . $rowTFA["Title"] . "</td>";
 								echo "<td>" . $rowTFA["Date"] . "</td>";
-								echo "<td>$" . $rowTFA["Amount"] . "</td>";
+								echo "<td>" . $rowTFA["Amount"] . "</td>";
 								echo "<td>" . $rowTFA["Category"] . "</td>";
 								
 								echo "</tr>";
