@@ -208,7 +208,7 @@
 								echo "<td>$" . $rowFA["balance"] . "</td>";
 								echo "<td>Loan</td>";
                                                                 echo "<td><a href = 'deleteFiAcct.php?id=$rowFA[acctID]'
-                                                                onclick = 'checkdelete()'>Delete this financial account</td>";
+                                                                >Delete this financial account</td>";
 								echo "</tr>";
 					
 					echo "<tr><th>Transactions</th></tr>";
@@ -250,14 +250,6 @@
 			?>
 
 
-            <script>
-		    
-                function checkdelete()
-                {
-                    return confirm('Are you sure you want to delete this financial account?');
-                }
-            
-            </script>
 	
 
 	</body>
