@@ -48,30 +48,14 @@ after deleting a financial account of any type of user in accountInterface.php -
 
            
             
-            if($queryC->execute())
+            if($queryC->execute() || $queryS->execute() || $queryL->execute())
             {
 
-                echo "<p>Sucessfully deleted your CHECKING account! </p>";
+                echo "<p>Sucessfully deleted your financial account! </p>";
                 echo "<p>Please click the go back arrow to reach the previous page.</p>";
             }
 
-                  
-
-            elseif($queryS->execute())
-            {
-
-                echo "<p>Sucessfully deleted your SAVINGS account! </p>";
-                echo "<p>Please click the go back arrow to reach the previous page.</p>";
-            }
-
-           
-
-            elseif($queryL->execute())
-            {
-                echo "<p>Sucessfully deleted your LOAN account!</p>";
-                echo "<p>Please click the go back arrow to reach the previous page.</p>";
-            }
-
+            
         
 
             else
