@@ -10,3 +10,6 @@ source create_views.sql;
 source create_procedures.sql;
 source create_triggers.sql;
 source create_data.sql;
+
+-- Then add the data that will be used specifically for the demo
+source create_demoData.sql;

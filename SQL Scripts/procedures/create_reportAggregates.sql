@@ -40,6 +40,7 @@ BEGIN
                     ON Cats.usrID = Transacts.usrID AND Cats.acctID = Transacts.acctID
                     AND Cats.Category = Transacts.Category
                     WHERE Transacts.Date >= @date
+                    AND Amount < 0
                     GROUP BY Cats.Category);
 
                 DROP TABLE IF EXISTS returnTable;
@@ -87,7 +88,7 @@ BEGIN
 
                 DROP TABLE IF EXISTS Withdrawn;
                 CREATE TEMPORARY TABLE Withdrawn AS
-                    (SELECT Cats.Category AS Category, ROUND(SUM(Amount), 2) AS SumWithdrawn, Threshold
+                    (SELECT Cats.Category AS Category, ABS(ROUND(SUM(Amount), 2)) AS SumWithdrawn, Threshold
                     FROM Cats INNER JOIN Transacts
                     ON Cats.acctID = Transacts.acctID
                     AND Cats.Category = Transacts.Category
@@ -107,7 +108,7 @@ BEGIN
                 INSERT INTO returnTable
                     SELECT 2, Category, Threshold FROM Withdrawn
                     WHERE Threshold IS NOT NULL
-                    AND ABS(SumWithdrawn) > Threshold;
+                    AND SumWithdrawn > Threshold;
 
                 SELECT * FROM returnTable;
             END IF;
@@ -128,12 +129,12 @@ BEGIN
 
                 DROP TABLE IF EXISTS Paid;
                 CREATE TEMPORARY TABLE Paid AS
-                    (SELECT Cats.Category AS Category, ROUND(SUM(Amount), 2) AS SumPaid, Threshold
+                    (SELECT Cats.Category AS Category, ABS(ROUND(SUM(Amount), 2)) AS SumPaid, Threshold
                     FROM Cats INNER JOIN Transacts
                     ON Cats.acctID = Transacts.acctID
                     AND Cats.Category = Transacts.Category
                     WHERE Transacts.Date >= @date
-                    AND Amount > 0
+                    AND Amount < 0
                     GROUP BY Cats.Category);
 
                 DROP TABLE IF EXISTS returnTable;
@@ -145,7 +146,7 @@ BEGIN
                 INSERT INTO returnTable
                     SELECT 1, Category, Threshold FROM Paid
                     WHERE Threshold IS NOT NULL
-                    AND ABS(SumPaid) > Threshold;
+                    AND SumPaid > Threshold;
 
                 SELECT * FROM returnTable;
             END IF;

@@ -23,7 +23,7 @@ BEGIN
     INSERT INTO User (Email, Phone_Number, Passcode, Date_Of_Birth, fName, mName, lName) VALUES (mail, @phoneNum, code, dob, fir, mid, las);
     SELECT usrID INTO @id FROM User WHERE Email = mail;
     
-    IF LENGTH(adultMail) = 0 THEN
+    IF adultMail IS NULL OR LENGTH(adultMail) = 0 THEN
         INSERT INTO Adult(usrID) VALUES (@id);
     ELSE
         SELECT usrID INTO @aID FROM Adult NATURAL JOIN User WHERE Email = adultMail AND usrID != @id;
