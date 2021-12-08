@@ -168,7 +168,7 @@
     {
         for ($i = 0; $i < $size[$set]; $i++)
         {
-            $spent = $data[1][$labels[$set][$i]];
+            $spent = $data[0][$labels[$set][$i]];
             $limit = $data[$set][$labels[$set][$i]];
             $pdf->Cell(0, 5, "- " . $labels[$set][$i] . " ($" . ($spent - $limit) . " over $" . $limit ." limit)");
             $pdf->SetXY($valX, $valY + 6);
