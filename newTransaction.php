@@ -108,7 +108,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
   </ul>
 
 <p class="leftColumn">
-    When making a transaction, a positive amount indicates a deposit and a negative amount is a withdrawal.
+    Checking Transactions:<br/>a positive amount indicates a deposit and a negative amount is a purchase.
+    <br/><br/>
+    Savings Transactions:<br/>a positive amount indicates a deposit and a negative amount is a withdrawal.
+    <br/><br/>
+    Loan Transactions:<br/>a positive amount indicates a balance to pay and a negative amount is a payment.
 </p>
 
 <p><span class="error"> * required field</span></p>
