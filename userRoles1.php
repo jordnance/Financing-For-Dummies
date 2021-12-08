@@ -95,7 +95,7 @@
                     // Query the database to get all of the user's Child accounts
                     $db = get_connection();
                     
-                    $query = $db->prepare("SELECT usrId, fName, mName, lName, Date_Of_Birth, Email, Phone_Number FROM User Natural Join Child WHERE Child.AdultID =?");
+                    $query = $db->prepare("SELECT usrID, fName, mName, lName, Date_Of_Birth, Email, Phone_Number FROM User Natural Join Child WHERE Child.AdultID =?");
                     // bind_param('s' for string that is the type of variable in the query)
                     $query->bind_param('i', $_SESSION['usrID']);
 
@@ -112,7 +112,8 @@
                         
                         while($query1 = $result->fetch_assoc())
                         {
-                            
+				
+                            $usrIDChild = $query1['usrID'];
                             $fNameChild = $query1['fName'];
                             $mNameChild = $query1['mName'];
                             $lNameChild = $query1['lName'];
