@@ -157,29 +157,24 @@ if ($checkingStatus == 'checked') {
   $query->execute();
   $query->bind_result($acct);
   if ($query->fetch()) {
-    $found = true;
     $query->close();
   } 
 }
-
 if ($loanStatus == 'checked') {
   $query = $db->prepare("SELECT acctID FROM Loan NATURAL JOIN FinancialAccount WHERE usrID=?");
   $query->bind_param('i', $_SESSION['usrID']);
   $query->execute();
   $query->bind_result($acct);
   if ($query->fetch()) {
-    $found = true;
     $query->close();
   }
 }
-
 if ($savingsStatus == 'checked') {
   $query = $db->prepare("SELECT acctID FROM Savings NATURAL JOIN FinancialAccount WHERE usrID=?");
   $query->bind_param('i', $_SESSION['usrID']);
   $query->execute();
   $query->bind_result($acct);
   if ($query->fetch()) {
-    $found = true;
     $query->close();
   }
 }

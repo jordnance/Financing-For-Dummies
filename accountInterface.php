@@ -86,7 +86,7 @@
 					
 					echo "<tr>";
 								echo "<td>" . $rowFA["acctName"] . "</td>";
-								echo "<td>" . $rowFA["balance"] . "</td>";
+								echo "<td>$" . $rowFA["balance"] . "</td>";
 								echo "<td>Checking</td>";
 								echo "</tr>";
 					
@@ -111,7 +111,7 @@
 						echo "<tr>";
 								echo "<td>" . $rowTFA["Title"] . "</td>";
 								echo "<td>" . $rowTFA["Date"] . "</td>";
-								echo "<td>" . $rowTFA["Amount"] . "</td>";
+								echo "<td>$" . $rowTFA["Amount"] . "</td>";
 								echo "<td>" . $rowTFA["Category"] . "</td>";
 								
 								echo "</tr>";
@@ -141,7 +141,7 @@
 					
 					echo "<tr>";
 								echo "<td>" . $rowFA["acctName"] . "</td>";
-								echo "<td>" . $rowFA["balance"] . "</td>";
+								echo "<td>$" . $rowFA["balance"] . "</td>";
 								echo "<td>Savings</td>";
 								echo "</tr>";
 					
@@ -166,7 +166,7 @@
 						echo "<tr>";
 								echo "<td>" . $rowTFA["Title"] . "</td>";
 								echo "<td>" . $rowTFA["Date"] . "</td>";
-								echo "<td>" . $rowTFA["Amount"] . "</td>";
+								echo "<td>$" . $rowTFA["Amount"] . "</td>";
 								echo "<td>" . $rowTFA["Category"] . "</td>";
 								
 								echo "</tr>";
@@ -197,7 +197,7 @@
 					
 					echo "<tr>";
 								echo "<td>" . $rowFA["acctName"] . "</td>";
-								echo "<td>" . $rowFA["balance"] . "</td>";
+								echo "<td>$" . $rowFA["balance"] . "</td>";
 								echo "<td>Loan</td>";
 								echo "</tr>";
 					
@@ -222,7 +222,7 @@
 						echo "<tr>";
 								echo "<td>" . $rowTFA["Title"] . "</td>";
 								echo "<td>" . $rowTFA["Date"] . "</td>";
-								echo "<td>" . $rowTFA["Amount"] . "</td>";
+								echo "<td>$" . $rowTFA["Amount"] . "</td>";
 								echo "<td>" . $rowTFA["Category"] . "</td>";
 								
 								echo "</tr>";
