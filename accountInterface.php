@@ -158,7 +158,7 @@
 					echo "<tr>
 							<th>Name</th>
 							<th>Date</th>
-							<th>Amount</th>
+							<th>Amount ($)</th>
 							<th>Category</th>
 							</tr>";
 					
@@ -173,7 +173,7 @@
 						echo "<tr>";
 								echo "<td>" . $rowTFA["Title"] . "</td>";
 								echo "<td>" . $rowTFA["Date"] . "</td>";
-								echo "<td>$" . $rowTFA["Amount"] . "</td>";
+								echo "<td>" . $rowTFA["Amount"] . "</td>";
 								echo "<td>" . $rowTFA["Category"] . "</td>";
 								
 								echo "</tr>";
@@ -217,7 +217,7 @@
 					echo "<tr>
 							<th>Name</th>
 							<th>Date</th>
-							<th>Amount</th>
+							<th>Amount ($)</th>
 							<th>Category</th>
 							</tr>";
 					
@@ -232,7 +232,7 @@
 						echo "<tr>";
 								echo "<td>" . $rowTFA["Title"] . "</td>";
 								echo "<td>" . $rowTFA["Date"] . "</td>";
-								echo "<td>$" . $rowTFA["Amount"] . "</td>";
+								echo "<td>" . $rowTFA["Amount"] . "</td>";
 								echo "<td>" . $rowTFA["Category"] . "</td>";
 								
 								echo "</tr>";
